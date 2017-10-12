@@ -59,8 +59,12 @@ defmodule Din.Resources.AuditLog do
     limit: 1..100]) :: AuditLog.t
   def get_guild_audit_log(guild_id, opts \\ []) do
     opts = cond do
-      is_atom(opts.action_type) ->
-        Keyword.replace(opts, :action_type, event_codes()[opts.action_type])
+      Keyword.has_key?(opts, :action_type) ->
+        cond do
+          is_atom(opts.action_type) ->
+            Keyword.update! opts, :action_type, &(event_codes()[&1])
+          true -> opts
+        end
       true -> opts
     end
 
