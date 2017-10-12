@@ -4,6 +4,7 @@ defmodule Din.Module do
       import Din.Module
       import Din.Gateway
       use GenServer
+      require Logger
 
       def start_link do
         Logger.info "starting genserver"
