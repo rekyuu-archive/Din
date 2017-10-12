@@ -34,7 +34,7 @@ defmodule Din.Websocket do
   end
 
   def handle_info({:gateway, %{d: payload, op: 0, t: "READY"}}, state) do
-    Logger.debug "dispatch: #{event}"
+    Logger.debug "ready"
     {:noreply, %{state | session_id: payload.session_id}}
   end
 
