@@ -89,13 +89,13 @@ defmodule Din.Websocket do
     Logger.debug "heartbeat send"
     Socket.Web.send! state[:conn], {:text, Poison.encode!(%{op: 1, d: state[:sequence]})}
 
-    sequence = case sequence do
-      nil -> 0
-      sequence -> sequence
+    next_in_sequence = case state[:sequence] do
+      nil -> 1
+      sequence -> sequence + 1
     end
 
-    :erlang.send_after(state[:heartbeat_interval], self(), {:heartbeat, state[:heartbeat_interval], state[:sequence] + 1})
-    {:noreply, %{state | sequence: state[:sequence] + 1}}
+    :erlang.send_after state[:heartbeat_interval], self(), :heartbeat
+    {:noreply, %{state | sequence: next_in_sequence}}
   end
 
   def handle_info(:reconnect, state) do
