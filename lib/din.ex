@@ -7,7 +7,7 @@ defmodule Din do
     import Supervisor.Spec
     Logger.info "Starting supervisor..."
 
-    children = for i <- 1..System.schedulers_online, do: worker(Din.Websocket, [], id: i)
+    children = [worker(Din.Websocket, [])]
     Supervisor.start_link(children, strategy: :one_for_one)
   end
 end

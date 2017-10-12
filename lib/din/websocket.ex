@@ -22,7 +22,7 @@ defmodule Din.Websocket do
     {type, message} = state[:conn] |> Socket.Web.recv!
     message = message |> Poison.Parser.parse!(keys: :atoms)
 
-    IO.inspect message, label: "[#{type}]"
+    IO.inspect message, label: "#{type}"
     :erlang.send_after(100, self, :receive)
 
     {:noreply, state}
