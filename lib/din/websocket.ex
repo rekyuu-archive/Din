@@ -33,6 +33,39 @@ defmodule Din.Websocket do
 
   def handle_info({:gateway, %{d: payload, op: 10}}, state) do
     Logger.debug "hello"
+    send self, :identify
+    send self, {:heartbeat, payload.heartbeat_interval, nil}
+
+    {:noreply, state}
+  end
+
+  def handle_info(:identify, state) do
+    Logger.debug "identifying"
+    payload = %{
+      token: Application.get_env(:din, :discord_token),
+      properties: %{
+        "$os": "elixir",
+        "$browser": "din",
+        "$device": "din"
+      },
+      compress: false,
+      large_threshold: 250
+    }
+
+    Socket.Web.send! state[:conn], Poison.encode!(%{op: 2, d: payload})
+    {:noreply, state}
+  end
+
+  def handle_info({:heartbeat, heartbeat_interval, sequence}, state) do
+    Logger.debug "sending heartbeat #{sequence}"
+    Socket.Web.send! state[:conn], Poison.encode!(%{op: 1, d: sequence})
+
+    sequence = case sequence do
+      nil -> 0
+      sequence -> sequence
+    end
+
+    :erlang.send_after(heartbeat_interval, self, {:heartbeat, heartbeat_interval, sequence + 1})
     {:noreply, state}
   end
 end
