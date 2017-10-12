@@ -33,7 +33,7 @@ defmodule Din.Module do
         Logger.debug "dispatch: #{event}"
         send self(), {:event, event, payload}
 
-        {:noreply, %{state | session_id: payload.session_id}}
+        {:noreply, state}
       end
 
       def handle_info({:gateway, %{op: 7, d: payload}}, state) do
