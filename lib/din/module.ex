@@ -29,6 +29,13 @@ defmodule Din.Module do
         {:noreply, %{state | session_id: payload.session_id}}
       end
 
+      def handle_info({:gateway, %{op: 0, d: payload, t: event}}, state) do
+        Logger.debug "dispatch: #{event}"
+        send self(), {:event, event, payload}
+
+        {:noreply, %{state | session_id: payload.session_id}}
+      end
+
       def handle_info({:gateway, %{op: 7, d: payload}}, state) do
         Logger.warn "reconnect"
         IO.inspect payload
@@ -134,7 +141,7 @@ defmodule Din.Module do
     event = event |> Atom.to_string |> String.upcase
 
     quote do
-      def handle_info({:gateway, %{op: 0, d: var!(payload), t: unquote(event)}}, var!(state)) do
+      def handle_info({:event, unquote(event), var!(payload)}, var!(state)) do
         unquote(body)
         {:noreply, var!(state)}
       end
@@ -145,7 +152,7 @@ defmodule Din.Module do
     event = event |> String.upcase
 
     quote do
-      def handle_info({:gateway, %{op: 0, d: var!(payload), t: unquote(event)}}, var!(state)) do
+      def handle_info({:event, unquote(event), var!(payload)}, var!(state)) do
         unquote(body)
         {:noreply, var!(state)}
       end
@@ -154,7 +161,7 @@ defmodule Din.Module do
 
   defmacro handle(event, do: body) do
     quote do
-      def handle_info({:gateway, %{op: 0, d: var!(payload), t: unquote(event)}}, var!(state)) do
+      def handle_info({:event, unquote(event), var!(payload)}, var!(state)) do
         unquote(body)
         {:noreply, var!(state)}
       end
