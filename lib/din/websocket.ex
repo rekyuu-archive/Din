@@ -2,25 +2,29 @@ defmodule Din.Websocket do
   use GenServer
   require Logger
 
-  def start_link(opts \\ []) do
-    GenServer.start_link(__MODULE__, :ok, opts)
-  end
+  @gateway "gateway.discord.gg"
 
-  def init(:ok) do
+  def start_link do
     Logger.info "Connecting websocket..."
-
     url = "gateway.discord.gg"
     path = "/?v=6&encoding=json"
     conn = Socket.Web.connect! url, path: path, secure: true
-    send self, {:receive, conn}
 
-    {:ok, []}
+    GenServer.start_link(__MODULE__, %{conn: conn})
   end
 
-  def handle_info({:receive, conn}, state) do
-    response = Socket.Web.recv!(conn)
+  def init(state) do
+    send self, :receive
+    {:ok, state}
+  end
+
+  def handle_info(:receive, state) do
+    response = state[:conn]
+    |> Socket.Web.recv!
+    |> Poison.Parser.parse(keys: :atoms)
+
     IO.inspect response
-    :erlang.send_after(100, self, {:receive, conn})
+    :erlang.send_after(100, self, :receive)
 
     {:noreply, state}
   end
