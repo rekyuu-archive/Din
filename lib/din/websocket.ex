@@ -52,13 +52,13 @@ defmodule Din.Websocket do
       large_threshold: 250
     }
 
-    Socket.Web.send! state[:conn], Poison.encode!(%{op: 2, d: payload})
+    Socket.Web.send! state[:conn], {:text, Poison.encode!(%{op: 2, d: payload})}
     {:noreply, state}
   end
 
   def handle_info({:heartbeat, heartbeat_interval, sequence}, state) do
     Logger.debug "sending heartbeat #{sequence}"
-    Socket.Web.send! state[:conn], Poison.encode!(%{op: 1, d: sequence})
+    Socket.Web.send! state[:conn], {:text, Poison.encode!(%{op: 1, d: sequence})}
 
     sequence = case sequence do
       nil -> 0
