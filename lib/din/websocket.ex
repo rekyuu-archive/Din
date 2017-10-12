@@ -13,6 +13,7 @@ defmodule Din.Websocket do
     default_state = %{
       conn: conn,
       session_id: nil,
+      heartbeat_ack: false,
       heartbeat_interval: nil,
       sequence: nil}
 
@@ -50,7 +51,7 @@ defmodule Din.Websocket do
   end
 
   def handle_info({:gateway, %{d: payload, op: 7}}, state) do
-    Logger.debug "reconnect"
+    Logger.warn "reconnect"
     send self(), :resume
 
     {:noreply, state}
@@ -65,7 +66,7 @@ defmodule Din.Websocket do
 
   def handle_info({:gateway, %{op: 11}}, state) do
     Logger.debug "heartbeat ack"
-    {:noreply, state}
+    {:noreply, %{state | heartbeat_ack: true}}
   end
 
   def handle_info({:gateway, %{d: payload, op: op}}, state) do
@@ -93,16 +94,24 @@ defmodule Din.Websocket do
   end
 
   def handle_info(:heartbeat, state) do
-    Logger.debug "heartbeat send"
-    Socket.Web.send! state[:conn], {:text, Poison.encode!(%{op: 1, d: state[:sequence]})}
+    case state[:heartbeat_ack] do
+      true ->
+        Logger.debug "heartbeat send"
+        Socket.Web.send! state[:conn], {:text, Poison.encode!(%{op: 1, d: state[:sequence]})}
 
-    next_in_sequence = case state[:sequence] do
-      nil -> 1
-      sequence -> sequence + 1
+        next_in_sequence = case state[:sequence] do
+          nil -> 1
+          sequence -> sequence + 1
+        end
+
+        :erlang.send_after state[:heartbeat_interval], self(), :heartbeat
+        {:noreply, %{state | sequence: next_in_sequence, heartbeat_ack: false}}
+      false ->
+        Socket.web.close(state[:conn])
+        send self(), :reconnect
+
+        {:noreply, state}
     end
-
-    :erlang.send_after state[:heartbeat_interval], self(), :heartbeat
-    {:noreply, %{state | sequence: next_in_sequence}}
   end
 
   def handle_info(:reconnect, state) do
