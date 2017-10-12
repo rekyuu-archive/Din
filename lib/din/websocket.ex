@@ -20,9 +20,9 @@ defmodule Din.Websocket do
 
   def handle_info(:receive, state) do
     {type, message} = state[:conn] |> Socket.Web.recv!
-    message = message |> Poison.Parser.parse(keys: :atoms)
+    message = message |> Poison.Parser.parse!(keys: :atoms)
 
-    IO.puts "[recv] #{type}: #{message}"
+    IO.inspect message, label: "[#{type}]"
     :erlang.send_after(100, self, :receive)
 
     {:noreply, state}
