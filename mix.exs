@@ -16,7 +16,7 @@ defmodule Din.Mixfile do
   def application do
     # Specify extra applications you'll use from Erlang/Elixir
     [extra_applications: [:logger, :httpoison],
-     mod: {Din, []}]
+     mod: {Din.Example.Supervisor, []}]
   end
 
   # Dependencies can be Hex packages:

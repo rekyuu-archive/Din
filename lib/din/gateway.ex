@@ -1,34 +1,9 @@
 defmodule Din.Gateway do
-  use GenServer
   require Logger
-
-  def start_link do
-    Logger.info "starting genserver"
-
-    default_state = %{
-      websocket: nil,
-      session_id: nil,
-      heartbeat_ack: true,
-      heartbeat_interval: nil,
-      sequence: nil,
-      resume: false}
-
-    GenServer.start_link(__MODULE__, default_state)
-  end
-
-  def init(state) do
-    {:ok, conn} = Din.Websocket.start_link(self())
-    {:ok, %{state | websocket: conn}}
-  end
 
   def handle_info({:gateway, %{op: 0, d: payload, t: "READY"}}, state) do
     Logger.debug "ready"
     {:noreply, %{state | session_id: payload.session_id}}
-  end
-
-  def handle_info({:gateway, %{op: 0, d: payload, t: event}}, state) do
-    Logger.debug "dispatch: #{event}"
-    {:noreply, state}
   end
 
   def handle_info({:gateway, %{op: 7, d: payload}}, state) do
