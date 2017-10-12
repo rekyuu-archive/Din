@@ -33,7 +33,7 @@ defmodule Din.Module do
     quote do
       def handle_info({:gateway, %{op: 0, d: var!(payload), t: unquote(event)}}, var!(state)) do
         unquote(body)
-        {:noreply, state}
+        {:noreply, var!(state)}
       end
     end
   end
@@ -44,7 +44,7 @@ defmodule Din.Module do
     quote do
       def handle_info({:gateway, %{op: 0, d: var!(payload), t: unquote(event)}}, var!(state)) do
         unquote(body)
-        {:noreply, state}
+        {:noreply, var!(state)}
       end
     end
   end
@@ -53,7 +53,7 @@ defmodule Din.Module do
     quote do
       def handle_info({:gateway, %{op: 0, d: var!(payload), t: unquote(event)}}, var!(state)) do
         unquote(body)
-        {:noreply, state}
+        {:noreply, var!(state)}
       end
     end
   end
