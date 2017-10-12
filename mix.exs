@@ -15,7 +15,7 @@ defmodule Din.Mixfile do
   # Type "mix help compile.app" for more information
   def application do
     # Specify extra applications you'll use from Erlang/Elixir
-    [extra_applications: [:logger, :websockex],
+    [extra_applications: [:logger],
      mod: {Din, []}]
   end
 
@@ -29,6 +29,6 @@ defmodule Din.Mixfile do
   #
   # Type "mix help deps" for more examples and options
   defp deps do
-    [{:websockex, "~> 0.4.0"}]
+    [{:socket, "~> 0.3"}]
   end
 end
