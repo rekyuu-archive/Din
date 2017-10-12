@@ -8,7 +8,8 @@ defmodule Din.API do
   end
 
   @spec get(String.t) :: map
-  def get(url) do
+  def get(endpoint) do
+    url = "#{Din.discord_url}#{endpoint}"
     HTTPoison.get!(url, headers())
     |> Map.fetch!(:body)
     |> Poison.Parser.parse!(keys: :atoms)

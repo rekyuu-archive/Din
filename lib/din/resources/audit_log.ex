@@ -2,16 +2,24 @@ defmodule Din.Resources.AuditLog do
   alias Din.Resources.{AuditLog, Guild, User, Webhook}
 
   @typedoc "array of webhook objects"
-  @type webhooks :: list(Webhook.t)
+  @type webhooks :: list(Webhook.t) | nil
 
   @typedoc "array of user objects"
-  @type users :: list(User.t)
+  @type users :: list(User.t) | nil
 
   @typedoc "array of audit log entry objects"
-  @type audit_log_entries :: list(AuditLog.Entry.t)
+  @type audit_log_entries :: list(AuditLog.Entry.t) | nil
 
-  defstruct [:webhooks, :users, :audit_log_entries]
+  @typedoc "result reason code"
+  @type code :: integer
+
+  @typedoc "result reason message"
+  @type message :: String.t
+
+  defstruct [:webhooks, :users, :audit_log_entries, :code, :message]
   @type t :: %__MODULE__{
+    code: code,
+    message: message,
     webhooks: webhooks,
     users: users,
     audit_log_entries: audit_log_entries
@@ -69,8 +77,8 @@ defmodule Din.Resources.AuditLog do
     end
 
     query = URI.encode_query(opts)
-    endpoint = "/guilds/#{guild_id}/audit-logs"
-    result = Din.API.get "#{Din.discord_url}#{endpoint}?#{query}"
+    endpoint = "/guilds/#{guild_id}/audit-logs?#{query}"
+    result = Din.API.get endpoint
 
     Map.merge(%AuditLog{}, result)
   end
