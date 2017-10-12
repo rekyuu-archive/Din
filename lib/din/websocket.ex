@@ -115,6 +115,8 @@ defmodule Din.Websocket do
   end
 
   def handle_info(:reconnect, state) do
+    Logger.debug "attempting reconnect"
+
     url = "gateway.discord.gg"
     path = "/?v=6&encoding=json"
     conn = Socket.Web.connect! url, path: path, secure: true
