@@ -31,7 +31,7 @@ defmodule Din.Websocket do
     {:noreply, state}
   end
 
-  def handle_info({:gateway, %{d: payload, op: 10}}) do
+  def handle_info({:gateway, %{d: payload, op: 10}}, state) do
     Logger.debug "hello"
     {:noreply, state}
   end
