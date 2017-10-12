@@ -39,6 +39,15 @@ defmodule Din.Websocket do
     {:noreply, state}
   end
 
+  def handle_info({:gateway, %{op: 11}}, state) do
+    Logger.debug "heartbeat ack"
+    {:noreply, state}
+  end
+
+  def handle_info({:gateway, %{d: payload, op: op}}, state) do
+    Logger.debug "op #{op}"
+  end
+
   def handle_info(:identify, state) do
     Logger.debug "identifying"
     payload = %{
