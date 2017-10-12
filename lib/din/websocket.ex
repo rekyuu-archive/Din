@@ -9,8 +9,9 @@ defmodule Din.Websocket do
   def init(:ok) do
     Logger.info "Connecting websocket..."
 
-    url = "wss://gateway.discord.gg/?v=6&encoding=json"
-    conn = Socket.Web.connect! url, secure: true
+    url = "gateway.discord.gg"
+    path = "/?v=6&encoding=json"
+    conn = Socket.Web.connect! url, path: path, secure: true
     send self, {:receive, conn}
 
     {:ok, []}
