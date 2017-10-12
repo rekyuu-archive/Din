@@ -1,18 +1,13 @@
 defmodule Din do
-  @moduledoc """
-  Documentation for Din.
-  """
+  use Application
+  use Supervisor
+  require Logger
 
-  @doc """
-  Hello world.
+  def start(_type, _args) do
+    import Supervisor.Spec
+    Logger.info "Starting supervisor..."
 
-  ## Examples
-
-      iex> Din.hello
-      :world
-
-  """
-  def hello do
-    :world
+    children = for i <- 1..System.schedulers_online, do: worker(Din.Websocket, [], id: i)
+    Supervisor.start_link(children, strategy: :one_for_one)
   end
 end
