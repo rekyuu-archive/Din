@@ -24,21 +24,21 @@ defmodule Din.Module do
         {:ok, %{state | websocket: conn}}
       end
 
-      def handle_info({:gateway, %{op: 0, d: payload, t: "READY"}}, state) do
+      def handle_info({:gateway, %{op: 0, d: data, t: "READY"}}, state) do
         Logger.debug "ready"
-        {:noreply, %{state | session_id: payload.session_id}}
+        {:noreply, %{state | session_id: data.session_id}}
       end
 
-      def handle_info({:gateway, %{op: 0, d: payload, t: event}}, state) do
+      def handle_info({:gateway, %{op: 0, d: data, t: event}}, state) do
         Logger.debug "dispatch: #{event}"
-        send self(), {:event, event, payload}
+        send self(), {:event, event, data}
 
         {:noreply, state}
       end
 
-      def handle_info({:gateway, %{op: 7, d: payload}}, state) do
+      def handle_info({:gateway, %{op: 7, d: data}}, state) do
         Logger.warn "reconnect"
-        IO.inspect payload
+        IO.inspect data
         send self(), :resume
 
         {:noreply, state}
@@ -51,11 +51,11 @@ defmodule Din.Module do
         {:noreply, state}
       end
 
-      def handle_info({:gateway, %{op: 10, d: payload}}, state) do
+      def handle_info({:gateway, %{op: 10, d: data}}, state) do
         Logger.debug "hello"
         send self(), :start
 
-        {:noreply, %{state | heartbeat_interval: payload.heartbeat_interval, sequence: nil}}
+        {:noreply, %{state | heartbeat_interval: data.heartbeat_interval, sequence: nil}}
       end
 
       def handle_info({:gateway, %{op: 11}}, state) do
@@ -81,7 +81,7 @@ defmodule Din.Module do
 
       def handle_info(:identify, state) do
         Logger.debug "identify"
-        payload = %{
+        data = %{
           token: Application.get_env(:din, :discord_token),
           properties: %{
             "$os": "elixir",
@@ -92,7 +92,7 @@ defmodule Din.Module do
           large_threshold: 250
         }
 
-        WebSockex.send_frame state[:websocket], {:text, Poison.encode!(%{op: 2, d: payload})}
+        WebSockex.send_frame state[:websocket], {:text, Poison.encode!(%{op: 2, d: data})}
 
         {:noreply, state}
       end
@@ -129,8 +129,8 @@ defmodule Din.Module do
 
       def handle_info(:resume, state) do
         Logger.warn "attempting resume"
-        payload = %{session_id: state[:session_id], seq: state[:sequence]}
-        WebSockex.send_frame state[:websocket], {:text, Poison.encode!(%{op: 6, d: payload})}
+        data = %{session_id: state[:session_id], seq: state[:sequence]}
+        WebSockex.send_frame state[:websocket], {:text, Poison.encode!(%{op: 6, d: data})}
 
         {:noreply, state}
       end
@@ -141,7 +141,7 @@ defmodule Din.Module do
     event = event |> Atom.to_string |> String.upcase
 
     quote do
-      def handle_info({:event, unquote(event), var!(payload)}, var!(state)) do
+      def handle_info({:event, unquote(event), var!(data)}, var!(state)) do
         unquote(body)
         {:noreply, var!(state)}
       end
@@ -152,7 +152,7 @@ defmodule Din.Module do
     event = event |> String.upcase
 
     quote do
-      def handle_info({:event, unquote(event), var!(payload)}, var!(state)) do
+      def handle_info({:event, unquote(event), var!(data)}, var!(state)) do
         unquote(body)
         {:noreply, var!(state)}
       end
@@ -161,7 +161,7 @@ defmodule Din.Module do
 
   defmacro handle(event, do: body) do
     quote do
-      def handle_info({:event, unquote(event), var!(payload)}, var!(state)) do
+      def handle_info({:event, unquote(event), var!(data)}, var!(state)) do
         unquote(body)
         {:noreply, var!(state)}
       end
