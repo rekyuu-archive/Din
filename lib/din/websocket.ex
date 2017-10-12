@@ -13,7 +13,7 @@ defmodule Din.Websocket do
     default_state = %{
       conn: conn,
       session_id: nil,
-      heartbeat_ack: false,
+      heartbeat_ack: true,
       heartbeat_interval: nil,
       sequence: nil}
 
@@ -107,7 +107,7 @@ defmodule Din.Websocket do
         :erlang.send_after state[:heartbeat_interval], self(), :heartbeat
         {:noreply, %{state | sequence: next_in_sequence, heartbeat_ack: false}}
       false ->
-        Socket.web.close(state[:conn])
+        Socket.Web.close(state[:conn])
         send self(), :reconnect
 
         {:noreply, state}
