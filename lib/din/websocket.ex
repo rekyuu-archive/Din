@@ -87,7 +87,7 @@ defmodule Din.Websocket do
 
   def handle_info(:heartbeat, state) do
     Logger.debug "heartbeat send"
-    Socket.Web.send! state[:conn], {:text, Poison.encode!(%{op: 1, d: sequence})}
+    Socket.Web.send! state[:conn], {:text, Poison.encode!(%{op: 1, d: state[:sequence]})}
 
     sequence = case sequence do
       nil -> 0
