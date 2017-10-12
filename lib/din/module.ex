@@ -27,7 +27,7 @@ defmodule Din.Module do
   end
 
   defmacro handle(event, do: body) when is_atom(event) do
-    event = event |> Atom.to_string |> String.uppercase
+    event = event |> Atom.to_string |> String.upcase
 
     quote do
       def handle_info({:gateway, %{op: 0, d: var!(payload), t: unquote(event)}}, var!(state)) do
