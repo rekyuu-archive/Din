@@ -53,7 +53,6 @@ defmodule Din.Websocket do
   def handle_info({:gateway, %{d: payload, op: 10}}, state) do
     Logger.debug "hello"
     send self(), :identify
-    send self(), :heartbeat
 
     {:noreply, %{state | heartbeat_interval: payload.heartbeat_interval, sequence: nil}}
   end
@@ -82,6 +81,8 @@ defmodule Din.Websocket do
     }
 
     Socket.Web.send! state[:conn], {:text, Poison.encode!(%{op: 2, d: payload})}
+    send self(), :heartbeat
+
     {:noreply, state}
   end
 
