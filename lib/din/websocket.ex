@@ -25,7 +25,7 @@ defmodule Din.Websocket do
   end
 
   def handle_frame(frame, state) do
-    Logger.warn "Unexpected frame: #{inspect frame}"
+    Logger.warn "unused frame: #{inspect frame}"
     {:ok, state}
   end
 
