@@ -5,5 +5,5 @@ defmodule Din.Example do
     IO.inspect payload
   end
 
-  handle unused_event, do: IO.inspect unused_event, label: "unused event"
+  handle unused_event, do: nil
 end
