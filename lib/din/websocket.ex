@@ -10,7 +10,13 @@ defmodule Din.Websocket do
     path = "/?v=6&encoding=json"
     conn = Socket.Web.connect! url, path: path, secure: true
 
-    GenServer.start_link(__MODULE__, %{conn: conn})
+    default_state = %{
+      conn: conn,
+      session_id: nil,
+      heartbeat_interval: nil,
+      sequence: nil}
+
+    GenServer.start_link(__MODULE__, default_state)
   end
 
   def init(state) do
