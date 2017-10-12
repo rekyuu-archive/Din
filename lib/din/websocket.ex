@@ -110,7 +110,7 @@ defmodule Din.Websocket do
   def handle_info(:resume, state) do
     Logger.warn "attempting resume"
     payload = %{token: nil, session_id: state[:session_id], seq: state[:sequence]}
-    Socket.Web.send! conn, {:text, Poison.encode!(%{op: 6, d: payload})}
+    Socket.Web.send! state[:conn], {:text, Poison.encode!(%{op: 6, d: payload})}
 
     {:noreply, state}
   end
