@@ -30,7 +30,7 @@ defmodule Din.Module do
       end
 
       def handle_info({:gateway, %{op: 0, d: data, t: event}}, state) do
-        Logger.debug "dispatch: #{event}"
+        Logger.debug "#{event}" |> String.downcase
         send self(), {:event, event, data}
 
         {:noreply, state}
