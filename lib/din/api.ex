@@ -10,7 +10,7 @@ defmodule Din.API do
   @spec get(String.t) :: map
   def get(url) do
     HTTPoison.get!(url, headers())
-    |> Map.fetch(:body)
+    |> Map.fetch!(:body)
     |> Poison.Parser.parse!(keys: :atoms)
   end
 end
