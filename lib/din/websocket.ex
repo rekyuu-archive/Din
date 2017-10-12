@@ -19,12 +19,20 @@ defmodule Din.Websocket do
   end
 
   def handle_info(:receive, state) do
-    {type, message} = state[:conn] |> Socket.Web.recv!
-    message = message |> Poison.Parser.parse!(keys: :atoms)
+    case Socket.Web.recv!(state[:conn]) do
+      {:text, message} ->
+        message = message |> Poison.Parser.parse!(keys: :atoms)
+        send self, {:gateway, message}
+      {:close, :normal, _reason} -> Logger.warn "websocket closed"
+      _ -> nil
+    end
 
-    IO.inspect message, label: "#{type}"
     :erlang.send_after(100, self, :receive)
+    {:noreply, state}
+  end
 
+  def handle_info({:gateway, %{d: payload, op: 10}}) do
+    Logger.debug "hello"
     {:noreply, state}
   end
 end
