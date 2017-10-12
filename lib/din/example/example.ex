@@ -2,8 +2,10 @@ defmodule Din.Example do
   use Din.Module
 
   handle :message_create do
-    IO.inspect data
+    if data.content == "!ping" do
+      nil
+    end
   end
 
-  handle unused_event, do: nil
+  handle _event, do: nil
 end
