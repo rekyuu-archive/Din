@@ -14,7 +14,7 @@ defmodule Din.Websocket do
   end
 
   def init(state) do
-    send self, :receive
+    send self(), :receive
     {:ok, state}
   end
 
@@ -22,19 +22,19 @@ defmodule Din.Websocket do
     case Socket.Web.recv!(state[:conn]) do
       {:text, message} ->
         message = message |> Poison.Parser.parse!(keys: :atoms)
-        send self, {:gateway, message}
+        send self(), {:gateway, message}
       {:close, :normal, _reason} -> Logger.warn "websocket closed"
       _ -> nil
     end
 
-    :erlang.send_after(100, self, :receive)
+    :erlang.send_after(100, self(), :receive)
     {:noreply, state}
   end
 
   def handle_info({:gateway, %{d: payload, op: 10}}, state) do
     Logger.debug "hello"
-    send self, :identify
-    send self, {:heartbeat, payload.heartbeat_interval, nil}
+    send self(), :identify
+    send self(), {:heartbeat, payload.heartbeat_interval, nil}
 
     {:noreply, state}
   end
@@ -75,7 +75,7 @@ defmodule Din.Websocket do
       sequence -> sequence
     end
 
-    :erlang.send_after(heartbeat_interval, self, {:heartbeat, heartbeat_interval, sequence + 1})
+    :erlang.send_after(heartbeat_interval, self(), {:heartbeat, heartbeat_interval, sequence + 1})
     {:noreply, state}
   end
 end
