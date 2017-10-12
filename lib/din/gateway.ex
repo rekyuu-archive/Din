@@ -3,7 +3,7 @@ defmodule Din.Gateway do
   require Logger
 
   def start_link do
-    Logger.debug "starting genserver"
+    Logger.info "starting genserver"
 
     default_state = %{
       websocket: nil,
@@ -21,17 +21,17 @@ defmodule Din.Gateway do
     {:ok, %{state | websocket: conn}}
   end
 
-  def handle_info({:gateway, %{d: payload, op: 0, t: "READY"}}, state) do
+  def handle_info({:gateway, %{op: 0, d: payload, t: "READY"}}, state) do
     Logger.debug "ready"
     {:noreply, %{state | session_id: payload.session_id}}
   end
 
-  def handle_info({:gateway, %{d: payload, op: 0, t: event}}, state) do
+  def handle_info({:gateway, %{op: 0, d: payload, t: event}}, state) do
     Logger.debug "dispatch: #{event}"
     {:noreply, state}
   end
 
-  def handle_info({:gateway, %{d: payload, op: 7}}, state) do
+  def handle_info({:gateway, %{op: 7, d: payload}}, state) do
     Logger.warn "reconnect"
     IO.inspect payload
     send self(), :resume
@@ -46,7 +46,7 @@ defmodule Din.Gateway do
     {:noreply, state}
   end
 
-  def handle_info({:gateway, %{d: payload, op: 10}}, state) do
+  def handle_info({:gateway, %{op: 10, d: payload}}, state) do
     Logger.debug "hello"
     send self(), :start
 
@@ -59,7 +59,7 @@ defmodule Din.Gateway do
   end
 
   def handle_info({:gateway, %{op: op}}, state) do
-    Logger.debug "unused op: #{op}"
+    Logger.warn "unused op: #{op}"
     {:noreply, state}
   end
 
@@ -115,7 +115,7 @@ defmodule Din.Gateway do
   end
 
   def handle_info(:reconnect, state) do
-    Logger.debug "attempting reconnect"
+    Logger.warn "attempting reconnect"
     Process.exit(state[:websocket], :kill)
     {:ok, conn} = Din.Websocket.start_link(self())
 

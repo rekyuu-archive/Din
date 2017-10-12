@@ -5,7 +5,7 @@ defmodule Din do
 
   def start(_type, _args) do
     import Supervisor.Spec
-    Logger.debug "starting supervisor"
+    Logger.info "starting supervisor"
 
     children = [worker(Din.Gateway, [])]
     Supervisor.start_link(children, strategy: :one_for_one)

@@ -3,7 +3,7 @@ defmodule Din.Websocket do
   require Logger
 
   def start_link(gateway_pid) do
-    Logger.debug "starting websocket"
+    Logger.info "starting websocket"
     url = "wss://gateway.discord.gg/?v=6&encoding=json"
     WebSockex.start_link(url, __MODULE__, %{gateway: gateway_pid})
   end
