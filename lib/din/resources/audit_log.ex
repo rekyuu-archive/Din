@@ -1,5 +1,6 @@
 defmodule Din.Resources.AuditLog do
   alias Din.Resources.{AuditLog, Guild, User, Webhook}
+  alias Din.Error
   @moduledoc """
   Whenever an admin action is performed on the API, an entry is added to the respective guild's audit log. You can specify the reason by attaching the `X-Audit-Log-Reason` request header. This header supports url encoded utf8 characters.
   """
@@ -13,17 +14,9 @@ defmodule Din.Resources.AuditLog do
   @typedoc "array of audit log entry objects"
   @type audit_log_entries :: list(AuditLog.Entry.t) | nil
 
-  @typedoc "result reason code"
-  @type code :: integer
-
-  @typedoc "result reason message"
-  @type message :: String.t
-
   @enforce_keys [:webhooks, :users, :audit_log_entries]
   defstruct [:webhooks, :users, :audit_log_entries, :code, :message]
   @type t :: %__MODULE__{
-    code: code,
-    message: message,
     webhooks: webhooks,
     users: users,
     audit_log_entries: audit_log_entries
@@ -77,11 +70,11 @@ defmodule Din.Resources.AuditLog do
   - `before` - filter the log before a certain entry id
   - `limit` - how many entries are returned (default 50, minimum 1, maximum 100)
   """
-  @spec get_guild_audit_log(Guild.id, [] | [
+  @spec get_guild_audit_log(Guild.id, [
     user_id: User.id,
     action_type: integer | AuditLog.event,
     before: integer,
-    limit: 1..100]) :: t
+    limit: 1..100]) :: t | Error.t
   def get_guild_audit_log(guild_id, opts \\ []) do
     opts = cond do
       Keyword.has_key?(opts, :action_type) ->
