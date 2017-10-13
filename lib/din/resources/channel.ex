@@ -1,5 +1,5 @@
 defmodule Din.Resources.Channel do
-  alias Din.Resources.{Channel, User}
+  alias Din.Resources.{Channel, Emoji, Invite, User}
   alias Din.Error
 
   @typedoc "the id of this channel"
@@ -72,7 +72,7 @@ defmodule Din.Resources.Channel do
   }
 
   @doc """
-  Get a channel by ID. Returns a [channel](t:t/0) object.
+  Get a channel by ID. Returns a channel object.
   """
   @spec get_channel(id) :: t | Error.t
   def get_channel(channel_id) do
@@ -80,7 +80,7 @@ defmodule Din.Resources.Channel do
   end
 
   @doc """
-  Update a channels settings. Requires the 'MANAGE_CHANNELS' permission for the guild. Returns a [channel](t:t/0) on success, and a `:error` on invalid parameters. Fires a Channel Update Gateway event. If modifying a category, individual Channel Update events will fire for each child channel that also changes.
+  Update a channels settings. Requires the 'MANAGE_CHANNELS' permission for the guild. Returns a channel on success, and a `:error` on invalid parameters. Fires a Channel Update Gateway event. If modifying a category, individual Channel Update events will fire for each child channel that also changes.
 
   ## Options
 
@@ -128,7 +128,7 @@ defmodule Din.Resources.Channel do
   end
 
   @doc """
-  Returns the messages for a channel. If operating on a guild channel, this endpoint requires the 'READ_MESSAGES' permission to be present on the current user. Returns an array of [message](t:Channel.Message.t/0) objects on success.
+  Returns the messages for a channel. If operating on a guild channel, this endpoint requires the 'READ_MESSAGES' permission to be present on the current user. Returns an array of message objects on success.
 
   ## Options
 
@@ -149,7 +149,7 @@ defmodule Din.Resources.Channel do
   end
 
   @doc """
-  Returns a specific message in the channel. If operating on a guild channel, this endpoints requires the 'READ_MESSAGE_HISTORY' permission to be present on the current user. Returns a [message](t:Channel.Message.t/0) object on success.
+  Returns a specific message in the channel. If operating on a guild channel, this endpoints requires the 'READ_MESSAGE_HISTORY' permission to be present on the current user. Returns a message object on success.
   """
   @spec get_channel_message(id, Channel.Message.id) :: Channel.Message.t | Error.t
   def get_channel_message(channel_id, message_id) do
@@ -157,7 +157,7 @@ defmodule Din.Resources.Channel do
   end
 
   @doc """
-  Post a message to a guild text or DM channel. If operating on a guild channel, this endpoint requires the 'SEND_MESSAGES' permission to be present on the current user. Returns a [message](t:Channel.Message.t/0) object. Fires a Message Create Gateway event.
+  Post a message to a guild text or DM channel. If operating on a guild channel, this endpoint requires the 'SEND_MESSAGES' permission to be present on the current user. Returns a message object. Fires a Message Create Gateway event.
 
   ## Options
   - `nonce` - a nonce that can be used for optimistic message sending
@@ -179,5 +179,101 @@ defmodule Din.Resources.Channel do
       true -> Din.API.multipart endpoint, data
       false -> Din.API.post endpoint, data
     end
+  end
+
+  @doc """
+  Create a reaction for the message. This endpoint requires the 'READ_MESSAGE_HISTORY' permission to be present on the current user. Additionally, if nobody else has reacted to the message using this emoji, this endpoint requires the 'ADD_REACTIONS' permission to be present on the current user. Returns a 204 empty response on success.
+  """
+  @spec create_reaction(id, Channel.Message.id, Emoji.id | String.t) :: map | Error.t
+  def create_reaction(channel_id, message_id, emoji) do
+    Din.API.put "/channels/#{channel_id}/messages/#{message_id}/reactions/#{emoji}/@me"
+  end
+
+  @doc """
+  Delete a reaction the current user has made for the message. Returns a 204 empty response on success.
+  """
+  @spec delete_reaction(id, Channel.Message.id, Emoji.id | String.t) :: map | Error.t
+  def delete_reaction(channel_id, message_id, emoji) do
+    Din.API.delete "/channels/#{channel_id}/messages/#{message_id}/reactions/#{emoji}/@me"
+  end
+
+  @doc """
+  Deletes another user's reaction. This endpoint requires the 'MANAGE_MESSAGES' permission to be present on the current user. Returns a 204 empty response on success.
+  """
+  @spec delete_user_reaction(id, Channel.Message.id, Emoji.id | String.t, User.id) :: map | Error.t
+  def delete_reaction(channel_id, message_id, emoji, user_id) do
+    Din.API.delete "/channels/#{channel_id}/messages/#{message_id}/reactions/#{emoji}/#{user_id}"
+  end
+
+  @doc """
+  Get a list of users that reacted with this emoji. Returns an array of user objects on success.
+  """
+  @spec get_reactions(id, Channel.Message.id, Emoji.id | String.t) :: list(User.t) | Error.t
+  def get_reactions(channel_id, message_id, emoji) do
+    Din.API.get "/channels/#{channel_id}/messages/#{message_id}/reactions/#{emoji}"
+  end
+
+  @doc """
+  Deletes all reactions on a message. This endpoint requires the 'MANAGE_MESSAGES' permission to be present on the current user.
+  """
+  @spec delete_all_reactions(id, Channel.Message.id) :: map | Error.t
+  def delete_all_reactions(channel_id, message_id) do
+    Din.API.delete "/channels/#{channel_id}/messages/#{message_id}/reactions"
+  end
+
+  @doc """
+  Edit a previously sent message. You can only edit messages that have been sent by the current user. Returns a message object. Fires a Message Update Gateway event.
+
+  ## Options
+
+  - `content` - the new message contents (up to 2000 characters)
+  - `embed` - embedded rich content
+  """
+  @spec edit_message(id, Channel.Message.id, [
+    content: String.t,
+    embed: Channel.Embed.t
+  ]) :: Channel.Message.t | Error.t
+  def edit_message(channel_id, message_id, opts \\ []) do
+    Din.API.patch "/channels/#{channel_id}/messages/#{message_id}", opts
+  end
+
+  @doc """
+  Delete a message. If operating on a guild channel and trying to delete a message that was not sent by the current user, this endpoint requires the 'MANAGE_MESSAGES' permission. Returns a 204 empty response on success. Fires a Message Delete Gateway event.
+  """
+  @spec delete_message(id, Channel.Message.id) :: map | Error.t
+  def delete_message(channel_id, message_id) do
+    Din.API.delete "/channels/#{channel_id}/messages/#{message_id}"
+  end
+
+  @doc """
+  Delete multiple messages in a single request. This endpoint can only be used on guild channels and requires the 'MANAGE_MESSAGES' permission. Returns a 204 empty response on success. Fires multiple Message Delete Gateway events.
+
+  Any message IDs given that do not exist or are invalid will count towards the minimum and maximum message count (currently 2 and 100 respectively). Additionally, duplicated IDs will only be counted once.
+
+  This endpoint will not delete messages older than 2 weeks, and will fail if any message provided is older than that. An endpoint will be added in the future to prune messages older than 2 weeks from a channel.
+  """
+  @spec bulk_delete_messages(id, list(Channel.Message.id)) :: map | Error.t
+  def bulk_delete_messages(channel_id, message_ids) do
+    Din.API.post "/channels/#{channel_id}/messages/bulk-delete", message_ids
+  end
+
+  @doc """
+  Edit the channel permission overwrites for a user or role in a channel. Only usable for guild channels. Requires the 'MANAGE_ROLES' permission. Returns a 204 empty response on success.
+  """
+  @spec edit_channel_permissions(id, Channel.Overwrite.id, [
+    allow: Channel.Overwrite.allow,
+    deny: Channel.Overwrite.deny,
+    type: Channel.Overwrite.type
+  ]) :: map | Error.t
+  def edit_channel_permissions(channel_id, overwrite_id, opts) do
+    Din.API.put "/channels/#{channel_id}/permissions/#{overwrite_id}", opts
+  end
+
+  @doc """
+  Returns a list of invite objects (with invite metadata) for the channel. Only usable for guild channels. Requires the 'MANAGE_CHANNELS' permission.
+  """
+  @spec get_channel_invites(id) :: list(Invite.t) | Error.t
+  def get_channel_invites(channel_id) do
+    Din.API.get "/channels/#{channel_id}/invites"
   end
 end

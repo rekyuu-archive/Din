@@ -3,7 +3,7 @@ defmodule Din.Resources.Channel.Overwrite do
   @type id :: integer
 
   @typedoc "either \"role\" or \"member\""
-  @type type :: String.t
+  @type type :: "role" | "member"
 
   @typedoc "permission bit set"
   @type allow :: integer

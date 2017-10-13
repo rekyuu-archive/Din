@@ -61,12 +61,12 @@ defmodule Din.Resources.AuditLog do
   end
 
   @doc """
-  Returns an [audit log](t:t/0) object for the guild. Requires the 'VIEW_AUDIT_LOG' permission.
+  Returns an audit log object for the guild. Requires the 'VIEW_AUDIT_LOG' permission.
 
   ## Options
 
   - `user_id` - filter the log for a user id
-  - `action_type` - the type of [audit log event](event_codes/0)
+  - `action_type` - the type of audit log event
   - `before` - filter the log before a certain entry id
   - `limit` - how many entries are returned (default 50, minimum 1, maximum 100)
   """

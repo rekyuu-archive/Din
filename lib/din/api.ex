@@ -72,6 +72,21 @@ defmodule Din.API do
   end
 
   @doc """
+  PUT to a given endpoint with supplied keyword list.
+  """
+  @spec put(String.t, list) :: map
+  def put(endpoint, data \\ []) do
+    url = "#{Din.discord_url}#{endpoint}"
+    body = data
+    |> Enum.into(%{})
+    |> Poison.encode!
+
+    HTTPoison.put!(url, body, Map.merge(headers(), %{"Content-Type" => "application/json"}))
+    |> Map.fetch!(:body)
+    |> Poison.Parser.parse!(keys: :atoms)
+  end
+
+  @doc """
   DELETE to a given endpoint.
   """
   @spec delete(String.t) :: map
