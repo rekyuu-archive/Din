@@ -36,7 +36,7 @@ defmodule Din.API do
     |> Enum.into(%{})
     |> Poison.encode!
 
-    HTTPoison.post!(url, body, headers())
+    HTTPoison.post!(url, body, Map.merge(headers(), %{"Content-Type" => "application/json"}))
     |> Map.fetch!(:body)
     |> Poison.Parser.parse!(keys: :atoms)
   end
@@ -51,7 +51,7 @@ defmodule Din.API do
     |> Enum.into(%{})
     |> Poison.encode!
 
-    HTTPoison.post!(url, {:multipart, body}, headers())
+    HTTPoison.post!(url, {:multipart, body}, Map.merge(headers(), %{"Content-Type" => "multipart/form-data"}))
     |> Map.fetch!(:body)
     |> Poison.Parser.parse!(keys: :atoms)
   end
@@ -66,7 +66,7 @@ defmodule Din.API do
     |> Enum.into(%{})
     |> Poison.encode!
 
-    HTTPoison.patch!(url, body, headers())
+    HTTPoison.patch!(url, body, Map.merge(headers(), %{"Content-Type" => "application/json"}))
     |> Map.fetch!(:body)
     |> Poison.Parser.parse!(keys: :atoms)
   end
