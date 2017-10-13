@@ -22,6 +22,7 @@ defmodule Din.Resources.AuditLog.Entry do
   @typedoc "name of the role if type is \"role\""
   @type role_name :: String.t
 
+  @enforce_keys [:delete_member_days, :members_removed, :channel_id, :count, :id, :type, :role_name]
   defstruct [:delete_member_days, :members_removed, :channel_id, :count, :id, :type, :role_name]
   @type t :: %__MODULE__{
     delete_member_days: delete_member_days,

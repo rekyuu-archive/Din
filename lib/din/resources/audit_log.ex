@@ -1,5 +1,8 @@
 defmodule Din.Resources.AuditLog do
   alias Din.Resources.{AuditLog, Guild, User, Webhook}
+  @moduledoc """
+  Whenever an admin action is performed on the API, an entry is added to the respective guild's audit log. You can specify the reason by attaching the `X-Audit-Log-Reason` request header. This header supports url encoded utf8 characters.
+  """
 
   @typedoc "array of webhook objects"
   @type webhooks :: list(Webhook.t) | nil
@@ -16,6 +19,7 @@ defmodule Din.Resources.AuditLog do
   @typedoc "result reason message"
   @type message :: String.t
 
+  @enforce_keys [:webhooks, :users, :audit_log_entries]
   defstruct [:webhooks, :users, :audit_log_entries, :code, :message]
   @type t :: %__MODULE__{
     code: code,
@@ -28,6 +32,9 @@ defmodule Din.Resources.AuditLog do
   @typedoc "list of valid audit log events"
   @type event :: :guild_update | :channel_create | :channel_update | :channel_delete | :channel_overwrite_create | :channel_overwrite_update | :channel_overwrite_delete | :member_kick | :member_prune | :member_ban_add | :member_ban_remove | :member_update | :member_role_update | :role_create | :role_update | :role_delete | :invite_create | :invite_update | :invite_delete | :webhook_create | :webhook_update | :webhook_delete | :emoji_create | :emoji_update | :emoji_delete | :message_delete
 
+  @doc """
+  Used to give readable names to event opcodes.
+  """
   @spec event_codes :: map
   def event_codes do
     %{
@@ -60,11 +67,26 @@ defmodule Din.Resources.AuditLog do
     }
   end
 
+  @doc """
+  Returns an [audit log](t:t/0) object for the guild. Requires the 'VIEW_AUDIT_LOG' permission.
+
+  ## Examples
+
+  ```Elixir
+  iex> alias Din.Resources.AuditLog
+
+  iex> AuditLog.get_guild_audit_log(12345678912345)
+  %AuditLog{webhooks: [...], users: [...], audit_log_entries: [...]}
+
+  iex> AuditLog.get_guild_audit_log(12345678912345, [action_type: :guild_update])
+  %AuditLog{webhooks: [...], users: [...], audit_log_entries: [...]}
+  ```
+  """
   @spec get_guild_audit_log(Guild.id, [] | [
     user_id: User.id,
     action_type: integer | AuditLog.event,
     before: integer,
-    limit: 1..100]) :: AuditLog.t
+    limit: 1..100]) :: t
   def get_guild_audit_log(guild_id, opts \\ []) do
     opts = cond do
       Keyword.has_key?(opts, :action_type) ->
@@ -77,9 +99,6 @@ defmodule Din.Resources.AuditLog do
     end
 
     query = URI.encode_query(opts)
-    endpoint = "/guilds/#{guild_id}/audit-logs?#{query}"
-    result = Din.API.get endpoint
-
-    Map.merge(%AuditLog{}, result)
+    Din.API.get "/guilds/#{guild_id}/audit-logs?#{query}"
   end
 end
