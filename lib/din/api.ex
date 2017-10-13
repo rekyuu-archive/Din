@@ -1,4 +1,6 @@
 defmodule Din.API do
+  alias Din.Error
+
   @moduledoc """
   REST calls for Discord HTTP API.
   """
@@ -23,14 +25,14 @@ defmodule Din.API do
 
     HTTPoison.get!(url, headers())
     |> Map.fetch!(:body)
-    |> Poison.Parser.parse!(keys: :atoms)
+    |> parse()
   end
 
   @doc """
   POST to a given endpoint with supplied keyword list.
   """
   @spec post(String.t, list) :: map
-  def post(endpoint, data) do
+  def post(endpoint, data \\ []) do
     url = "#{Din.discord_url}#{endpoint}"
     body = data
     |> Enum.into(%{})
@@ -38,7 +40,7 @@ defmodule Din.API do
 
     HTTPoison.post!(url, body, Map.merge(headers(), %{"Content-Type" => "application/json"}))
     |> Map.fetch!(:body)
-    |> Poison.Parser.parse!(keys: :atoms)
+    |> parse()
   end
 
   @doc """
@@ -53,14 +55,14 @@ defmodule Din.API do
 
     HTTPoison.post!(url, {:multipart, body}, Map.merge(headers(), %{"Content-Type" => "multipart/form-data"}))
     |> Map.fetch!(:body)
-    |> Poison.Parser.parse!(keys: :atoms)
+    |> parse()
   end
 
   @doc """
   PATCH to a given endpoint with supplied keyword list.
   """
   @spec patch(String.t, list) :: map
-  def patch(endpoint, data) do
+  def patch(endpoint, data \\ []) do
     url = "#{Din.discord_url}#{endpoint}"
     body = data
     |> Enum.into(%{})
@@ -68,7 +70,7 @@ defmodule Din.API do
 
     HTTPoison.patch!(url, body, Map.merge(headers(), %{"Content-Type" => "application/json"}))
     |> Map.fetch!(:body)
-    |> Poison.Parser.parse!(keys: :atoms)
+    |> parse()
   end
 
   @doc """
@@ -83,7 +85,7 @@ defmodule Din.API do
 
     HTTPoison.put!(url, body, Map.merge(headers(), %{"Content-Type" => "application/json"}))
     |> Map.fetch!(:body)
-    |> Poison.Parser.parse!(keys: :atoms)
+    |> parse()
   end
 
   @doc """
@@ -95,6 +97,22 @@ defmodule Din.API do
 
     HTTPoison.delete!(url, headers())
     |> Map.fetch!(:body)
-    |> Poison.Parser.parse!(keys: :atoms)
+    |> parse()
+  end
+
+  @doc """
+  Returns Error structs, nil for no response endpoints, or the map of the returned data.
+  """
+  @spec parse(map) :: map | Error.t | nil
+  def parse(map) do
+    case map do
+      "" -> nil
+      map ->
+        case map |> Poison.Parser.parse!(keys: :atoms) do
+          %{code: code, message: message} ->
+            struct(Error, Poison.Parser.parse!(map, keys: :atoms))
+          map -> map
+        end
+    end
   end
 end

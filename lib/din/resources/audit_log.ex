@@ -1,26 +1,8 @@
 defmodule Din.Resources.AuditLog do
-  alias Din.Resources.{AuditLog, Guild, User, Webhook}
   alias Din.Error
   @moduledoc """
   Whenever an admin action is performed on the API, an entry is added to the respective guild's audit log. You can specify the reason by attaching the `X-Audit-Log-Reason` request header. This header supports url encoded utf8 characters.
   """
-
-  @typedoc "array of webhook objects"
-  @type webhooks :: list(Webhook.t) | nil
-
-  @typedoc "array of user objects"
-  @type users :: list(User.t) | nil
-
-  @typedoc "array of audit log entry objects"
-  @type audit_log_entries :: list(AuditLog.Entry.t) | nil
-
-  @enforce_keys [:webhooks, :users, :audit_log_entries]
-  defstruct [:webhooks, :users, :audit_log_entries, :code, :message]
-  @type t :: %__MODULE__{
-    webhooks: webhooks,
-    users: users,
-    audit_log_entries: audit_log_entries
-  }
 
   @typedoc "list of valid audit log events"
   @type event :: :guild_update | :channel_create | :channel_update | :channel_delete | :channel_overwrite_create | :channel_overwrite_update | :channel_overwrite_delete | :member_kick | :member_prune | :member_ban_add | :member_ban_remove | :member_update | :member_role_update | :role_create | :role_update | :role_delete | :invite_create | :invite_update | :invite_delete | :webhook_create | :webhook_update | :webhook_delete | :emoji_create | :emoji_update | :emoji_delete | :message_delete
@@ -70,11 +52,11 @@ defmodule Din.Resources.AuditLog do
   - `before` - filter the log before a certain entry id
   - `limit` - how many entries are returned (default 50, minimum 1, maximum 100)
   """
-  @spec get_guild_audit_log(Guild.id, [
-    user_id: User.id,
-    action_type: integer | AuditLog.event,
-    before: integer,
-    limit: 1..100]) :: t | Error.t
+  @spec get_guild_audit_log(Din.snowflake, [
+    user_id: Din.snowflake,
+    action_type: integer | event,
+    before: Din.snowflake,
+    limit: 1..100]) :: map | Error.t
   def get_guild_audit_log(guild_id, opts \\ []) do
     opts = cond do
       Keyword.has_key?(opts, :action_type) ->
