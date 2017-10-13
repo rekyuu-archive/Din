@@ -74,7 +74,9 @@ defmodule Din.Resources.Channel do
   Get a channel by ID. Returns a [channel](t:t/0) object.
   """
   @spec get_channel(id) :: t
-  def get_channel(channel_id), do: Din.API.get "/channels/#{channel_id}"
+  def get_channel(channel_id) do
+    Din.API.get "/channels/#{channel_id}"
+  end
 
   @doc """
   Update a channels settings. Requires the 'MANAGE_CHANNELS' permission for the guild. Returns a [channel](t:t/0) on success, and a `:error` on invalid parameters. Fires a Channel Update Gateway event. If modifying a category, individual Channel Update events will fire for each child channel that also changes.
@@ -90,6 +92,6 @@ defmodule Din.Resources.Channel do
     parent_id: integer
   ]) :: :error | t
   def modify_channel(channel_id, opts) do
-    response = Din.API.patch "/channels/#{channel_id}?#{query}", opts
+    response = Din.API.patch "/channels/#{channel_id}", opts
   end
 end
