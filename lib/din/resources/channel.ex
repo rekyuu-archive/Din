@@ -201,7 +201,7 @@ defmodule Din.Resources.Channel do
   Deletes another user's reaction. This endpoint requires the 'MANAGE_MESSAGES' permission to be present on the current user. Returns a 204 empty response on success.
   """
   @spec delete_user_reaction(id, Channel.Message.id, Emoji.id | String.t, User.id) :: map | Error.t
-  def delete_reaction(channel_id, message_id, emoji, user_id) do
+  def delete_user_reaction(channel_id, message_id, emoji, user_id) do
     Din.API.delete "/channels/#{channel_id}/messages/#{message_id}/reactions/#{emoji}/#{user_id}"
   end
 
