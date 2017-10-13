@@ -10,7 +10,20 @@ defmodule Din.API do
   @spec get(String.t) :: map
   def get(endpoint) do
     url = "#{Din.discord_url}#{endpoint}"
+
     HTTPoison.get!(url, headers())
+    |> Map.fetch!(:body)
+    |> Poison.Parser.parse!(keys: :atoms)
+  end
+
+  @spec patch(String.t, list) :: map
+  def patch(endpoint, data) do
+    url = "#{Din.discord_url}#{endpoint}"
+    body = data
+    |> Enum.into(%{})
+    |> Poison.encode!
+
+    HTTPoison.patch!(url, body, headers())
     |> Map.fetch!(:body)
     |> Poison.Parser.parse!(keys: :atoms)
   end

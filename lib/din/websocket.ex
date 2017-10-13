@@ -33,6 +33,11 @@ defmodule Din.Websocket do
     {:close, {code, reason}, state}
   end
 
+  def handle_info({:ssl_closed, _payload}, state) do
+    Logger.warn "socket closed: ssl_closed"
+    {:close, {1001, "ssl closed"}, state}
+  end
+
   def handle_disconnect(%{reason: {location, code}}, state) do
     Logger.warn "websocket closed by #{location} (#{code})"
     send state[:gateway], :reconnect

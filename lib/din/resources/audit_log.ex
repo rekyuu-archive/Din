@@ -70,17 +70,12 @@ defmodule Din.Resources.AuditLog do
   @doc """
   Returns an [audit log](t:t/0) object for the guild. Requires the 'VIEW_AUDIT_LOG' permission.
 
-  ## Examples
+  ## Options
 
-  ```Elixir
-  iex> alias Din.Resources.AuditLog
-
-  iex> AuditLog.get_guild_audit_log(12345678912345)
-  %AuditLog{webhooks: [...], users: [...], audit_log_entries: [...]}
-
-  iex> AuditLog.get_guild_audit_log(12345678912345, [action_type: :guild_update])
-  %AuditLog{webhooks: [...], users: [...], audit_log_entries: [...]}
-  ```
+  - `user_id` - filter the log for a user id
+  - `action_type` - the type of [audit log event](event_codes/0)
+  - `before` - filter the log before a certain entry id
+  - `limit` - how many entries are returned (default 50, minimum 1, maximum 100)
   """
   @spec get_guild_audit_log(Guild.id, [] | [
     user_id: User.id,
