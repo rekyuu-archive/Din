@@ -2,7 +2,9 @@ defmodule Din.Resources.Channel do
   alias Din.Error
 
   @doc """
-  Get a channel by ID. Returns a channel object.
+  Get a channel by ID.
+
+  Returns a channel object.
   """
   @spec get(Din.snowflake) :: map | Error.t
   def get(channel_id) do
@@ -10,7 +12,9 @@ defmodule Din.Resources.Channel do
   end
 
   @doc """
-  Update a channels settings. Requires the 'MANAGE_CHANNELS' permission for the guild. Returns a channel on success, and a `:error` on invalid parameters. Fires a Channel Update Gateway event. If modifying a category, individual Channel Update events will fire for each child channel that also changes.
+  Update a channels settings.
+
+  Requires the `MANAGE_CHANNELS` permission for the guild. Returns a channel on success, and a `t:Din.Error.t/0` on invalid parameters. Fires a Channel Update Gateway event. If modifying a category, individual Channel Update events will fire for each child channel that also changes.
 
   ## Parameters
 
@@ -41,12 +45,14 @@ defmodule Din.Resources.Channel do
     permission_overwrites: list(map),
     parent_id: Din.snowflake
   ]) :: map | Error.t
-  def modify(channel_id, opts) do
+  def modify(channel_id, opts \\ []) do
     Din.API.patch "/channels/#{channel_id}", opts
   end
 
   @doc """
-  Delete a channel, or close a private message. Requires the 'MANAGE_CHANNELS' permission for the guild. Deleting a category does not delete its child channels; they will have their parent_id removed and a Channel Update Gateway event will fire for each of them. Returns a channel object on success. Fires a Channel Delete Gateway event.
+  Delete a channel, or close a private message.
+
+  Requires the `MANAGE_CHANNELS` permission for the guild. Deleting a category does not delete its child channels; they will have their `parent_id` removed and a Channel Update Gateway event will fire for each of them. Returns a channel object on success. Fires a Channel Delete Gateway event.
 
   Deleting a guild channel cannot be undone. Use this with caution, as it is impossible to undo this action when performed on a guild channel. In contrast, when used with a private message, it is possible to undo the action by opening a private message with the recipient again.
   """
@@ -56,7 +62,9 @@ defmodule Din.Resources.Channel do
   end
 
   @doc """
-  Returns the messages for a channel. If operating on a guild channel, this endpoint requires the 'READ_MESSAGES' permission to be present on the current user. Returns an array of message objects on success.
+  Returns the messages for a channel.
+
+  If operating on a guild channel, this endpoint requires the `READ_MESSAGES` permission to be present on the current user. Returns an array of message objects on success.
 
   ## Parameters
 
@@ -77,7 +85,9 @@ defmodule Din.Resources.Channel do
   end
 
   @doc """
-  Returns a specific message in the channel. If operating on a guild channel, this endpoints requires the 'READ_MESSAGE_HISTORY' permission to be present on the current user. Returns a message object on success.
+  Returns a specific message in the channel.
+
+  If operating on a guild channel, this endpoints requires the `READ_MESSAGE_HISTORY` permission to be present on the current user. Returns a message object on success.
   """
   @spec get_message(Din.snowflake, Din.snowflake) :: map | Error.t
   def get_message(channel_id, message_id) do
@@ -85,7 +95,9 @@ defmodule Din.Resources.Channel do
   end
 
   @doc """
-  Post a message to a guild text or DM channel. If operating on a guild channel, this endpoint requires the 'SEND_MESSAGES' permission to be present on the current user. Returns a message object. Fires a Message Create Gateway event.
+  Post a message to a guild text or DM channel.
+
+  If operating on a guild channel, this endpoint requires the `SEND_MESSAGES` permission to be present on the current user. Returns a message object. Fires a Message Create Gateway event.
 
   ## Parameters
 
@@ -111,9 +123,11 @@ defmodule Din.Resources.Channel do
   end
 
   @doc """
-  Create a reaction for the message. This endpoint requires the 'READ_MESSAGE_HISTORY' permission to be present on the current user. Additionally, if nobody else has reacted to the message using this emoji, this endpoint requires the 'ADD_REACTIONS' permission to be present on the current user. Returns a 204 empty response on success.
+  Create a reaction for the message.
+
+  This endpoint requires the `READ_MESSAGE_HISTORY` permission to be present on the current user. Additionally, if nobody else has reacted to the message using this emoji, this endpoint requires the `ADD_REACTIONS` permission to be present on the current user. Returns `nil` on success.
   """
-  @spec create_reaction(Din.snowflake, Din.snowflake, String.t | Din.snowflake) :: nil | Error.t
+  @spec create_reaction(Din.snowflake, Din.snowflake, String.t) :: nil | Error.t
   def create_reaction(channel_id, message_id, emoji) do
     Din.API.put "/channels/#{channel_id}/messages/#{message_id}/reactions/#{emoji}/@me"
   end
