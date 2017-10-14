@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="dist/app-110d9134a6.css" />
     
     
-    <script src="dist/sidebar_items-7fcbc58de1.js"></script>
+    <script src="dist/sidebar_items-f6ab16032c.js"></script>
     
   </head>
   <body data-type="modules">
@@ -71,7 +71,6 @@
       
         <section id="moduledoc">
           <p>Module for pluggable implementation for any application.</p>
-<p>Just add <code class="inline">use Din.Module</code> at the top of your handler, and start it using <code class="inline">YourApplication.YourModule.start_link</code>.</p>
 
         </section>
       
@@ -93,6 +92,15 @@
       <a href="#functions">Functions</a>
     </h2>
     <div class="summary-row">
+  <div class="summary-signature">
+    <a href="#__using__/1">__using__(opts)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Creates a GenServer for your handler file</p>
+</div>
+  
+</div>
+<div class="summary-row">
   <div class="summary-signature">
     <a href="#enforce/2">enforce(validator, list)</a>
   </div>
@@ -130,7 +138,7 @@
 </div>
 <div class="summary-row">
   <div class="summary-signature">
-    <a href="#match/2">match(text, list)</a>
+    <a href="#match/2">match(text, body)</a>
   </div>
   
     <div class="summary-synopsis"><p>Macro to match text content, as either a string or a list</p>
@@ -166,7 +174,34 @@
             </a>
             Functions
           </h1>
-          <div class="detail" id="enforce/2">
+          <div class="detail" id="__using__/1">
+  
+  
+  <div class="detail-header">
+    <a href="#__using__/1" class="detail-link" title="Link to this macro">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this macro</span>
+    </a>
+    <span class="signature">__using__(opts)</span>
+    
+    
+      <span class="note">(macro)</span>
+    
+    
+      <div class="specs">
+        
+          <pre>__using__(list) :: any</pre>
+        
+      </div>
+    
+  </div>
+  <section class="docstring">
+    <p>Creates a GenServer for your handler file.</p>
+<p>Just add <code class="inline">use Din.Module</code> at the top of your handler, and start it using <code class="inline">YourApplication.YourModule.start_link</code>.</p>
+
+  </section>
+</div>
+<div class="detail" id="enforce/2">
   
   
   <div class="detail-header">
@@ -179,6 +214,12 @@
     
       <span class="note">(macro)</span>
     
+    
+      <div class="specs">
+        
+          <pre>enforce(atom, [{:do, any}]) :: any</pre>
+        
+      </div>
     
   </div>
   <section class="docstring">
@@ -304,7 +345,7 @@ end</code></pre>
       <span class="icon-link" aria-hidden="true"></span>
       <span class="sr-only">Link to this macro</span>
     </a>
-    <span class="signature">match(text, list)</span>
+    <span class="signature">match(text, body)</span>
     
     
       <span class="note">(macro)</span>
@@ -316,19 +357,30 @@ end</code></pre>
         
           <pre>match([<a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>], [{:do, any}]) :: any</pre>
         
+          <pre>match(<a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>, atom) :: any</pre>
+        
+          <pre>match([<a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>], atom) :: any</pre>
+        
       </div>
     
   </div>
   <section class="docstring">
     <p>Macro to match text content, as either a string or a list.</p>
 <p>Typically used for the <code class="inline">MESSAGE_CREATE</code> event. Matches given text with the beginning of the content sent by users using Regex.</p>
+<p>The second argument can either be a <code class="inline">do</code> block, or an atom of a function that takes <code class="inline">data</code> as an argument.</p>
 <h2 id="match/2-example" class="section-heading">
   <a href="#match/2-example" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
   Example
 </h2>
 
 <pre><code class="Elixir">match &quot;!ping&quot;, do: IO.inspect data.content
-match [&quot;!foo&quot;, &quot;!bar&quot;], do: IO.inspect data.content</code></pre>
+match [&quot;!foo&quot;, &quot;!bar&quot;], :inspect
+
+...
+
+def inspect(data) do
+  IO.inspect data
+end</code></pre>
 
   </section>
 </div>
