@@ -112,7 +112,7 @@ defmodule Din.Resources.Webhook do
   - `embeds` - embedded rich content
   """
   @spec execute(Din.snowflake, String.t, [
-    wait: boolean
+    wait: boolean,
     content: String.t,
     username: String.t,
     avatar_url: String.t,
