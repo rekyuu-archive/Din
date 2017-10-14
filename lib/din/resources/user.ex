@@ -41,7 +41,7 @@ defmodule Din.Resources.User do
     before: Din.snowflake,
     after: Din.snowflake,
     limit: integer
-  ]) :: array(map) | Error.t
+  ]) :: list(map) | Error.t
   def get_current_user_guilds(opts \\ []) do
     Din.API.get "/users/@me/guilds?#{URI.encode_query opts}"
   end
