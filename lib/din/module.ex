@@ -350,10 +350,10 @@ defmodule Din.Module do
   match "!ping", do: reply "Pong!"
   ```
   """
-  @spec reply(String.t | list) :: any
-  defmacro reply(content) do
+  @spec reply(String.t, list) :: any
+  defmacro reply(content, opts \\ []) do
     quote do
-      Channel.create_message(var!(data).channel_id, unquote(content))
+      Channel.create_message(var!(data).channel_id, unquote(content), opts)
     end
   end
 end
