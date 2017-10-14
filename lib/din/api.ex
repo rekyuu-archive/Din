@@ -50,10 +50,11 @@ defmodule Din.API do
   def multipart(endpoint, data) do
     url = "#{Din.discord_url}#{endpoint}"
     body = data
+    |> Key.delete(:file)
     |> Enum.into(%{})
     |> Poison.encode!
 
-    HTTPoison.post!(url, {:multipart, body}, Map.merge(headers(), %{"Content-Type" => "multipart/form-data"}))
+    HTTPoison.post!(url, {:multipart, [{:file, data.file}, {:payload_json, body}]}, Map.merge(headers(), %{"Content-Type" => "multipart/form-data"}))
     |> Map.fetch!(:body)
     |> parse()
   end

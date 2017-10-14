@@ -4,8 +4,8 @@ defmodule Din.Resources.Channel do
   @doc """
   Get a channel by ID. Returns a channel object.
   """
-  @spec get_channel(Din.snowflake) :: map | Error.t
-  def get_channel(channel_id) do
+  @spec get(Din.snowflake) :: map | Error.t
+  def get(channel_id) do
     Din.API.get "/channels/#{channel_id}"
   end
 
@@ -31,7 +31,7 @@ defmodule Din.Resources.Channel do
   - `bitrate` - the bitrate (in bits) of the voice channel; 8000 to 96000 (128000 for VIP servers)
   - `user_limit` - the user limit of the voice channel; 0 refers to no limit, 1 to 99 refers to a user limit
   """
-  @spec modify_channel(Din.snowflake, [
+  @spec modify(Din.snowflake, [
     name: String.t,
     position: integer,
     topic: String.t,
@@ -41,7 +41,7 @@ defmodule Din.Resources.Channel do
     permission_overwrites: list(map),
     parent_id: Din.snowflake
   ]) :: map | Error.t
-  def modify_channel(channel_id, opts) do
+  def modify(channel_id, opts) do
     Din.API.patch "/channels/#{channel_id}", opts
   end
 
@@ -50,8 +50,8 @@ defmodule Din.Resources.Channel do
 
   Deleting a guild channel cannot be undone. Use this with caution, as it is impossible to undo this action when performed on a guild channel. In contrast, when used with a private message, it is possible to undo the action by opening a private message with the recipient again.
   """
-  @spec delete_channel(Din.snowflake) :: map | Error.t
-  def delete_channel(channel_id) do
+  @spec delete(Din.snowflake) :: map | Error.t
+  def delete(channel_id) do
     Din.API.delete "/channels/#{channel_id}"
   end
 
@@ -65,13 +65,13 @@ defmodule Din.Resources.Channel do
   - `after` - get messages after this message ID
   - `limit` - max number of messages to return (1-100)
   """
-  @spec get_channel_messages(Din.snowflake, [
+  @spec get_messages(Din.snowflake, [
     around: Din.snowflake,
     before: Din.snowflake,
     after: Din.snowflake,
     limit: 1..100
   ]) :: list(map) | Error.t
-  def get_channel_messages(channel_id, opts \\ []) do
+  def get_messages(channel_id, opts \\ []) do
     query = URI.encode_query(opts)
     Din.API.get "/channels/#{channel_id}/messages?#{query}"
   end
@@ -79,8 +79,8 @@ defmodule Din.Resources.Channel do
   @doc """
   Returns a specific message in the channel. If operating on a guild channel, this endpoints requires the 'READ_MESSAGE_HISTORY' permission to be present on the current user. Returns a message object on success.
   """
-  @spec get_channel_message(Din.snowflake, Din.snowflake) :: map | Error.t
-  def get_channel_message(channel_id, message_id) do
+  @spec get_message(Din.snowflake, Din.snowflake) :: map | Error.t
+  def get_message(channel_id, message_id) do
     Din.API.get "/channels/#{channel_id}/messages/#{message_id}"
   end
 
@@ -189,20 +189,20 @@ defmodule Din.Resources.Channel do
   @doc """
   Edit the channel permission overwrites for a user or role in a channel. Only usable for guild channels. Requires the 'MANAGE_ROLES' permission. Returns a 204 empty response on success.
   """
-  @spec edit_channel_permissions(Din.snowflake, Din.snowflake, [
+  @spec edit_permissions(Din.snowflake, Din.snowflake, [
     allow: integer,
     deny: integer,
     type: String.t
   ]) :: nil | Error.t
-  def edit_channel_permissions(channel_id, overwrite_id, opts) do
+  def edit_permissions(channel_id, overwrite_id, opts) do
     Din.API.put "/channels/#{channel_id}/permissions/#{overwrite_id}", opts
   end
 
   @doc """
   Returns a list of invite objects (with invite metadata) for the channel. Only usable for guild channels. Requires the 'MANAGE_CHANNELS' permission.
   """
-  @spec get_channel_invites(Din.snowflake) :: list(map) | Error.t
-  def get_channel_invites(channel_id) do
+  @spec get_invites(Din.snowflake) :: list(map) | Error.t
+  def get_invites(channel_id) do
     Din.API.get "/channels/#{channel_id}/invites"
   end
 
@@ -216,21 +216,21 @@ defmodule Din.Resources.Channel do
   - `temporary` - Whether this invite only grants temporary membership. Defaults to `false`.
   - `unique` - If true, don't try to reuse a similar invite (useful for creating many unique one time use invites). Defaults to `false`.
   """
-  @spec create_channel_invite(Din.snowflake, [
+  @spec create_invite(Din.snowflake, [
     max_age: integer,
     max_uses: integer,
     temporary: boolean,
     unique: boolean
   ]) :: map | Error.t
-  def create_channel_invite(channel_id, opts \\ []) do
+  def create_invite(channel_id, opts \\ []) do
     Din.API.post "/channels/#{channel_id}/invites", opts
   end
 
   @doc """
   Delete a channel permission overwrite for a user or role in a channel. Only usable for guild channels. Requires the 'MANAGE_ROLES' permission. Returns a 204 empty response on success.
   """
-  @spec delete_channel_permission(Din.snowflake, Din.snowflake) :: nil | Error.t
-  def delete_channel_permission(channel_id, overwrite_id) do
+  @spec delete_permission(Din.snowflake, Din.snowflake) :: nil | Error.t
+  def delete_permission(channel_id, overwrite_id) do
     Din.API.delete "/channels/#{channel_id}/permissions/#{overwrite_id}"
   end
 
