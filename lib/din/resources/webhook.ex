@@ -119,7 +119,7 @@ defmodule Din.Resources.Webhook do
     tts: boolean,
     file: binary,
     embeds: list(map)
-  ])
+  ]) :: map | Error.t
   def execute(webhook_id, webhook_token, opts \\ []) do
     endpoint = "/webhooks/#{webhook_id}/#{webhook_token}?#{URI.encode_query opts.wait}"
     data = opts |> Keyword.delete(:wait)
