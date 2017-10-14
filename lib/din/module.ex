@@ -3,10 +3,14 @@ defmodule Din.Module do
 
   @moduledoc """
   Module for pluggable implementation for any application.
+  """
+
+  @doc """
+  Creates a GenServer for your handler file.
 
   Just add `use Din.Module` at the top of your handler, and start it using `YourApplication.YourModule.start_link`.
   """
-
+  @spec __using__(list) :: any
   defmacro __using__(_opts) do
     quote do
       import Din.Module
@@ -305,6 +309,7 @@ defmodule Din.Module do
   end
   ```
   """
+  @spec enforce(atom, do: any) :: any
   defmacro enforce(validator, do: body) do
     quote do
       if unquote(validator)(var!(data)) do
@@ -318,11 +323,19 @@ defmodule Din.Module do
 
   Typically used for the `MESSAGE_CREATE` event. Matches given text with the beginning of the content sent by users using Regex.
 
+  The second argument can either be a `do` block, or an atom of a function that takes `data` as an argument.
+
   ## Example
 
   ```Elixir
   match "!ping", do: IO.inspect data.content
-  match ["!foo", "!bar"], do: IO.inspect data.content
+  match ["!foo", "!bar"], :inspect
+
+  ...
+
+  def inspect(data) do
+    IO.inspect data
+  end
   ```
   """
   @spec match(String.t, do: any) :: any
@@ -336,6 +349,20 @@ defmodule Din.Module do
   defmacro match(texts, do: body) when is_list(texts) do
     quote do
       if Regex.compile!("^(#{unquote(texts) |> Enum.join("|")})") |> Regex.match?(var!(data).content), do: unquote(body)
+    end
+  end
+
+  @spec match(String.t, atom) :: any
+  defmacro match(text, body) when is_bitstring(text) do
+    quote do
+      if Regex.compile!("^(#{unquote(text)})") |> Regex.match?(var!(data).content), do: unquote(body)(var!(data))
+    end
+  end
+
+  @spec match(list(String.t), atom) :: any
+  defmacro match(texts, body) when is_list(texts) do
+    quote do
+      if Regex.compile!("^(#{unquote(texts) |> Enum.join("|")})") |> Regex.match?(var!(data).content), do: unquote(body)(var!(data))
     end
   end
 
