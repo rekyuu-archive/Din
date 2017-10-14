@@ -50,7 +50,7 @@ defmodule Din.API do
   def multipart(endpoint, data) do
     url = "#{Din.discord_url}#{endpoint}"
     body = data
-    |> Key.delete(:file)
+    |> Keyword.delete(:file)
     |> Enum.into(%{})
     |> Poison.encode!
 
