@@ -1,4 +1,6 @@
 defmodule Din.Module do
+  alias Din.Resources.Channel
+
   @moduledoc """
   Module for pluggable implementation for any application.
 
@@ -223,48 +225,106 @@ defmodule Din.Module do
   @doc """
   Macro to create initial handlers for Discord events.
 
-  Events can be written as strings or atoms, whichever you prefer.
+  Events can be written as strings or atoms, whichever you prefer. Data sent by the Gateway can be interfaced with the `data` variable.
 
   ## Example
 
   ```Elixir
   handle :message_create do
-    ...
+    IO.inspect data.content
   end
 
   handle "PRESENCE_UPDATE" do
-    ...
+    IO.inspect data
   end
   ```
   """
-  defmacro handle(event, do: body) when is_atom(event) do
-    event = event |> Atom.to_string |> String.upcase
-
-    quote do
-      def handle_info({:event, unquote(event), var!(data)}, var!(state)) do
-        unquote(body)
-        {:noreply, var!(state)}
-      end
-    end
-  end
-
-  defmacro handle(event, do: body) when is_bitstring(event) do
-    event = event |> String.upcase
-
-    quote do
-      def handle_info({:event, unquote(event), var!(data)}, var!(state)) do
-        unquote(body)
-        {:noreply, var!(state)}
-      end
-    end
-  end
-
+  @spec handle(atom | String.t, do: any) :: {:noreply, map}
   defmacro handle(event, do: body) do
+    event = cond do
+      event |> is_atom -> event |> Atom.to_string |> String.upcase
+      event |> is_bitstring -> event |> String.upcase
+      true -> raise "Handle event must be an atom or a string."
+    end
+
     quote do
       def handle_info({:event, unquote(event), var!(data)}, var!(state)) do
         unquote(body)
         {:noreply, var!(state)}
       end
+    end
+  end
+
+  @doc """
+  Macro to handle any event.
+
+  Only use this once at the end of your handler module. Data sent by the Gateway can be interfaced with the `data` variable.
+  """
+  @spec handle_any(do: any) :: {:noreply, map}
+  defmacro handle_any(do: body) do
+    quote do
+      def handle_info({:event, _event, var!(data)}, var!(state)) do
+        unquote(body)
+        {:noreply, var!(state)}
+      end
+    end
+  end
+
+  @doc """
+  Macro to handle unused events.
+
+  Place this once at the end of your handler module if you do not use `handle_any/1`.
+  """
+  @spec handle_fallback :: {:noreply, map}
+  defmacro handle_fallback() do
+    quote do
+      def handle_info({:event, _event, _data}, var!(state)) do
+        {:noreply, var!(state)}
+      end
+    end
+  end
+
+  @doc """
+  Macro to match text content, as either a string or a list.
+
+  Typically used for the `MESSAGE_CREATE` event. Matches given text with the beginning of the content sent by users using Regex.
+
+  ## Example
+
+  ```Elixir
+  match "!ping", do: IO.inspect data.content
+  match ["!foo", "!bar"], do: IO.inspect data.content
+  ```
+  """
+  @spec match(String.t, do: any) :: any
+  defmacro match(text, do: body) when is_bitstring(text) do
+    quote do
+      if Regex.compile!("^(#{unquote(text)})") |> Regex.match?(var!(data).content), do: unquote(body)
+    end
+  end
+
+  @spec match(list(String.t), do: any) :: any
+  defmacro match(texts, do: body) when is_list(texts) do
+    quote do
+      if Regex.compile!("^(#{unquote(texts) |> Enum.join("|")})") |> Regex.match?(var!(data).content), do: unquote(body)
+    end
+  end
+
+  @doc """
+  Macro to reply to messages.
+
+  Typically used for the `MESSAGE_CREATE` event, or anything with a `channel_id` key. Will accept the same content as `Din.Resources.Channel.create_message/3`.
+
+  ## Example
+
+  ```Elixir
+  match "!ping", do: reply "Pong!"
+  ```
+  """
+  @spec reply(String.t | list) :: any
+  defmacro reply(content) do
+    quote do
+      Channel.create_message(var!(data).channel_id, unquote(content))
     end
   end
 end

@@ -14,13 +14,11 @@ defmodule Din do
     alias Din.Resources.Channel
 
     handle :message_create do
-      if data.content == "!ping" do
-        Channel.create_message(data.channel_id, "Pong!")
-      end
+      match "!ping", do: reply "Pong!"
     end
 
     # Fallback for unused events
-    handle _event, do: nil
+    handle_fallback()
   end
   ```
   """

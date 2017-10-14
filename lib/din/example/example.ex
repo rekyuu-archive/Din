@@ -4,16 +4,10 @@ defmodule Din.Example do
   @moduledoc false
 
   handle :message_create do
-    if data.content == "!ping" do
-      IO.inspect data
-      Din.Resources.Channel.create_message(data.channel_id, "Pong!")
-    end
-
-    if data.content == "!react" do
-      IO.inspect data
-      Din.Resources.Channel.create_reaction(data.channel_id, data.id, "😀")
-    end
+    match "!ping", do: reply "Pong!"
+    match "!test", do: reply "Works!"
+    match ["!foo", "!bar"], do: reply "Yep!"
   end
 
-  handle _event, do: nil
+  handle_fallback()
 end
