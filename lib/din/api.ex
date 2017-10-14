@@ -110,7 +110,7 @@ defmodule Din.API do
       "" -> nil
       map ->
         case map |> Poison.Parser.parse!(keys: :atoms) do
-          %{code: code, message: message} ->
+          %{code: _code, message: _message} ->
             struct(Error, Poison.Parser.parse!(map, keys: :atoms))
           map -> map
         end

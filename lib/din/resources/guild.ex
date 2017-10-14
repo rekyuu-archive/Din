@@ -147,7 +147,7 @@ defmodule Din.Resources.Guild do
     limit: integer,
     after: Din.snowflake
   ]) :: list(map) | Error.t
-  def list_members(guild_id, opts // []) do
+  def list_members(guild_id, opts \\ []) do
     Din.API.get "/guilds/#{guild_id}/members?#{URI.encode_query opts}"
   end
 

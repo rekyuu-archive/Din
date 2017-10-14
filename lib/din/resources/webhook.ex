@@ -154,7 +154,7 @@ defmodule Din.Resources.Webhook do
   @spec execute_github(Din.snowflake, String.t, [
     wait: boolean
   ]) :: map | Error.t
-  def execute_slack(webhook_id, webhook_token, opts \\ []) do
+  def execute_github(webhook_id, webhook_token, opts \\ []) do
     Din.API.post "/webhooks/#{webhook_id}/#{webhook_token}/github?#{URI.encode_query opts.wait}"
   end
 end
