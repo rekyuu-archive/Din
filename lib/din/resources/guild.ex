@@ -85,7 +85,7 @@ defmodule Din.Resources.Guild do
     Din.API.delete "/guilds/#{guild_id}"
   end
 
-  @doc """"
+  @doc """
   Returns a list of guild channel objects.
   """
   @spec get_channels(Din.snowflake) :: list(map) | Error.t
