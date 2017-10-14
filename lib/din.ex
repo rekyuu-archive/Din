@@ -1,6 +1,8 @@
 defmodule Din do
-  @doc """
-  Din is a Discord wrapper for Elixir. It's focused around simplicity and makes sure to actually reconnect when a connection or heartbeat drops.
+  @moduledoc """
+  Din is a Discord wrapper for Elixir.
+
+  It's focused around simplicity and makes sure to actually reconnect when a connection or heartbeat drops.
 
   Usage is simple. Include Din in your dependencies and start it from your supervisor.
 
