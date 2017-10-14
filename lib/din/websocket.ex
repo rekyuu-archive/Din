@@ -63,7 +63,7 @@ defmodule Din.Websocket do
 
   Will output the disonnect code to the console.
   """
-  def handle_disconnect(%{reason: {location, code}}, state) do
+  def handle_disconnect(%{reason: {location, code, _reason}}, state) do
     Logger.warn "websocket closed by #{location} (#{code})"
     send state[:gateway], :reconnect
 
