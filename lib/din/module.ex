@@ -351,9 +351,9 @@ defmodule Din.Module do
   ```
   """
   @spec reply(String.t, list) :: any
-  defmacro reply(content, opts \\ []) do
+  defmacro reply(text, opts \\ []) do
     quote do
-      Channel.create_message(var!(data).channel_id, unquote(content), opts)
+      Channel.create_message(var!(data).channel_id, unquote(text), unquote(opts))
     end
   end
 end
