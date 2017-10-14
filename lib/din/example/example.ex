@@ -3,6 +3,7 @@ defmodule Din.Example do
 
   handle :message_create do
     if data.content == "!ping" do
+      IO.inspect data
       Din.Resources.Channel.create_message(data.channel_id, "Pong!")
     end
   end
