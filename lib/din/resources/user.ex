@@ -25,7 +25,7 @@ defmodule Din.Resources.User do
   Modify the requester's user account settings. Returns a user object on success.
   """
   @spec modify_current_user([
-    user: String.t
+    user: String.t,
     avatar: binary
   ]) :: map | Error.t
   def modify_current_user(opts \\ []) do
