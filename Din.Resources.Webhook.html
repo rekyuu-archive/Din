@@ -1,0 +1,627 @@
+    <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.17.1">
+    <title>Din.Resources.Webhook – Din v0.1.0</title>
+    <link rel="stylesheet" href="dist/app-110d9134a6.css" />
+    
+    
+    <script src="dist/sidebar_items-7fcbc58de1.js"></script>
+    
+  </head>
+  <body data-type="modules">
+    <script>try { if(localStorage.getItem('night-mode')) document.body.className += ' night-mode'; } catch (e) { }</script>
+
+    <div class="main">
+<button class="sidebar-toggle">
+  <span class="icon-menu" aria-hidden="true"></span>
+  <span class="sr-only">Toggle Sidebar</span>
+</button>
+<section class="sidebar">
+
+  
+  <a href="Din.html" class="sidebar-projectLink">
+    <div class="sidebar-projectDetails">
+      <h1 class="sidebar-projectName">
+        Din
+      </h1>
+      <h2 class="sidebar-projectVersion">
+        v0.1.0
+      </h2>
+    </div>
+    
+  </a>
+
+  <form class="sidebar-search" action="search.html">
+    <button type="submit" class="search-button">
+      <span class="icon-search" aria-hidden="true"></span>
+    </button>
+    <input name="q" type="text" id="search-list" class="search-input" placeholder="search" aria-label="Search" autocomplete="off" />
+  </form>
+
+  <ul class="sidebar-listNav">
+    <li><a id="extras-list" href="#full-list">Pages</a></li>
+
+    
+      <li><a id="modules-list" href="#full-list">Modules</a></li>
+    
+
+    
+
+    
+  </ul>
+  <div class="gradient"></div>
+  <ul id="full-list" class="sidebar-fullList"></ul>
+</section>
+
+<section class="content">
+  <div class="content-outer">
+    <div id="content" class="content-inner">
+
+
+      <h1>
+        <small class="visible-xs">Din v0.1.0</small>
+        Din.Resources.Webhook
+        
+      </h1>
+
+      
+
+      
+        <section id="summary" class="details-list">
+          <h1 class="section-heading">
+            <a class="hover-link" href="#summary">
+              <span class="icon-link" aria-hidden="true"></span>
+              <span class="sr-only">Link to this section</span>
+            </a>
+            Summary
+          </h1>
+          
+
+          
+  <div class="summary-functions summary">
+    <h2>
+      <a href="#functions">Functions</a>
+    </h2>
+    <div class="summary-row">
+  <div class="summary-signature">
+    <a href="#create/2">create(channel_id, opts \\ [])</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Create a new webhook</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#delete/1">delete(webhook_id)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Delete a webhook permanently</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#delete_with_token/2">delete_with_token(webhook_id, webhook_token)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Delete a webhook permanently with token</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#execute/3">execute(webhook_id, webhook_token, opts \\ [])</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Sends a message via webhook</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#execute_github/3">execute_github(webhook_id, webhook_token, opts \\ [])</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Execute GitHub compatible webook</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#execute_slack/3">execute_slack(webhook_id, webhook_token, opts \\ [])</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Execute Slack compatible webook</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#get/1">get(webhook_id)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Returns the new webhook object for the given id</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#get_channel_webhooks/1">get_channel_webhooks(channel_id)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Returns a list of channel webhook objects</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#get_guild_webhooks/1">get_guild_webhooks(guild_id)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Returns a list of guild webhook objects</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#get_with_token/2">get_with_token(webhook_id, webhook_token)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Returns the new webhook object for the given id and token</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#modify/2">modify(webhook_id, opts \\ [])</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Modify a webhook</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#modify_with_token/3">modify_with_token(webhook_id, webhook_token, opts \\ [])</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Modify a webhook with token</p>
+</div>
+  
+</div>
+
+  </div>
+
+
+          
+
+        </section>
+      
+
+      
+
+      
+        <section id="functions" class="details-list">
+          <h1 class="section-heading">
+            <a class="hover-link" href="#functions">
+              <span class="icon-link" aria-hidden="true"></span>
+              <span class="sr-only">Link to this section</span>
+            </a>
+            Functions
+          </h1>
+          <div class="detail" id="create/2">
+  
+  
+    <span id="create/1"></span>
+  
+  <div class="detail-header">
+    <a href="#create/2" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">create(channel_id, opts \\ [])</span>
+    
+    
+    
+      <div class="specs">
+        
+          <pre>create(<a href="Din.html#t:snowflake/0">Din.snowflake</a>, name: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>, avatar: binary) ::
+  map |
+  <a href="Din.Error.html#t:t/0">Din.Error.t</a></pre>
+        
+      </div>
+    
+  </div>
+  <section class="docstring">
+    <p>Create a new webhook.</p>
+<p>Returns a webhook object on success.</p>
+<h2 id="create/2-parameters" class="section-heading">
+  <a href="#create/2-parameters" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Parameters
+</h2>
+
+<ul>
+<li><code class="inline">name</code> - name of the webhook (2-32 characters)
+</li>
+<li><code class="inline">avatar</code> - image for the default webhook avatar
+</li>
+</ul>
+
+  </section>
+</div>
+<div class="detail" id="delete/1">
+  
+  
+  <div class="detail-header">
+    <a href="#delete/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">delete(webhook_id)</span>
+    
+    
+    
+      <div class="specs">
+        
+          <pre>delete(<a href="Din.html#t:snowflake/0">Din.snowflake</a>) :: :ok | <a href="Din.Error.html#t:t/0">Din.Error.t</a></pre>
+        
+      </div>
+    
+  </div>
+  <section class="docstring">
+    <p>Delete a webhook permanently.</p>
+<p>User must be owner. Returns <code class="inline">:ok</code> on success.</p>
+
+  </section>
+</div>
+<div class="detail" id="delete_with_token/2">
+  
+  
+  <div class="detail-header">
+    <a href="#delete_with_token/2" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">delete_with_token(webhook_id, webhook_token)</span>
+    
+    
+    
+      <div class="specs">
+        
+          <pre>delete_with_token(<a href="Din.html#t:snowflake/0">Din.snowflake</a>, <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>) :: nil | <a href="Din.Error.html#t:t/0">Din.Error.t</a></pre>
+        
+      </div>
+    
+  </div>
+  <section class="docstring">
+    <p>Delete a webhook permanently with token.</p>
+<p>Same as <a href="#delete/1"><code class="inline">delete/1</code></a>, except this call does not require authentication.</p>
+
+  </section>
+</div>
+<div class="detail" id="execute/3">
+  
+  
+    <span id="execute/2"></span>
+  
+  <div class="detail-header">
+    <a href="#execute/3" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">execute(webhook_id, webhook_token, opts \\ [])</span>
+    
+    
+    
+      <div class="specs">
+        
+          <pre>execute(<a href="Din.html#t:snowflake/0">Din.snowflake</a>, <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>, wait: boolean, content: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>, username: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>, avatar_url: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>, tts: boolean, file: binary, embeds: [map]) ::
+  map |
+  <a href="Din.Error.html#t:t/0">Din.Error.t</a></pre>
+        
+      </div>
+    
+  </div>
+  <section class="docstring">
+    <p>Sends a message via webhook.</p>
+<p>You must have one of any <code class="inline">content</code>, <code class="inline">file</code>, or <code class="inline">embeds</code> fields.</p>
+<h2 id="execute/3-parameters" class="section-heading">
+  <a href="#execute/3-parameters" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Parameters
+</h2>
+
+<ul>
+<li><code class="inline">wait</code> - waits for server confirmation of message send before response, and returns the created message body (defaults to <code class="inline">false</code>; when <code class="inline">false</code> a message that is not saved does not return an error)
+</li>
+<li><code class="inline">content</code> - the message contents (up to 2000 characters)
+</li>
+<li><code class="inline">username</code> - override the default username of the webhook
+</li>
+<li><code class="inline">avatar_url</code> - override the default avatar of the webhook
+</li>
+<li><code class="inline">tts</code> - true if this is a TTS message
+</li>
+<li><code class="inline">file</code> - the contents of the file being sent
+</li>
+<li><code class="inline">embeds</code> - embedded rich content
+</li>
+</ul>
+
+  </section>
+</div>
+<div class="detail" id="execute_github/3">
+  
+  
+    <span id="execute_github/2"></span>
+  
+  <div class="detail-header">
+    <a href="#execute_github/3" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">execute_github(webhook_id, webhook_token, opts \\ [])</span>
+    
+    
+    
+      <div class="specs">
+        
+          <pre>execute_github(<a href="Din.html#t:snowflake/0">Din.snowflake</a>, <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>, [{:wait, boolean}]) ::
+  map |
+  <a href="Din.Error.html#t:t/0">Din.Error.t</a></pre>
+        
+      </div>
+    
+  </div>
+  <section class="docstring">
+    <p>Execute GitHub compatible webook.</p>
+<p>Add a new webhook to your GitHub repo (in the repo’s settings), and use this endpoint as the “Payload URL.” You can choose what events your Discord channel receives by choosing the “Let me select individual events” option and selecting individual events for the new webhook you’re configuring.</p>
+<h2 id="execute_github/3-parameters" class="section-heading">
+  <a href="#execute_github/3-parameters" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Parameters
+</h2>
+
+<ul>
+<li><code class="inline">wait</code> - waits for server confirmation of message send before response, and returns the created message body (defaults to <code class="inline">false</code>; when <code class="inline">false</code> a message that is not saved does not return an error)
+</li>
+</ul>
+
+  </section>
+</div>
+<div class="detail" id="execute_slack/3">
+  
+  
+    <span id="execute_slack/2"></span>
+  
+  <div class="detail-header">
+    <a href="#execute_slack/3" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">execute_slack(webhook_id, webhook_token, opts \\ [])</span>
+    
+    
+    
+      <div class="specs">
+        
+          <pre>execute_slack(<a href="Din.html#t:snowflake/0">Din.snowflake</a>, <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>, [{:wait, boolean}]) ::
+  map |
+  <a href="Din.Error.html#t:t/0">Din.Error.t</a></pre>
+        
+      </div>
+    
+  </div>
+  <section class="docstring">
+    <p>Execute Slack compatible webook.</p>
+<p>Refer to <a href="https://api.slack.com/incoming-webhooks">Slack’s documentation</a> for more information. Discord does not support Slack’s channel, icon_emoji, mrkdwn, or mrkdwn_in properties.</p>
+<h2 id="execute_slack/3-parameters" class="section-heading">
+  <a href="#execute_slack/3-parameters" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Parameters
+</h2>
+
+<ul>
+<li><code class="inline">wait</code> - waits for server confirmation of message send before response, and returns the created message body (defaults to <code class="inline">false</code>; when <code class="inline">false</code> a message that is not saved does not return an error)
+</li>
+</ul>
+
+  </section>
+</div>
+<div class="detail" id="get/1">
+  
+  
+  <div class="detail-header">
+    <a href="#get/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">get(webhook_id)</span>
+    
+    
+    
+      <div class="specs">
+        
+          <pre>get(<a href="Din.html#t:snowflake/0">Din.snowflake</a>) :: map | <a href="Din.Error.html#t:t/0">Din.Error.t</a></pre>
+        
+      </div>
+    
+  </div>
+  <section class="docstring">
+    <p>Returns the new webhook object for the given id.</p>
+
+  </section>
+</div>
+<div class="detail" id="get_channel_webhooks/1">
+  
+  
+  <div class="detail-header">
+    <a href="#get_channel_webhooks/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">get_channel_webhooks(channel_id)</span>
+    
+    
+    
+      <div class="specs">
+        
+          <pre>get_channel_webhooks(<a href="Din.html#t:snowflake/0">Din.snowflake</a>) :: [map] | <a href="Din.Error.html#t:t/0">Din.Error.t</a></pre>
+        
+      </div>
+    
+  </div>
+  <section class="docstring">
+    <p>Returns a list of channel webhook objects.</p>
+
+  </section>
+</div>
+<div class="detail" id="get_guild_webhooks/1">
+  
+  
+  <div class="detail-header">
+    <a href="#get_guild_webhooks/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">get_guild_webhooks(guild_id)</span>
+    
+    
+    
+      <div class="specs">
+        
+          <pre>get_guild_webhooks(<a href="Din.html#t:snowflake/0">Din.snowflake</a>) :: [map] | <a href="Din.Error.html#t:t/0">Din.Error.t</a></pre>
+        
+      </div>
+    
+  </div>
+  <section class="docstring">
+    <p>Returns a list of guild webhook objects.</p>
+
+  </section>
+</div>
+<div class="detail" id="get_with_token/2">
+  
+  
+  <div class="detail-header">
+    <a href="#get_with_token/2" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">get_with_token(webhook_id, webhook_token)</span>
+    
+    
+    
+      <div class="specs">
+        
+          <pre>get_with_token(<a href="Din.html#t:snowflake/0">Din.snowflake</a>, <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>) :: map | <a href="Din.Error.html#t:t/0">Din.Error.t</a></pre>
+        
+      </div>
+    
+  </div>
+  <section class="docstring">
+    <p>Returns the new webhook object for the given id and token.</p>
+<p>Same as <a href="#get/1"><code class="inline">get/1</code></a>, except this call does not require authentication and returns no user in the webhook object.</p>
+
+  </section>
+</div>
+<div class="detail" id="modify/2">
+  
+  
+    <span id="modify/1"></span>
+  
+  <div class="detail-header">
+    <a href="#modify/2" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">modify(webhook_id, opts \\ [])</span>
+    
+    
+    
+      <div class="specs">
+        
+          <pre>modify(<a href="Din.html#t:snowflake/0">Din.snowflake</a>, name: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>, avatar: binary, channel_id: <a href="Din.html#t:snowflake/0">Din.snowflake</a>) ::
+  map |
+  <a href="Din.Error.html#t:t/0">Din.Error.t</a></pre>
+        
+      </div>
+    
+  </div>
+  <section class="docstring">
+    <p>Modify a webhook.</p>
+<p>Returns the updated webhook object on success.</p>
+<h2 id="modify/2-parameters" class="section-heading">
+  <a href="#modify/2-parameters" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Parameters
+</h2>
+
+<ul>
+<li><code class="inline">name</code> - the default name of the webhook
+</li>
+<li><code class="inline">avatar</code> - image for the default webhook avatar
+</li>
+<li><code class="inline">channel_id</code> - the new channel id this webhook should be moved to
+</li>
+</ul>
+
+  </section>
+</div>
+<div class="detail" id="modify_with_token/3">
+  
+  
+    <span id="modify_with_token/2"></span>
+  
+  <div class="detail-header">
+    <a href="#modify_with_token/3" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">modify_with_token(webhook_id, webhook_token, opts \\ [])</span>
+    
+    
+    
+      <div class="specs">
+        
+          <pre>modify_with_token(<a href="Din.html#t:snowflake/0">Din.snowflake</a>, <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>, name: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>, avatar: binary) ::
+  map |
+  <a href="Din.Error.html#t:t/0">Din.Error.t</a></pre>
+        
+      </div>
+    
+  </div>
+  <section class="docstring">
+    <p>Modify a webhook with token.</p>
+<p>Same as <a href="#modify/2"><code class="inline">modify/2</code></a>, except this call does not require authentication, does not accept a channel_id parameter in the body, and does not return a user in the webhook object.</p>
+
+  </section>
+</div>
+
+        </section>
+      
+
+      
+          <footer class="footer">
+        <p>
+          <span class="line">
+            Built using
+            <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" rel="help" target="_blank">ExDoc</a> (v0.17.1),
+          </span>
+          <span class="line">
+            designed by
+            <a href="https://twitter.com/dignifiedquire" target="_blank" title="@dignifiedquire">Friedel Ziegelmayer</a>.
+            </span>
+        </p>
+        <button class="night-mode-toggle"><span class="sr-only">Switch theme</span></button>
+      </footer>
+    </div>
+  </div>
+</section>
+</div>
+  <script src="dist/app-4cfb39be16.js"></script>
+  
+  </body>
+</html>
+

@@ -1,0 +1,396 @@
+    <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.17.1">
+    <title>Din.Module – Din v0.1.0</title>
+    <link rel="stylesheet" href="dist/app-110d9134a6.css" />
+    
+    
+    <script src="dist/sidebar_items-7fcbc58de1.js"></script>
+    
+  </head>
+  <body data-type="modules">
+    <script>try { if(localStorage.getItem('night-mode')) document.body.className += ' night-mode'; } catch (e) { }</script>
+
+    <div class="main">
+<button class="sidebar-toggle">
+  <span class="icon-menu" aria-hidden="true"></span>
+  <span class="sr-only">Toggle Sidebar</span>
+</button>
+<section class="sidebar">
+
+  
+  <a href="Din.html" class="sidebar-projectLink">
+    <div class="sidebar-projectDetails">
+      <h1 class="sidebar-projectName">
+        Din
+      </h1>
+      <h2 class="sidebar-projectVersion">
+        v0.1.0
+      </h2>
+    </div>
+    
+  </a>
+
+  <form class="sidebar-search" action="search.html">
+    <button type="submit" class="search-button">
+      <span class="icon-search" aria-hidden="true"></span>
+    </button>
+    <input name="q" type="text" id="search-list" class="search-input" placeholder="search" aria-label="Search" autocomplete="off" />
+  </form>
+
+  <ul class="sidebar-listNav">
+    <li><a id="extras-list" href="#full-list">Pages</a></li>
+
+    
+      <li><a id="modules-list" href="#full-list">Modules</a></li>
+    
+
+    
+
+    
+  </ul>
+  <div class="gradient"></div>
+  <ul id="full-list" class="sidebar-fullList"></ul>
+</section>
+
+<section class="content">
+  <div class="content-outer">
+    <div id="content" class="content-inner">
+
+
+      <h1>
+        <small class="visible-xs">Din v0.1.0</small>
+        Din.Module
+        
+      </h1>
+
+      
+        <section id="moduledoc">
+          <p>Module for pluggable implementation for any application.</p>
+<p>Just add <code class="inline">use Din.Module</code> at the top of your handler, and start it using <code class="inline">YourApplication.YourModule.start_link</code>.</p>
+
+        </section>
+      
+
+      
+        <section id="summary" class="details-list">
+          <h1 class="section-heading">
+            <a class="hover-link" href="#summary">
+              <span class="icon-link" aria-hidden="true"></span>
+              <span class="sr-only">Link to this section</span>
+            </a>
+            Summary
+          </h1>
+          
+
+          
+  <div class="summary-functions summary">
+    <h2>
+      <a href="#functions">Functions</a>
+    </h2>
+    <div class="summary-row">
+  <div class="summary-signature">
+    <a href="#enforce/2">enforce(validator, list)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Macro to create enforcement validators</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#handle/2">handle(event, list)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Macro to create initial handlers for Discord events</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#handle_any/1">handle_any(list)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Macro to handle any event</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#handle_fallback/0">handle_fallback()</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Macro to handle unused events</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#match/2">match(text, list)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Macro to match text content, as either a string or a list</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#reply/2">reply(text, opts \\ [])</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Macro to reply to messages</p>
+</div>
+  
+</div>
+
+  </div>
+
+
+          
+
+        </section>
+      
+
+      
+
+      
+        <section id="functions" class="details-list">
+          <h1 class="section-heading">
+            <a class="hover-link" href="#functions">
+              <span class="icon-link" aria-hidden="true"></span>
+              <span class="sr-only">Link to this section</span>
+            </a>
+            Functions
+          </h1>
+          <div class="detail" id="enforce/2">
+  
+  
+  <div class="detail-header">
+    <a href="#enforce/2" class="detail-link" title="Link to this macro">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this macro</span>
+    </a>
+    <span class="signature">enforce(validator, list)</span>
+    
+    
+      <span class="note">(macro)</span>
+    
+    
+  </div>
+  <section class="docstring">
+    <p>Macro to create enforcement validators.</p>
+<p>Simply a readable version of what will expand to an if statement. The atom should be the name of a function that takes <code class="inline">data</code> as a single argument, and should evaluate to either <code class="inline">true</code> or <code class="inline">false</code>.</p>
+<h2 id="enforce/2-example" class="section-heading">
+  <a href="#enforce/2-example" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Example
+</h2>
+
+<pre><code class="Elixir">alias Din.Resources.Channel
+
+handle :message_create do
+  enforce :direct_message do
+    match &quot;hello&quot;, do: reply &quot;hi!&quot;
+  end
+end
+
+def direct_message(data) do
+  Channel.get(data.channel_id).is_private
+end</code></pre>
+
+  </section>
+</div>
+<div class="detail" id="handle/2">
+  
+  
+  <div class="detail-header">
+    <a href="#handle/2" class="detail-link" title="Link to this macro">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this macro</span>
+    </a>
+    <span class="signature">handle(event, list)</span>
+    
+    
+      <span class="note">(macro)</span>
+    
+    
+      <div class="specs">
+        
+          <pre>handle(atom | <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>, [{:do, any}]) :: {:noreply, map}</pre>
+        
+      </div>
+    
+  </div>
+  <section class="docstring">
+    <p>Macro to create initial handlers for Discord events.</p>
+<p>Events can be written as strings or atoms, whichever you prefer. Data sent by the Gateway can be interfaced with the <code class="inline">data</code> variable.</p>
+<h2 id="handle/2-example" class="section-heading">
+  <a href="#handle/2-example" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Example
+</h2>
+
+<pre><code class="Elixir">handle :message_create do
+  IO.inspect data.content
+end
+
+handle &quot;PRESENCE_UPDATE&quot; do
+  IO.inspect data
+end</code></pre>
+
+  </section>
+</div>
+<div class="detail" id="handle_any/1">
+  
+  
+  <div class="detail-header">
+    <a href="#handle_any/1" class="detail-link" title="Link to this macro">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this macro</span>
+    </a>
+    <span class="signature">handle_any(list)</span>
+    
+    
+      <span class="note">(macro)</span>
+    
+    
+      <div class="specs">
+        
+          <pre>handle_any([{:do, any}]) :: {:noreply, map}</pre>
+        
+      </div>
+    
+  </div>
+  <section class="docstring">
+    <p>Macro to handle any event.</p>
+<p>Only use this once at the end of your handler module. Data sent by the Gateway can be interfaced with the <code class="inline">data</code> variable.</p>
+
+  </section>
+</div>
+<div class="detail" id="handle_fallback/0">
+  
+  
+  <div class="detail-header">
+    <a href="#handle_fallback/0" class="detail-link" title="Link to this macro">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this macro</span>
+    </a>
+    <span class="signature">handle_fallback()</span>
+    
+    
+      <span class="note">(macro)</span>
+    
+    
+      <div class="specs">
+        
+          <pre>handle_fallback() :: {:noreply, map}</pre>
+        
+      </div>
+    
+  </div>
+  <section class="docstring">
+    <p>Macro to handle unused events.</p>
+<p>Place this once at the end of your handler module if you do not use <a href="#handle_any/1"><code class="inline">handle_any/1</code></a>.</p>
+
+  </section>
+</div>
+<div class="detail" id="match/2">
+  
+  
+  <div class="detail-header">
+    <a href="#match/2" class="detail-link" title="Link to this macro">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this macro</span>
+    </a>
+    <span class="signature">match(text, list)</span>
+    
+    
+      <span class="note">(macro)</span>
+    
+    
+      <div class="specs">
+        
+          <pre>match(<a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>, [{:do, any}]) :: any</pre>
+        
+          <pre>match([<a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>], [{:do, any}]) :: any</pre>
+        
+      </div>
+    
+  </div>
+  <section class="docstring">
+    <p>Macro to match text content, as either a string or a list.</p>
+<p>Typically used for the <code class="inline">MESSAGE_CREATE</code> event. Matches given text with the beginning of the content sent by users using Regex.</p>
+<h2 id="match/2-example" class="section-heading">
+  <a href="#match/2-example" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Example
+</h2>
+
+<pre><code class="Elixir">match &quot;!ping&quot;, do: IO.inspect data.content
+match [&quot;!foo&quot;, &quot;!bar&quot;], do: IO.inspect data.content</code></pre>
+
+  </section>
+</div>
+<div class="detail" id="reply/2">
+  
+  
+    <span id="reply/1"></span>
+  
+  <div class="detail-header">
+    <a href="#reply/2" class="detail-link" title="Link to this macro">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this macro</span>
+    </a>
+    <span class="signature">reply(text, opts \\ [])</span>
+    
+    
+      <span class="note">(macro)</span>
+    
+    
+      <div class="specs">
+        
+          <pre>reply(<a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>, list) :: any</pre>
+        
+      </div>
+    
+  </div>
+  <section class="docstring">
+    <p>Macro to reply to messages.</p>
+<p>Typically used for the <code class="inline">MESSAGE_CREATE</code> event, or anything with a <code class="inline">channel_id</code> key. Will accept the same content as <a href="Din.Resources.Channel.html#create_message/3"><code class="inline">Din.Resources.Channel.create_message/3</code></a>.</p>
+<h2 id="reply/2-example" class="section-heading">
+  <a href="#reply/2-example" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Example
+</h2>
+
+<pre><code class="Elixir">match &quot;!ping&quot;, do: reply &quot;Pong!&quot;</code></pre>
+
+  </section>
+</div>
+
+        </section>
+      
+
+      
+          <footer class="footer">
+        <p>
+          <span class="line">
+            Built using
+            <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" rel="help" target="_blank">ExDoc</a> (v0.17.1),
+          </span>
+          <span class="line">
+            designed by
+            <a href="https://twitter.com/dignifiedquire" target="_blank" title="@dignifiedquire">Friedel Ziegelmayer</a>.
+            </span>
+        </p>
+        <button class="night-mode-toggle"><span class="sr-only">Switch theme</span></button>
+      </footer>
+    </div>
+  </div>
+</section>
+</div>
+  <script src="dist/app-4cfb39be16.js"></script>
+  
+  </body>
+</html>
+

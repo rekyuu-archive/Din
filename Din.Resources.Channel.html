@@ -1,0 +1,1108 @@
+    <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.17.1">
+    <title>Din.Resources.Channel – Din v0.1.0</title>
+    <link rel="stylesheet" href="dist/app-110d9134a6.css" />
+    
+    
+    <script src="dist/sidebar_items-7fcbc58de1.js"></script>
+    
+  </head>
+  <body data-type="modules">
+    <script>try { if(localStorage.getItem('night-mode')) document.body.className += ' night-mode'; } catch (e) { }</script>
+
+    <div class="main">
+<button class="sidebar-toggle">
+  <span class="icon-menu" aria-hidden="true"></span>
+  <span class="sr-only">Toggle Sidebar</span>
+</button>
+<section class="sidebar">
+
+  
+  <a href="Din.html" class="sidebar-projectLink">
+    <div class="sidebar-projectDetails">
+      <h1 class="sidebar-projectName">
+        Din
+      </h1>
+      <h2 class="sidebar-projectVersion">
+        v0.1.0
+      </h2>
+    </div>
+    
+  </a>
+
+  <form class="sidebar-search" action="search.html">
+    <button type="submit" class="search-button">
+      <span class="icon-search" aria-hidden="true"></span>
+    </button>
+    <input name="q" type="text" id="search-list" class="search-input" placeholder="search" aria-label="Search" autocomplete="off" />
+  </form>
+
+  <ul class="sidebar-listNav">
+    <li><a id="extras-list" href="#full-list">Pages</a></li>
+
+    
+      <li><a id="modules-list" href="#full-list">Modules</a></li>
+    
+
+    
+
+    
+  </ul>
+  <div class="gradient"></div>
+  <ul id="full-list" class="sidebar-fullList"></ul>
+</section>
+
+<section class="content">
+  <div class="content-outer">
+    <div id="content" class="content-inner">
+
+
+      <h1>
+        <small class="visible-xs">Din v0.1.0</small>
+        Din.Resources.Channel
+        
+      </h1>
+
+      
+
+      
+        <section id="summary" class="details-list">
+          <h1 class="section-heading">
+            <a class="hover-link" href="#summary">
+              <span class="icon-link" aria-hidden="true"></span>
+              <span class="sr-only">Link to this section</span>
+            </a>
+            Summary
+          </h1>
+          
+
+          
+  <div class="summary-functions summary">
+    <h2>
+      <a href="#functions">Functions</a>
+    </h2>
+    <div class="summary-row">
+  <div class="summary-signature">
+    <a href="#add_pinned_message/2">add_pinned_message(channel_id, message_id)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Pin a message in a channel</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#bulk_delete_messages/2">bulk_delete_messages(channel_id, message_ids)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Delete multiple messages in a single request</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#create_invite/2">create_invite(channel_id, opts \\ [])</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Create a new invite object for the channel</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#create_message/3">create_message(channel_id, content, opts \\ [])</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Post a message to a guild text or DM channel</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#create_reaction/3">create_reaction(channel_id, message_id, emoji)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Create a reaction for the message</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#delete/1">delete(channel_id)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Delete a channel, or close a private message</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#delete_all_reactions/2">delete_all_reactions(channel_id, message_id)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Deletes all reactions on a message</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#delete_message/2">delete_message(channel_id, message_id)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Delete a message</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#delete_permission/2">delete_permission(channel_id, overwrite_id)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Delete a channel permission overwrite for a user or role in a channel</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#delete_pinned_message/2">delete_pinned_message(channel_id, message_id)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Delete a pinned message in a channel</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#delete_reaction/3">delete_reaction(channel_id, message_id, emoji)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Delete a reaction the current user has made for the message</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#delete_user_reaction/4">delete_user_reaction(channel_id, message_id, emoji, user_id)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Deletes another user’s reaction</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#edit_message/3">edit_message(channel_id, message_id, opts \\ [])</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Edit a previously sent message</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#edit_permissions/3">edit_permissions(channel_id, overwrite_id, opts)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Edit the channel permission overwrites for a user or role in a channel</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#get/1">get(channel_id)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Get a channel by ID</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#get_invites/1">get_invites(channel_id)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Returns a list of invite objects (with invite metadata) for the channel</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#get_message/2">get_message(channel_id, message_id)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Returns a specific message in the channel</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#get_messages/2">get_messages(channel_id, opts \\ [])</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Returns the messages for a channel</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#get_pinned_messages/1">get_pinned_messages(channel_id)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Returns all pinned messages in the channel as an array of message objects</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#get_reactions/3">get_reactions(channel_id, message_id, emoji)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Get a list of users that reacted with this emoji</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#group_dm_add_recipient/3">group_dm_add_recipient(channel_id, user_id, opts \\ [])</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Adds a recipient to a Group DM using their access token</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#group_dm_delete_recipient/2">group_dm_delete_recipient(channel_id, user_id)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Removes a recipient from a Group DM</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#modify/2">modify(channel_id, opts \\ [])</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Update a channels settings</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#trigger_typing_indicator/1">trigger_typing_indicator(channel_id)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Post a typing indicator for the specified channel</p>
+</div>
+  
+</div>
+
+  </div>
+
+
+          
+
+        </section>
+      
+
+      
+
+      
+        <section id="functions" class="details-list">
+          <h1 class="section-heading">
+            <a class="hover-link" href="#functions">
+              <span class="icon-link" aria-hidden="true"></span>
+              <span class="sr-only">Link to this section</span>
+            </a>
+            Functions
+          </h1>
+          <div class="detail" id="add_pinned_message/2">
+  
+  
+  <div class="detail-header">
+    <a href="#add_pinned_message/2" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">add_pinned_message(channel_id, message_id)</span>
+    
+    
+    
+      <div class="specs">
+        
+          <pre>add_pinned_message(<a href="Din.html#t:snowflake/0">Din.snowflake</a>, <a href="Din.html#t:snowflake/0">Din.snowflake</a>) ::
+  :ok |
+  <a href="Din.Error.html#t:t/0">Din.Error.t</a></pre>
+        
+      </div>
+    
+  </div>
+  <section class="docstring">
+    <p>Pin a message in a channel.</p>
+<p>Requires the <code class="inline">MANAGE_MESSAGES</code> permission. Returns <code class="inline">:ok</code> on success.</p>
+
+  </section>
+</div>
+<div class="detail" id="bulk_delete_messages/2">
+  
+  
+  <div class="detail-header">
+    <a href="#bulk_delete_messages/2" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">bulk_delete_messages(channel_id, message_ids)</span>
+    
+    
+    
+      <div class="specs">
+        
+          <pre>bulk_delete_messages(<a href="Din.html#t:snowflake/0">Din.snowflake</a>, [<a href="Din.html#t:snowflake/0">Din.snowflake</a>]) ::
+  :ok |
+  <a href="Din.Error.html#t:t/0">Din.Error.t</a></pre>
+        
+      </div>
+    
+  </div>
+  <section class="docstring">
+    <p>Delete multiple messages in a single request.</p>
+<p>This endpoint can only be used on guild channels and requires the <code class="inline">MANAGE_MESSAGES</code> permission. Returns <code class="inline">:ok</code> on success. Fires multiple Message Delete Gateway events.</p>
+<p>Any message IDs given that do not exist or are invalid will count towards the minimum and maximum message count (currently 2 and 100 respectively). Additionally, duplicated IDs will only be counted once.</p>
+<p>This endpoint will not delete messages older than 2 weeks, and will fail if any message provided is older than that. An endpoint will be added in the future to prune messages older than 2 weeks from a channel.</p>
+
+  </section>
+</div>
+<div class="detail" id="create_invite/2">
+  
+  
+    <span id="create_invite/1"></span>
+  
+  <div class="detail-header">
+    <a href="#create_invite/2" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">create_invite(channel_id, opts \\ [])</span>
+    
+    
+    
+      <div class="specs">
+        
+          <pre>create_invite(<a href="Din.html#t:snowflake/0">Din.snowflake</a>, max_age: integer, max_uses: integer, temporary: boolean, unique: boolean) ::
+  map |
+  <a href="Din.Error.html#t:t/0">Din.Error.t</a></pre>
+        
+      </div>
+    
+  </div>
+  <section class="docstring">
+    <p>Create a new invite object for the channel.</p>
+<p>Only usable for guild channels. Requires the <code class="inline">CREATE_INSTANT_INVITE</code> permission.</p>
+<h2 id="create_invite/2-parameters" class="section-heading">
+  <a href="#create_invite/2-parameters" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Parameters
+</h2>
+
+<ul>
+<li><code class="inline">max_age</code> - Duration of invite in seconds before expiry, or 0 for never. Defaults to <code class="inline">86400</code> (24 hours.
+</li>
+<li><code class="inline">max_uses</code> - Max number of uses or 0 for unlimited. Defaults to <code class="inline">0</code>
+</li>
+<li><code class="inline">temporary</code> - Whether this invite only grants temporary membership. Defaults to <code class="inline">false</code>.
+</li>
+<li><code class="inline">unique</code> - If true, don’t try to reuse a similar invite (useful for creating many unique one time use invites). Defaults to <code class="inline">false</code>.
+</li>
+</ul>
+
+  </section>
+</div>
+<div class="detail" id="create_message/3">
+  
+  
+    <span id="create_message/2"></span>
+  
+  <div class="detail-header">
+    <a href="#create_message/3" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">create_message(channel_id, content, opts \\ [])</span>
+    
+    
+    
+      <div class="specs">
+        
+          <pre>create_message(<a href="Din.html#t:snowflake/0">Din.snowflake</a>, <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>, nonce: <a href="Din.html#t:snowflake/0">Din.snowflake</a>, tts: boolean, file: binary, embed: map) ::
+  map |
+  <a href="Din.Error.html#t:t/0">Din.Error.t</a></pre>
+        
+      </div>
+    
+  </div>
+  <section class="docstring">
+    <p>Post a message to a guild text or DM channel.</p>
+<p>If operating on a guild channel, this endpoint requires the <code class="inline">SEND_MESSAGES</code> permission to be present on the current user. Returns a message object. Fires a Message Create Gateway event.</p>
+<h2 id="create_message/3-parameters" class="section-heading">
+  <a href="#create_message/3-parameters" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Parameters
+</h2>
+
+<ul>
+<li><code class="inline">nonce</code> - a nonce that can be used for optimistic message sending
+</li>
+<li><code class="inline">tts</code> - true if this is a TTS message
+</li>
+<li><code class="inline">file</code> - the contents of the file being sent
+</li>
+<li><code class="inline">embed</code> - embedded rich content
+</li>
+</ul>
+
+  </section>
+</div>
+<div class="detail" id="create_reaction/3">
+  
+  
+  <div class="detail-header">
+    <a href="#create_reaction/3" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">create_reaction(channel_id, message_id, emoji)</span>
+    
+    
+    
+      <div class="specs">
+        
+          <pre>create_reaction(<a href="Din.html#t:snowflake/0">Din.snowflake</a>, <a href="Din.html#t:snowflake/0">Din.snowflake</a>, <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>) ::
+  :ok |
+  <a href="Din.Error.html#t:t/0">Din.Error.t</a></pre>
+        
+      </div>
+    
+  </div>
+  <section class="docstring">
+    <p>Create a reaction for the message.</p>
+<p>This endpoint requires the <code class="inline">READ_MESSAGE_HISTORY</code> permission to be present on the current user. Additionally, if nobody else has reacted to the message using this emoji, this endpoint requires the <code class="inline">ADD_REACTIONS</code> permission to be present on the current user. Returns <code class="inline">:ok</code> on success.</p>
+
+  </section>
+</div>
+<div class="detail" id="delete/1">
+  
+  
+  <div class="detail-header">
+    <a href="#delete/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">delete(channel_id)</span>
+    
+    
+    
+      <div class="specs">
+        
+          <pre>delete(<a href="Din.html#t:snowflake/0">Din.snowflake</a>) :: map | <a href="Din.Error.html#t:t/0">Din.Error.t</a></pre>
+        
+      </div>
+    
+  </div>
+  <section class="docstring">
+    <p>Delete a channel, or close a private message.</p>
+<p>Requires the <code class="inline">MANAGE_CHANNELS</code> permission for the guild. Deleting a category does not delete its child channels; they will have their <code class="inline">parent_id</code> removed and a Channel Update Gateway event will fire for each of them. Returns a channel object on success. Fires a Channel Delete Gateway event.</p>
+<p>Deleting a guild channel cannot be undone. Use this with caution, as it is impossible to undo this action when performed on a guild channel. In contrast, when used with a private message, it is possible to undo the action by opening a private message with the recipient again.</p>
+
+  </section>
+</div>
+<div class="detail" id="delete_all_reactions/2">
+  
+  
+  <div class="detail-header">
+    <a href="#delete_all_reactions/2" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">delete_all_reactions(channel_id, message_id)</span>
+    
+    
+    
+      <div class="specs">
+        
+          <pre>delete_all_reactions(<a href="Din.html#t:snowflake/0">Din.snowflake</a>, <a href="Din.html#t:snowflake/0">Din.snowflake</a>) ::
+  :ok |
+  <a href="Din.Error.html#t:t/0">Din.Error.t</a></pre>
+        
+      </div>
+    
+  </div>
+  <section class="docstring">
+    <p>Deletes all reactions on a message.</p>
+<p>This endpoint requires the <code class="inline">MANAGE_MESSAGES</code> permission to be present on the current user.</p>
+
+  </section>
+</div>
+<div class="detail" id="delete_message/2">
+  
+  
+  <div class="detail-header">
+    <a href="#delete_message/2" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">delete_message(channel_id, message_id)</span>
+    
+    
+    
+      <div class="specs">
+        
+          <pre>delete_message(<a href="Din.html#t:snowflake/0">Din.snowflake</a>, <a href="Din.html#t:snowflake/0">Din.snowflake</a>) ::
+  :ok |
+  <a href="Din.Error.html#t:t/0">Din.Error.t</a></pre>
+        
+      </div>
+    
+  </div>
+  <section class="docstring">
+    <p>Delete a message.</p>
+<p>If operating on a guild channel and trying to delete a message that was not sent by the current user, this endpoint requires the <code class="inline">MANAGE_MESSAGES</code> permission. Returns a <code class="inline">:ok</code> on success. Fires a Message Delete Gateway event.</p>
+
+  </section>
+</div>
+<div class="detail" id="delete_permission/2">
+  
+  
+  <div class="detail-header">
+    <a href="#delete_permission/2" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">delete_permission(channel_id, overwrite_id)</span>
+    
+    
+    
+      <div class="specs">
+        
+          <pre>delete_permission(<a href="Din.html#t:snowflake/0">Din.snowflake</a>, <a href="Din.html#t:snowflake/0">Din.snowflake</a>) ::
+  :ok |
+  <a href="Din.Error.html#t:t/0">Din.Error.t</a></pre>
+        
+      </div>
+    
+  </div>
+  <section class="docstring">
+    <p>Delete a channel permission overwrite for a user or role in a channel.</p>
+<p>Only usable for guild channels. Requires the <code class="inline">MANAGE_ROLES</code> permission. Returns <code class="inline">:ok</code> on success.</p>
+
+  </section>
+</div>
+<div class="detail" id="delete_pinned_message/2">
+  
+  
+  <div class="detail-header">
+    <a href="#delete_pinned_message/2" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">delete_pinned_message(channel_id, message_id)</span>
+    
+    
+    
+      <div class="specs">
+        
+          <pre>delete_pinned_message(<a href="Din.html#t:snowflake/0">Din.snowflake</a>, <a href="Din.html#t:snowflake/0">Din.snowflake</a>) ::
+  :ok |
+  <a href="Din.Error.html#t:t/0">Din.Error.t</a></pre>
+        
+      </div>
+    
+  </div>
+  <section class="docstring">
+    <p>Delete a pinned message in a channel.</p>
+<p>Requires the <code class="inline">MANAGE_MESSAGES</code> permission. Returns <code class="inline">:ok</code> on success.</p>
+
+  </section>
+</div>
+<div class="detail" id="delete_reaction/3">
+  
+  
+  <div class="detail-header">
+    <a href="#delete_reaction/3" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">delete_reaction(channel_id, message_id, emoji)</span>
+    
+    
+    
+      <div class="specs">
+        
+          <pre>delete_reaction(<a href="Din.html#t:snowflake/0">Din.snowflake</a>, <a href="Din.html#t:snowflake/0">Din.snowflake</a>, <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>) ::
+  :ok |
+  <a href="Din.Error.html#t:t/0">Din.Error.t</a></pre>
+        
+      </div>
+    
+  </div>
+  <section class="docstring">
+    <p>Delete a reaction the current user has made for the message.</p>
+<p>Returns <code class="inline">:ok</code> on success.</p>
+
+  </section>
+</div>
+<div class="detail" id="delete_user_reaction/4">
+  
+  
+  <div class="detail-header">
+    <a href="#delete_user_reaction/4" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">delete_user_reaction(channel_id, message_id, emoji, user_id)</span>
+    
+    
+    
+      <div class="specs">
+        
+          <pre>delete_user_reaction(<a href="Din.html#t:snowflake/0">Din.snowflake</a>, <a href="Din.html#t:snowflake/0">Din.snowflake</a>, <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>, <a href="Din.html#t:snowflake/0">Din.snowflake</a>) ::
+  :ok |
+  <a href="Din.Error.html#t:t/0">Din.Error.t</a></pre>
+        
+      </div>
+    
+  </div>
+  <section class="docstring">
+    <p>Deletes another user’s reaction.</p>
+<p>This endpoint requires the <code class="inline">MANAGE_MESSAGES</code> permission to be present on the current user. Returns <code class="inline">:ok</code> on success.</p>
+
+  </section>
+</div>
+<div class="detail" id="edit_message/3">
+  
+  
+    <span id="edit_message/2"></span>
+  
+  <div class="detail-header">
+    <a href="#edit_message/3" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">edit_message(channel_id, message_id, opts \\ [])</span>
+    
+    
+    
+      <div class="specs">
+        
+          <pre>edit_message(<a href="Din.html#t:snowflake/0">Din.snowflake</a>, <a href="Din.html#t:snowflake/0">Din.snowflake</a>, content: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>, embed: map) ::
+  map |
+  <a href="Din.Error.html#t:t/0">Din.Error.t</a></pre>
+        
+      </div>
+    
+  </div>
+  <section class="docstring">
+    <p>Edit a previously sent message.</p>
+<p>You can only edit messages that have been sent by the current user. Returns a message object. Fires a Message Update Gateway event.</p>
+<h2 id="edit_message/3-parameters" class="section-heading">
+  <a href="#edit_message/3-parameters" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Parameters
+</h2>
+
+<ul>
+<li><code class="inline">content</code> - the new message contents (up to 2000 characters)
+</li>
+<li><code class="inline">embed</code> - embedded rich content
+</li>
+</ul>
+
+  </section>
+</div>
+<div class="detail" id="edit_permissions/3">
+  
+  
+  <div class="detail-header">
+    <a href="#edit_permissions/3" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">edit_permissions(channel_id, overwrite_id, opts)</span>
+    
+    
+    
+      <div class="specs">
+        
+          <pre>edit_permissions(<a href="Din.html#t:snowflake/0">Din.snowflake</a>, <a href="Din.html#t:snowflake/0">Din.snowflake</a>, allow: integer, deny: integer, type: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>) ::
+  :ok |
+  <a href="Din.Error.html#t:t/0">Din.Error.t</a></pre>
+        
+      </div>
+    
+  </div>
+  <section class="docstring">
+    <p>Edit the channel permission overwrites for a user or role in a channel.</p>
+<p>Only usable for guild channels. Requires the <code class="inline">MANAGE_ROLES</code> permission. Returns <code class="inline">:ok</code> on success.</p>
+
+  </section>
+</div>
+<div class="detail" id="get/1">
+  
+  
+  <div class="detail-header">
+    <a href="#get/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">get(channel_id)</span>
+    
+    
+    
+      <div class="specs">
+        
+          <pre>get(<a href="Din.html#t:snowflake/0">Din.snowflake</a>) :: map | <a href="Din.Error.html#t:t/0">Din.Error.t</a></pre>
+        
+      </div>
+    
+  </div>
+  <section class="docstring">
+    <p>Get a channel by ID.</p>
+<p>Returns a channel object.</p>
+
+  </section>
+</div>
+<div class="detail" id="get_invites/1">
+  
+  
+  <div class="detail-header">
+    <a href="#get_invites/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">get_invites(channel_id)</span>
+    
+    
+    
+      <div class="specs">
+        
+          <pre>get_invites(<a href="Din.html#t:snowflake/0">Din.snowflake</a>) :: [map] | <a href="Din.Error.html#t:t/0">Din.Error.t</a></pre>
+        
+      </div>
+    
+  </div>
+  <section class="docstring">
+    <p>Returns a list of invite objects (with invite metadata) for the channel.</p>
+<p>Only usable for guild channels. Requires the <code class="inline">MANAGE_CHANNELS</code> permission.</p>
+
+  </section>
+</div>
+<div class="detail" id="get_message/2">
+  
+  
+  <div class="detail-header">
+    <a href="#get_message/2" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">get_message(channel_id, message_id)</span>
+    
+    
+    
+      <div class="specs">
+        
+          <pre>get_message(<a href="Din.html#t:snowflake/0">Din.snowflake</a>, <a href="Din.html#t:snowflake/0">Din.snowflake</a>) :: map | <a href="Din.Error.html#t:t/0">Din.Error.t</a></pre>
+        
+      </div>
+    
+  </div>
+  <section class="docstring">
+    <p>Returns a specific message in the channel.</p>
+<p>If operating on a guild channel, this endpoints requires the <code class="inline">READ_MESSAGE_HISTORY</code> permission to be present on the current user. Returns a message object on success.</p>
+
+  </section>
+</div>
+<div class="detail" id="get_messages/2">
+  
+  
+    <span id="get_messages/1"></span>
+  
+  <div class="detail-header">
+    <a href="#get_messages/2" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">get_messages(channel_id, opts \\ [])</span>
+    
+    
+    
+      <div class="specs">
+        
+          <pre>get_messages(<a href="Din.html#t:snowflake/0">Din.snowflake</a>, around: <a href="Din.html#t:snowflake/0">Din.snowflake</a>, before: <a href="Din.html#t:snowflake/0">Din.snowflake</a>, after: <a href="Din.html#t:snowflake/0">Din.snowflake</a>, limit: 1..100) ::
+  [map] |
+  <a href="Din.Error.html#t:t/0">Din.Error.t</a></pre>
+        
+      </div>
+    
+  </div>
+  <section class="docstring">
+    <p>Returns the messages for a channel.</p>
+<p>If operating on a guild channel, this endpoint requires the <code class="inline">READ_MESSAGES</code> permission to be present on the current user. Returns an array of message objects on success.</p>
+<h2 id="get_messages/2-parameters" class="section-heading">
+  <a href="#get_messages/2-parameters" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Parameters
+</h2>
+
+<ul>
+<li><code class="inline">around</code> - get messages around this message ID
+</li>
+<li><code class="inline">before</code> - get messages before this message ID
+</li>
+<li><code class="inline">after</code> - get messages after this message ID
+</li>
+<li><code class="inline">limit</code> - max number of messages to return (1-100)
+</li>
+</ul>
+
+  </section>
+</div>
+<div class="detail" id="get_pinned_messages/1">
+  
+  
+  <div class="detail-header">
+    <a href="#get_pinned_messages/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">get_pinned_messages(channel_id)</span>
+    
+    
+    
+      <div class="specs">
+        
+          <pre>get_pinned_messages(<a href="Din.html#t:snowflake/0">Din.snowflake</a>) :: [map] | <a href="Din.Error.html#t:t/0">Din.Error.t</a></pre>
+        
+      </div>
+    
+  </div>
+  <section class="docstring">
+    <p>Returns all pinned messages in the channel as an array of message objects.</p>
+
+  </section>
+</div>
+<div class="detail" id="get_reactions/3">
+  
+  
+  <div class="detail-header">
+    <a href="#get_reactions/3" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">get_reactions(channel_id, message_id, emoji)</span>
+    
+    
+    
+      <div class="specs">
+        
+          <pre>get_reactions(<a href="Din.html#t:snowflake/0">Din.snowflake</a>, <a href="Din.html#t:snowflake/0">Din.snowflake</a>, <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>) ::
+  [map] |
+  <a href="Din.Error.html#t:t/0">Din.Error.t</a></pre>
+        
+      </div>
+    
+  </div>
+  <section class="docstring">
+    <p>Get a list of users that reacted with this emoji.</p>
+<p>Returns an array of user objects on success.</p>
+
+  </section>
+</div>
+<div class="detail" id="group_dm_add_recipient/3">
+  
+  
+    <span id="group_dm_add_recipient/2"></span>
+  
+  <div class="detail-header">
+    <a href="#group_dm_add_recipient/3" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">group_dm_add_recipient(channel_id, user_id, opts \\ [])</span>
+    
+    
+    
+      <div class="specs">
+        
+          <pre>group_dm_add_recipient(<a href="Din.html#t:snowflake/0">Din.snowflake</a>, <a href="Din.html#t:snowflake/0">Din.snowflake</a>, access_token: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>, nick: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>) ::
+  map |
+  <a href="Din.Error.html#t:t/0">Din.Error.t</a></pre>
+        
+      </div>
+    
+  </div>
+  <section class="docstring">
+    <p>Adds a recipient to a Group DM using their access token.</p>
+<h2 id="group_dm_add_recipient/3-parameters" class="section-heading">
+  <a href="#group_dm_add_recipient/3-parameters" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Parameters
+</h2>
+
+<ul>
+<li><code class="inline">access_token</code> - access token of a user that has granted your app the <code class="inline">gdm.join</code> scope
+</li>
+<li><code class="inline">nick</code> - nickname of the user being added
+</li>
+</ul>
+
+  </section>
+</div>
+<div class="detail" id="group_dm_delete_recipient/2">
+  
+  
+  <div class="detail-header">
+    <a href="#group_dm_delete_recipient/2" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">group_dm_delete_recipient(channel_id, user_id)</span>
+    
+    
+    
+      <div class="specs">
+        
+          <pre>group_dm_delete_recipient(<a href="Din.html#t:snowflake/0">Din.snowflake</a>, <a href="Din.html#t:snowflake/0">Din.snowflake</a>) ::
+  map |
+  <a href="Din.Error.html#t:t/0">Din.Error.t</a></pre>
+        
+      </div>
+    
+  </div>
+  <section class="docstring">
+    <p>Removes a recipient from a Group DM.</p>
+
+  </section>
+</div>
+<div class="detail" id="modify/2">
+  
+  
+    <span id="modify/1"></span>
+  
+  <div class="detail-header">
+    <a href="#modify/2" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">modify(channel_id, opts \\ [])</span>
+    
+    
+    
+      <div class="specs">
+        
+          <pre>modify(<a href="Din.html#t:snowflake/0">Din.snowflake</a>, name: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>, position: integer, topic: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>, nsfw: boolean, bitrate: integer, user_limit: integer, permission_overwrites: [map], parent_id: <a href="Din.html#t:snowflake/0">Din.snowflake</a>) ::
+  map |
+  <a href="Din.Error.html#t:t/0">Din.Error.t</a></pre>
+        
+      </div>
+    
+  </div>
+  <section class="docstring">
+    <p>Update a channels settings.</p>
+<p>Requires the <code class="inline">MANAGE_CHANNELS</code> permission for the guild. Returns a channel on success, and a <a href="Din.Error.html#t:t/0"><code class="inline">Din.Error.t/0</code></a> on invalid parameters. Fires a Channel Update Gateway event. If modifying a category, individual Channel Update events will fire for each child channel that also changes.</p>
+<h2 id="modify/2-parameters" class="section-heading">
+  <a href="#modify/2-parameters" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Parameters
+</h2>
+
+<h3 id="modify/2-all-channels" class="section-heading">
+  <a href="#modify/2-all-channels" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  All Channels
+</h3>
+
+<ul>
+<li><code class="inline">name</code> - 2-100 character channel name
+</li>
+<li><code class="inline">position</code> - the position of the channel in the left-hand listing
+</li>
+<li><code class="inline">permission_overwrites</code> - channel or category-specific permissions
+</li>
+<li><code class="inline">parent_id</code> - id of the new parent category for a channel
+</li>
+</ul>
+<h3 id="modify/2-text-channels" class="section-heading">
+  <a href="#modify/2-text-channels" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Text Channels
+</h3>
+
+<ul>
+<li><code class="inline">topic</code> - 0-1024 character channel topic
+</li>
+<li><code class="inline">nsfw</code> - if the channel is nsfw
+</li>
+</ul>
+<h3 id="modify/2-voice-channels" class="section-heading">
+  <a href="#modify/2-voice-channels" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Voice Channels
+</h3>
+
+<ul>
+<li><code class="inline">bitrate</code> - the bitrate (in bits) of the voice channel; 8000 to 96000 (128000 for VIP servers)
+</li>
+<li><code class="inline">user_limit</code> - the user limit of the voice channel; 0 refers to no limit, 1 to 99 refers to a user limit
+</li>
+</ul>
+
+  </section>
+</div>
+<div class="detail" id="trigger_typing_indicator/1">
+  
+  
+  <div class="detail-header">
+    <a href="#trigger_typing_indicator/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">trigger_typing_indicator(channel_id)</span>
+    
+    
+    
+      <div class="specs">
+        
+          <pre>trigger_typing_indicator(<a href="Din.html#t:snowflake/0">Din.snowflake</a>) :: :ok | <a href="Din.Error.html#t:t/0">Din.Error.t</a></pre>
+        
+      </div>
+    
+  </div>
+  <section class="docstring">
+    <p>Post a typing indicator for the specified channel.</p>
+<p>Generally bots should not implement this route. However, if a bot is responding to a command and expects the computation to take a few seconds, this endpoint may be called to let the user know that the bot is processing their message. Returns <code class="inline">:ok</code> on success. Fires a Typing Start Gateway event.</p>
+
+  </section>
+</div>
+
+        </section>
+      
+
+      
+          <footer class="footer">
+        <p>
+          <span class="line">
+            Built using
+            <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" rel="help" target="_blank">ExDoc</a> (v0.17.1),
+          </span>
+          <span class="line">
+            designed by
+            <a href="https://twitter.com/dignifiedquire" target="_blank" title="@dignifiedquire">Friedel Ziegelmayer</a>.
+            </span>
+        </p>
+        <button class="night-mode-toggle"><span class="sr-only">Switch theme</span></button>
+      </footer>
+    </div>
+  </div>
+</section>
+</div>
+  <script src="dist/app-4cfb39be16.js"></script>
+  
+  </body>
+</html>
+

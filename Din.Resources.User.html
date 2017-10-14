@@ -1,0 +1,474 @@
+    <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.17.1">
+    <title>Din.Resources.User – Din v0.1.0</title>
+    <link rel="stylesheet" href="dist/app-110d9134a6.css" />
+    
+    
+    <script src="dist/sidebar_items-7fcbc58de1.js"></script>
+    
+  </head>
+  <body data-type="modules">
+    <script>try { if(localStorage.getItem('night-mode')) document.body.className += ' night-mode'; } catch (e) { }</script>
+
+    <div class="main">
+<button class="sidebar-toggle">
+  <span class="icon-menu" aria-hidden="true"></span>
+  <span class="sr-only">Toggle Sidebar</span>
+</button>
+<section class="sidebar">
+
+  
+  <a href="Din.html" class="sidebar-projectLink">
+    <div class="sidebar-projectDetails">
+      <h1 class="sidebar-projectName">
+        Din
+      </h1>
+      <h2 class="sidebar-projectVersion">
+        v0.1.0
+      </h2>
+    </div>
+    
+  </a>
+
+  <form class="sidebar-search" action="search.html">
+    <button type="submit" class="search-button">
+      <span class="icon-search" aria-hidden="true"></span>
+    </button>
+    <input name="q" type="text" id="search-list" class="search-input" placeholder="search" aria-label="Search" autocomplete="off" />
+  </form>
+
+  <ul class="sidebar-listNav">
+    <li><a id="extras-list" href="#full-list">Pages</a></li>
+
+    
+      <li><a id="modules-list" href="#full-list">Modules</a></li>
+    
+
+    
+
+    
+  </ul>
+  <div class="gradient"></div>
+  <ul id="full-list" class="sidebar-fullList"></ul>
+</section>
+
+<section class="content">
+  <div class="content-outer">
+    <div id="content" class="content-inner">
+
+
+      <h1>
+        <small class="visible-xs">Din v0.1.0</small>
+        Din.Resources.User
+        
+      </h1>
+
+      
+
+      
+        <section id="summary" class="details-list">
+          <h1 class="section-heading">
+            <a class="hover-link" href="#summary">
+              <span class="icon-link" aria-hidden="true"></span>
+              <span class="sr-only">Link to this section</span>
+            </a>
+            Summary
+          </h1>
+          
+
+          
+  <div class="summary-functions summary">
+    <h2>
+      <a href="#functions">Functions</a>
+    </h2>
+    <div class="summary-row">
+  <div class="summary-signature">
+    <a href="#create_dm/1">create_dm(opts \\ [])</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Create a new DM channel with a user</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#create_group_dm/1">create_group_dm(opts \\ [])</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Create a new group DM channel with multiple users</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#get/1">get(user_id)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Returns a user object for a given user ID</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#get_connections/0">get_connections()</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Returns a list of connection objects</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#get_current_user/0">get_current_user()</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Returns the user object of the requester’s account</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#get_current_user_guilds/1">get_current_user_guilds(opts \\ [])</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Returns a list of partial guild objects the current user is a member of</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#get_dms/0">get_dms()</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Returns a list of DM channel objects</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#leave_guild/1">leave_guild(guild_id)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Leave a guild</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#modify_current_user/1">modify_current_user(opts \\ [])</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Modify the requester’s user account settings</p>
+</div>
+  
+</div>
+
+  </div>
+
+
+          
+
+        </section>
+      
+
+      
+
+      
+        <section id="functions" class="details-list">
+          <h1 class="section-heading">
+            <a class="hover-link" href="#functions">
+              <span class="icon-link" aria-hidden="true"></span>
+              <span class="sr-only">Link to this section</span>
+            </a>
+            Functions
+          </h1>
+          <div class="detail" id="create_dm/1">
+  
+  
+    <span id="create_dm/0"></span>
+  
+  <div class="detail-header">
+    <a href="#create_dm/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">create_dm(opts \\ [])</span>
+    
+    
+    
+      <div class="specs">
+        
+          <pre>create_dm([{:recipient_id, <a href="Din.html#t:snowflake/0">Din.snowflake</a>}]) :: map | <a href="Din.Error.html#t:t/0">Din.Error.t</a></pre>
+        
+      </div>
+    
+  </div>
+  <section class="docstring">
+    <p>Create a new DM channel with a user.</p>
+<p>Returns a DM channel object.</p>
+<h2 id="create_dm/1-parameters" class="section-heading">
+  <a href="#create_dm/1-parameters" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Parameters
+</h2>
+
+<ul>
+<li><code class="inline">recipient_id</code> - the recipient to open a DM channel with
+</li>
+</ul>
+
+  </section>
+</div>
+<div class="detail" id="create_group_dm/1">
+  
+  
+    <span id="create_group_dm/0"></span>
+  
+  <div class="detail-header">
+    <a href="#create_group_dm/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">create_group_dm(opts \\ [])</span>
+    
+    
+    
+      <div class="specs">
+        
+          <pre>create_group_dm(access_tokens: [<a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>], nicks: [%{optional(<a href="Din.html#t:snowflake/0">Din.snowflake</a>) => <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>}]) ::
+  map |
+  <a href="Din.Error.html#t:t/0">Din.Error.t</a></pre>
+        
+      </div>
+    
+  </div>
+  <section class="docstring">
+    <p>Create a new group DM channel with multiple users.</p>
+<p>Returns a DM channel object.</p>
+<h2 id="create_group_dm/1-parameters" class="section-heading">
+  <a href="#create_group_dm/1-parameters" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Parameters
+</h2>
+
+<ul>
+<li><code class="inline">access_tokens</code> - access tokens of users that have granted your app the <code class="inline">gdm.join</code> scope
+</li>
+<li><code class="inline">nicks</code> - a dictionary of user ids to their respective nicknames
+</li>
+</ul>
+
+  </section>
+</div>
+<div class="detail" id="get/1">
+  
+  
+  <div class="detail-header">
+    <a href="#get/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">get(user_id)</span>
+    
+    
+    
+      <div class="specs">
+        
+          <pre>get(<a href="Din.html#t:snowflake/0">Din.snowflake</a>) :: map | <a href="Din.Error.html#t:t/0">Din.Error.t</a></pre>
+        
+      </div>
+    
+  </div>
+  <section class="docstring">
+    <p>Returns a user object for a given user ID.</p>
+
+  </section>
+</div>
+<div class="detail" id="get_connections/0">
+  
+  
+  <div class="detail-header">
+    <a href="#get_connections/0" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">get_connections()</span>
+    
+    
+    
+      <div class="specs">
+        
+          <pre>get_connections() :: [map] | <a href="Din.Error.html#t:t/0">Din.Error.t</a></pre>
+        
+      </div>
+    
+  </div>
+  <section class="docstring">
+    <p>Returns a list of connection objects.</p>
+<p>Requires the <code class="inline">connections</code> OAuth2 scope.</p>
+
+  </section>
+</div>
+<div class="detail" id="get_current_user/0">
+  
+  
+  <div class="detail-header">
+    <a href="#get_current_user/0" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">get_current_user()</span>
+    
+    
+    
+      <div class="specs">
+        
+          <pre>get_current_user() :: map | <a href="Din.Error.html#t:t/0">Din.Error.t</a></pre>
+        
+      </div>
+    
+  </div>
+  <section class="docstring">
+    <p>Returns the user object of the requester’s account.</p>
+<p>For OAuth2, this requires the <code class="inline">identify</code> scope, which will return the object without an email, and optionally the <code class="inline">email</code> scope, which returns the object with an email.</p>
+
+  </section>
+</div>
+<div class="detail" id="get_current_user_guilds/1">
+  
+  
+    <span id="get_current_user_guilds/0"></span>
+  
+  <div class="detail-header">
+    <a href="#get_current_user_guilds/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">get_current_user_guilds(opts \\ [])</span>
+    
+    
+    
+      <div class="specs">
+        
+          <pre>get_current_user_guilds(before: <a href="Din.html#t:snowflake/0">Din.snowflake</a>, after: <a href="Din.html#t:snowflake/0">Din.snowflake</a>, limit: integer) ::
+  [map] |
+  <a href="Din.Error.html#t:t/0">Din.Error.t</a></pre>
+        
+      </div>
+    
+  </div>
+  <section class="docstring">
+    <p>Returns a list of partial guild objects the current user is a member of.</p>
+<p>Requires the <code class="inline">guilds</code> OAuth2 scope.</p>
+<p>This endpoint returns 100 guilds by default, which is the maximum number of guilds a non-bot user can join. Therefore, pagination is not needed for integrations that need to get a list of users’ guilds.</p>
+
+  </section>
+</div>
+<div class="detail" id="get_dms/0">
+  
+  
+  <div class="detail-header">
+    <a href="#get_dms/0" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">get_dms()</span>
+    
+    
+    
+      <div class="specs">
+        
+          <pre>get_dms() :: [map] | <a href="Din.Error.html#t:t/0">Din.Error.t</a></pre>
+        
+      </div>
+    
+  </div>
+  <section class="docstring">
+    <p>Returns a list of DM channel objects.</p>
+
+  </section>
+</div>
+<div class="detail" id="leave_guild/1">
+  
+  
+  <div class="detail-header">
+    <a href="#leave_guild/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">leave_guild(guild_id)</span>
+    
+    
+    
+      <div class="specs">
+        
+          <pre>leave_guild(<a href="Din.html#t:snowflake/0">Din.snowflake</a>) :: :ok | <a href="Din.Error.html#t:t/0">Din.Error.t</a></pre>
+        
+      </div>
+    
+  </div>
+  <section class="docstring">
+    <p>Leave a guild.</p>
+<p>Returns <code class="inline">:ok</code> on success.</p>
+
+  </section>
+</div>
+<div class="detail" id="modify_current_user/1">
+  
+  
+    <span id="modify_current_user/0"></span>
+  
+  <div class="detail-header">
+    <a href="#modify_current_user/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <span class="signature">modify_current_user(opts \\ [])</span>
+    
+    
+    
+      <div class="specs">
+        
+          <pre>modify_current_user(user: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>, avatar: binary) ::
+  map |
+  <a href="Din.Error.html#t:t/0">Din.Error.t</a></pre>
+        
+      </div>
+    
+  </div>
+  <section class="docstring">
+    <p>Modify the requester’s user account settings.</p>
+<p>Returns a user object on success.</p>
+
+  </section>
+</div>
+
+        </section>
+      
+
+      
+          <footer class="footer">
+        <p>
+          <span class="line">
+            Built using
+            <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" rel="help" target="_blank">ExDoc</a> (v0.17.1),
+          </span>
+          <span class="line">
+            designed by
+            <a href="https://twitter.com/dignifiedquire" target="_blank" title="@dignifiedquire">Friedel Ziegelmayer</a>.
+            </span>
+        </p>
+        <button class="night-mode-toggle"><span class="sr-only">Switch theme</span></button>
+      </footer>
+    </div>
+  </div>
+</section>
+</div>
+  <script src="dist/app-4cfb39be16.js"></script>
+  
+  </body>
+</html>
+
