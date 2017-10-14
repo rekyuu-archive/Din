@@ -1,10 +1,28 @@
 defmodule Din.Module do
+  @moduledoc """
+  Module for pluggable implementation for any application.
+
+  Just add `use Din.Module` at the top of your handler, and start it using `YourApplication.YourModule.start_link`.
+  """
+
   defmacro __using__(_opts) do
     quote do
       import Din.Module
       use GenServer
       require Logger
 
+      @doc """
+      Starts the GenServer with default state.
+
+      ## State Details
+
+      - `websocket` - PID for `Din.Websocket`
+      - `session_id` - session ID provided by Discord
+      - `heartbeat_ack` - identifier to see if the last heartbeat sent was acknowledged by Discord
+      - `heartbeat_interval` - inteveral in milliseconds to send heartbeats provided by Discord
+      - `sequence` - sequence counter for heartbeats, increments by 1 every beat
+      - `resume` - identifier for if the bot needs to be resumed after disconnect
+      """
       def start_link do
         Logger.info "starting genserver"
 
@@ -19,16 +37,31 @@ defmodule Din.Module do
         GenServer.start_link(__MODULE__, default_state)
       end
 
+      @doc """
+      Starts the websocket connection.
+
+      The PID for the websocket is added to the state.
+      """
       def init(state) do
         {:ok, conn} = Din.Websocket.start_link(self())
         {:ok, %{state | websocket: conn}}
       end
 
+      @doc """
+      Handle's the OP 0 `READY`.
+
+      The session ID provided is added to the state.
+      """
       def handle_info({:gateway, %{op: 0, d: data, t: "READY"}}, state) do
         Logger.debug "ready"
         {:noreply, %{state | session_id: data.session_id}}
       end
 
+      @doc """
+      Default handler for OP 0 events.
+
+      The `event` is casted to the handler, which the user implements.
+      """
       def handle_info({:gateway, %{op: 0, d: data, t: event}}, state) do
         Logger.debug "#{event}" |> String.downcase
         send self(), {:event, event, data}
@@ -36,6 +69,11 @@ defmodule Din.Module do
         {:noreply, state}
       end
 
+      @doc """
+      Handler for OP 7 `RECONNECT`.
+
+      This sends the Gateway instructions to resume from where we left off.
+      """
       def handle_info({:gateway, %{op: 7, d: data}}, state) do
         Logger.warn "reconnect"
         IO.inspect data
@@ -44,6 +82,11 @@ defmodule Din.Module do
         {:noreply, state}
       end
 
+      @doc """
+      Handler for OP 9 `INVALID SESSION`.
+
+      This tells the Gateway to initiate a reconnection.
+      """
       def handle_info({:gateway, %{op: 9}}, state) do
         Logger.warn "invalid session"
         send self(), :reconnect
@@ -51,6 +94,11 @@ defmodule Din.Module do
         {:noreply, state}
       end
 
+      @doc """
+      Handler for OP 10 `HELLO`.
+
+      This is what's received upon initial connection, where we need to `IDENTIFY` and start sending heartbeats.
+      """
       def handle_info({:gateway, %{op: 10, d: data}}, state) do
         Logger.debug "hello"
         send self(), :start
@@ -58,16 +106,31 @@ defmodule Din.Module do
         {:noreply, %{state | heartbeat_interval: data.heartbeat_interval, sequence: nil}}
       end
 
+      @doc """
+      Handler for OP 11 `HEARTBEAT ACK`.
+
+      Discord tells us that it's acknowledged our heartbeat and it's reflected in the state.
+      """
       def handle_info({:gateway, %{op: 11}}, state) do
         Logger.debug "heartbeat ack"
         {:noreply, %{state | heartbeat_ack: true}}
       end
 
+      @doc """
+      Fallback handler for unexpected ops.
+      """
       def handle_info({:gateway, %{op: op}}, state) do
         Logger.warn "unused op: #{op}"
         {:noreply, state}
       end
 
+      @doc """
+      Initial steps to take after receiving OP 10 `HELLO`.
+
+      This will `IDENTIFY` with Discord if it's the first time starting, or will attempt to `RESUME` if possible.
+
+      This also starts sending heartbeats.
+      """
       def handle_info(:start, state) do
         case state[:resume] do
           true -> send self(), :resume
@@ -79,6 +142,9 @@ defmodule Din.Module do
         {:noreply, state}
       end
 
+      @doc """
+      Handler for OP 2 `IDENTIFY`.
+      """
       def handle_info(:identify, state) do
         Logger.debug "identify"
         data = %{
@@ -97,6 +163,13 @@ defmodule Din.Module do
         {:noreply, state}
       end
 
+      @doc """
+      Handler for OP 1 `HEARTBEAT`.
+
+      This sends a heartbeat to Discord, and updates the sequence. The state is marked as `false` for `heartbeat_ack`, and will remain that way until discord sends OP 11 `HEARTBEAT ACK`.
+
+      If Discord did not acknowledge the last heartbeat, the Gateway will close the websocket and attempt to reconnect and `RESUME`.
+      """
       def handle_info(:heartbeat, state) do
         case state[:heartbeat_ack] do
           true ->
@@ -119,6 +192,11 @@ defmodule Din.Module do
         end
       end
 
+      @doc """
+      Handler to initiate reconnection.
+
+      This will close the websocket process and restart it, and will update the state accordingly.
+      """
       def handle_info(:reconnect, state) do
         Logger.warn "attempting reconnect"
         Process.exit(state[:websocket], :kill)
@@ -127,6 +205,11 @@ defmodule Din.Module do
         {:noreply, %{state | websocket: conn, heartbeat_ack: true, resume: true}}
       end
 
+      @doc """
+      Handler for OP 6 `RESUME`.
+
+      This will ask Discord to resume from where we left off.
+      """
       def handle_info(:resume, state) do
         Logger.warn "attempting resume"
         data = %{session_id: state[:session_id], seq: state[:sequence]}
@@ -137,6 +220,23 @@ defmodule Din.Module do
     end
   end
 
+  @doc """
+  Macro to create initial handlers for Discord events.
+
+  Events can be written as strings or atoms, whichever you prefer.
+
+  ## Example
+
+  ```Elixir
+  handle :message_create do
+    ...
+  end
+
+  handle "PRESENCE_UPDATE" do
+    ...
+  end
+  ```
+  """
   defmacro handle(event, do: body) when is_atom(event) do
     event = event |> Atom.to_string |> String.upcase
 

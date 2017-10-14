@@ -1,12 +1,10 @@
 defmodule Din.Resources.Webhook do
   alias Din.Error
 
-  @moduledoc """
-  Webhooks are a low-effort way to post messages to channels in Discord. They do not require a bot user or authentication to use.
-  """
-
   @doc """
-  Create a new webhook. Returns a webhook object on success.
+  Create a new webhook.
+
+  Returns a webhook object on success.
 
   ## Parameters
 
@@ -46,7 +44,9 @@ defmodule Din.Resources.Webhook do
   end
 
   @doc """
-  Same as get/1, except this call does not require authentication and returns no user in the webhook object.
+  Returns the new webhook object for the given id and token.
+
+  Same as `get/1`, except this call does not require authentication and returns no user in the webhook object.
   """
   @spec get_with_token(Din.snowflake, String.t) :: map | Error.t
   def get_with_token(webhook_id, webhook_token) do
@@ -54,7 +54,9 @@ defmodule Din.Resources.Webhook do
   end
 
   @doc """
-  Modify a webhook. Returns the updated webhook object on success.
+  Modify a webhook.
+
+  Returns the updated webhook object on success.
 
   ## Parameters
 
@@ -72,7 +74,9 @@ defmodule Din.Resources.Webhook do
   end
 
   @doc """
-  Same as modify/2, except this call does not require authentication, does not accept a channel_id parameter in the body, and does not return a user in the webhook object.
+  Modify a webhook with token.
+
+  Same as `modify/2`, except this call does not require authentication, does not accept a channel_id parameter in the body, and does not return a user in the webhook object.
   """
   @spec modify_with_token(Din.snowflake, String.t, [
     name: String.t,
@@ -83,15 +87,19 @@ defmodule Din.Resources.Webhook do
   end
 
   @doc """
-  Delete a webhook permanently. User must be owner. Returns a 204 NO CONTENT response on success.
+  Delete a webhook permanently.
+
+  User must be owner. Returns `:ok` on success.
   """
-  @spec delete(Din.snowflake) :: nil | Error.t
+  @spec delete(Din.snowflake) :: :ok | Error.t
   def delete(webhook_id) do
     Din.API.delete "/webhooks/#{webhook_id}"
   end
 
   @doc """
-  Same as delete/1, except this call does not require authentication.
+  Delete a webhook permanently with token.
+
+  Same as `delete/1`, except this call does not require authentication.
   """
   @spec delete_with_token(Din.snowflake, String.t) :: nil | Error.t
   def delete_with_token(webhook_id, webhook_token) do
@@ -99,7 +107,9 @@ defmodule Din.Resources.Webhook do
   end
 
   @doc """
-  Sends a message via webhook. You must have ONE of either `content`, `file`, or `embeds`
+  Sends a message via webhook.
+
+  You must have one of any `content`, `file`, or `embeds` fields.
 
   ## Parameters
 
@@ -131,6 +141,8 @@ defmodule Din.Resources.Webhook do
   end
 
   @doc """
+  Execute Slack compatible webook.
+
   Refer to [Slack's documentation](https://api.slack.com/incoming-webhooks) for more information. Discord does not support Slack's channel, icon_emoji, mrkdwn, or mrkdwn_in properties.
 
   ## Parameters
@@ -145,6 +157,8 @@ defmodule Din.Resources.Webhook do
   end
 
   @doc """
+  Execute GitHub compatible webook.
+
   Add a new webhook to your GitHub repo (in the repo's settings), and use this endpoint as the "Payload URL." You can choose what events your Discord channel receives by choosing the "Let me select individual events" option and selecting individual events for the new webhook you're configuring.
 
   ## Parameters

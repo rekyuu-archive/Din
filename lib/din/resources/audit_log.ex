@@ -1,10 +1,5 @@
 defmodule Din.Resources.AuditLog do
   alias Din.Error
-  @moduledoc """
-  Resources for Audit Logs.
-
-  Whenever an admin action is performed on the API, an entry is added to the respective guild's audit log. You can specify the reason by attaching the `X-Audit-Log-Reason` request header. This header supports url encoded utf8 characters.
-  """
 
   @doc """
   Returns an audit log object for the guild. Requires the `VIEW_AUDIT_LOG` permission.

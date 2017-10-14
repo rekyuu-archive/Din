@@ -17,7 +17,7 @@ defmodule Din.API do
   end
 
   @doc """
-  GET from given endpoint.
+  `GET` from given endpoint.
   """
   @spec get(String.t) :: map
   def get(endpoint) do
@@ -29,7 +29,7 @@ defmodule Din.API do
   end
 
   @doc """
-  POST to a given endpoint with supplied keyword list.
+  `POST` to a given endpoint with supplied keyword list.
   """
   @spec post(String.t, list) :: map
   def post(endpoint, data \\ []) do
@@ -44,7 +44,7 @@ defmodule Din.API do
   end
 
   @doc """
-  POST a multipart to a given endpoint with supplied keyword list.
+  `POST` a multipart to a given endpoint with supplied keyword list.
   """
   @spec multipart(String.t, list) :: map
   def multipart(endpoint, data) do
@@ -60,7 +60,7 @@ defmodule Din.API do
   end
 
   @doc """
-  PATCH to a given endpoint with supplied keyword list.
+  `PATCH` to a given endpoint with supplied keyword list.
   """
   @spec patch(String.t, list) :: map
   def patch(endpoint, data \\ []) do
@@ -75,7 +75,7 @@ defmodule Din.API do
   end
 
   @doc """
-  PUT to a given endpoint with supplied keyword list.
+  `PUT` to a given endpoint with supplied keyword list.
   """
   @spec put(String.t, list) :: map
   def put(endpoint, data \\ []) do
@@ -90,7 +90,7 @@ defmodule Din.API do
   end
 
   @doc """
-  DELETE to a given endpoint.
+  `DELETE` to a given endpoint.
   """
   @spec delete(String.t) :: map
   def delete(endpoint) do
@@ -102,12 +102,12 @@ defmodule Din.API do
   end
 
   @doc """
-  Returns Error structs, nil for no response endpoints, or the map of the returned data.
+  Returns `t:Din.Error.t/0` structs, `:ok` for `204 no response` endpoints, or the map of the returned data.
   """
-  @spec parse(map) :: map | Error.t | nil
+  @spec parse(map) :: map | Error.t | :ok
   def parse(map) do
     case map do
-      "" -> nil
+      "" -> :ok
       map ->
         case map |> Poison.Parser.parse!(keys: :atoms) do
           %{code: _code, message: _message} ->

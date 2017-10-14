@@ -10,7 +10,9 @@ defmodule Din.Resources.Invite do
   end
 
   @doc """
-  Delete an invite. Requires the MANAGE_CHANNELS permission. Returns an invite object on success.
+  Delete an invite.
+
+  Requires the `MANAGE_CHANNELS` permission. Returns an invite object on success.
   """
   @spec delete(String.t) :: map | Error.t
   def delete(invite_code) do
@@ -18,7 +20,9 @@ defmodule Din.Resources.Invite do
   end
 
   @doc """
-  Accept an invite. This requires the `guilds.join` OAuth2 scope to be able to accept invites on behalf of normal users (via an OAuth2 Bearer token). Bot users are disallowed. Returns an invite object on success.
+  Accept an invite.
+
+  This requires the `guilds.join` OAuth2 scope to be able to accept invites on behalf of normal users (via an OAuth2 Bearer token). Bot users are disallowed. Returns an invite object on success.
   """
   @spec accept(String.t) :: map | Error.t
   def accept(invite_code) do

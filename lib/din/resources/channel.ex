@@ -125,47 +125,57 @@ defmodule Din.Resources.Channel do
   @doc """
   Create a reaction for the message.
 
-  This endpoint requires the `READ_MESSAGE_HISTORY` permission to be present on the current user. Additionally, if nobody else has reacted to the message using this emoji, this endpoint requires the `ADD_REACTIONS` permission to be present on the current user. Returns `nil` on success.
+  This endpoint requires the `READ_MESSAGE_HISTORY` permission to be present on the current user. Additionally, if nobody else has reacted to the message using this emoji, this endpoint requires the `ADD_REACTIONS` permission to be present on the current user. Returns `:ok` on success.
   """
-  @spec create_reaction(Din.snowflake, Din.snowflake, String.t) :: nil | Error.t
+  @spec create_reaction(Din.snowflake, Din.snowflake, String.t) :: :ok | Error.t
   def create_reaction(channel_id, message_id, emoji) do
     Din.API.put "/channels/#{channel_id}/messages/#{message_id}/reactions/#{emoji}/@me"
   end
 
   @doc """
-  Delete a reaction the current user has made for the message. Returns a 204 empty response on success.
+  Delete a reaction the current user has made for the message.
+
+  Returns `:ok` on success.
   """
-  @spec delete_reaction(Din.snowflake, Din.snowflake, String.t | Din.snowflake) :: nil | Error.t
+  @spec delete_reaction(Din.snowflake, Din.snowflake, String.t) :: :ok | Error.t
   def delete_reaction(channel_id, message_id, emoji) do
     Din.API.delete "/channels/#{channel_id}/messages/#{message_id}/reactions/#{emoji}/@me"
   end
 
   @doc """
-  Deletes another user's reaction. This endpoint requires the 'MANAGE_MESSAGES' permission to be present on the current user. Returns a 204 empty response on success.
+  Deletes another user's reaction.
+
+  This endpoint requires the `MANAGE_MESSAGES` permission to be present on the current user. Returns `:ok` on success.
   """
-  @spec delete_user_reaction(Din.snowflake, Din.snowflake, String.t | Din.snowflake, Din.snowflake) :: nil | Error.t
+  @spec delete_user_reaction(Din.snowflake, Din.snowflake, String.t, Din.snowflake) :: :ok | Error.t
   def delete_user_reaction(channel_id, message_id, emoji, user_id) do
     Din.API.delete "/channels/#{channel_id}/messages/#{message_id}/reactions/#{emoji}/#{user_id}"
   end
 
   @doc """
-  Get a list of users that reacted with this emoji. Returns an array of user objects on success.
+  Get a list of users that reacted with this emoji.
+
+  Returns an array of user objects on success.
   """
-  @spec get_reactions(Din.snowflake, Din.snowflake, String.t | Din.snowflake) :: list(map) | Error.t
+  @spec get_reactions(Din.snowflake, Din.snowflake, String.t) :: list(map) | Error.t
   def get_reactions(channel_id, message_id, emoji) do
     Din.API.get "/channels/#{channel_id}/messages/#{message_id}/reactions/#{emoji}"
   end
 
   @doc """
-  Deletes all reactions on a message. This endpoint requires the 'MANAGE_MESSAGES' permission to be present on the current user.
+  Deletes all reactions on a message.
+
+  This endpoint requires the `MANAGE_MESSAGES` permission to be present on the current user.
   """
-  @spec delete_all_reactions(Din.snowflake, Din.snowflake) :: nil | Error.t
+  @spec delete_all_reactions(Din.snowflake, Din.snowflake) :: :ok | Error.t
   def delete_all_reactions(channel_id, message_id) do
     Din.API.delete "/channels/#{channel_id}/messages/#{message_id}/reactions"
   end
 
   @doc """
-  Edit a previously sent message. You can only edit messages that have been sent by the current user. Returns a message object. Fires a Message Update Gateway event.
+  Edit a previously sent message.
+
+  You can only edit messages that have been sent by the current user. Returns a message object. Fires a Message Update Gateway event.
 
   ## Parameters
 
@@ -181,39 +191,47 @@ defmodule Din.Resources.Channel do
   end
 
   @doc """
-  Delete a message. If operating on a guild channel and trying to delete a message that was not sent by the current user, this endpoint requires the 'MANAGE_MESSAGES' permission. Returns a 204 empty response on success. Fires a Message Delete Gateway event.
+  Delete a message.
+
+  If operating on a guild channel and trying to delete a message that was not sent by the current user, this endpoint requires the `MANAGE_MESSAGES` permission. Returns a `:ok` on success. Fires a Message Delete Gateway event.
   """
-  @spec delete_message(Din.snowflake, Din.snowflake) :: nil | Error.t
+  @spec delete_message(Din.snowflake, Din.snowflake) :: :ok | Error.t
   def delete_message(channel_id, message_id) do
     Din.API.delete "/channels/#{channel_id}/messages/#{message_id}"
   end
 
   @doc """
-  Delete multiple messages in a single request. This endpoint can only be used on guild channels and requires the 'MANAGE_MESSAGES' permission. Returns a 204 empty response on success. Fires multiple Message Delete Gateway events.
+  Delete multiple messages in a single request.
+
+  This endpoint can only be used on guild channels and requires the `MANAGE_MESSAGES` permission. Returns `:ok` on success. Fires multiple Message Delete Gateway events.
 
   Any message IDs given that do not exist or are invalid will count towards the minimum and maximum message count (currently 2 and 100 respectively). Additionally, duplicated IDs will only be counted once.
 
   This endpoint will not delete messages older than 2 weeks, and will fail if any message provided is older than that. An endpoint will be added in the future to prune messages older than 2 weeks from a channel.
   """
-  @spec bulk_delete_messages(Din.snowflake, list(Din.snowflake)) :: map | Error.t
+  @spec bulk_delete_messages(Din.snowflake, list(Din.snowflake)) :: :ok | Error.t
   def bulk_delete_messages(channel_id, message_ids) do
     Din.API.post "/channels/#{channel_id}/messages/bulk-delete", message_ids
   end
 
   @doc """
-  Edit the channel permission overwrites for a user or role in a channel. Only usable for guild channels. Requires the 'MANAGE_ROLES' permission. Returns a 204 empty response on success.
+  Edit the channel permission overwrites for a user or role in a channel.
+
+  Only usable for guild channels. Requires the `MANAGE_ROLES` permission. Returns `:ok` on success.
   """
   @spec edit_permissions(Din.snowflake, Din.snowflake, [
     allow: integer,
     deny: integer,
     type: String.t
-  ]) :: nil | Error.t
+  ]) :: :ok | Error.t
   def edit_permissions(channel_id, overwrite_id, opts) do
     Din.API.put "/channels/#{channel_id}/permissions/#{overwrite_id}", opts
   end
 
   @doc """
-  Returns a list of invite objects (with invite metadata) for the channel. Only usable for guild channels. Requires the 'MANAGE_CHANNELS' permission.
+  Returns a list of invite objects (with invite metadata) for the channel.
+
+  Only usable for guild channels. Requires the `MANAGE_CHANNELS` permission.
   """
   @spec get_invites(Din.snowflake) :: list(map) | Error.t
   def get_invites(channel_id) do
@@ -221,7 +239,9 @@ defmodule Din.Resources.Channel do
   end
 
   @doc """
-  Create a new invite object for the channel. Only usable for guild channels. Requires the CREATE_INSTANT_INVITE permission. All JSON paramaters for this route are optional, however the request body is not. If you are not sending any fields, you still have to send an empty JSON object ({}). Returns an invite object.
+  Create a new invite object for the channel.
+
+  Only usable for guild channels. Requires the `CREATE_INSTANT_INVITE` permission.
 
   ## Parameters
 
@@ -241,17 +261,21 @@ defmodule Din.Resources.Channel do
   end
 
   @doc """
-  Delete a channel permission overwrite for a user or role in a channel. Only usable for guild channels. Requires the 'MANAGE_ROLES' permission. Returns a 204 empty response on success.
+  Delete a channel permission overwrite for a user or role in a channel.
+
+  Only usable for guild channels. Requires the `MANAGE_ROLES` permission. Returns `:ok` on success.
   """
-  @spec delete_permission(Din.snowflake, Din.snowflake) :: nil | Error.t
+  @spec delete_permission(Din.snowflake, Din.snowflake) :: :ok | Error.t
   def delete_permission(channel_id, overwrite_id) do
     Din.API.delete "/channels/#{channel_id}/permissions/#{overwrite_id}"
   end
 
   @doc """
-  Post a typing indicator for the specified channel. Generally bots should not implement this route. However, if a bot is responding to a command and expects the computation to take a few seconds, this endpoint may be called to let the user know that the bot is processing their message. Returns a 204 empty response on success. Fires a Typing Start Gateway event.
+  Post a typing indicator for the specified channel.
+
+  Generally bots should not implement this route. However, if a bot is responding to a command and expects the computation to take a few seconds, this endpoint may be called to let the user know that the bot is processing their message. Returns `:ok` on success. Fires a Typing Start Gateway event.
   """
-  @spec trigger_typing_indicator(Din.snowflake) :: nil | Error.t
+  @spec trigger_typing_indicator(Din.snowflake) :: :ok | Error.t
   def trigger_typing_indicator(channel_id) do
     Din.API.post "/channels/#{channel_id}/typing"
   end
@@ -265,23 +289,27 @@ defmodule Din.Resources.Channel do
   end
 
   @doc """
-  Pin a message in a channel. Requires the 'MANAGE_MESSAGES' permission. Returns a 204 empty response on success.
+  Pin a message in a channel.
+
+  Requires the `MANAGE_MESSAGES` permission. Returns `:ok` on success.
   """
-  @spec add_pinned_channel_message(Din.snowflake, Din.snowflake) :: nil | Error.t
-  def add_pinned_channel_message(channel_id, message_id) do
+  @spec add_pinned_message(Din.snowflake, Din.snowflake) :: :ok | Error.t
+  def add_pinned_message(channel_id, message_id) do
     Din.API.put "/channels/#{channel_id}/pins/#{message_id}"
   end
 
   @doc """
-  Delete a pinned message in a channel. Requires the 'MANAGE_MESSAGES' permission. Returns a 204 empty response on success.
+  Delete a pinned message in a channel.
+
+  Requires the `MANAGE_MESSAGES` permission. Returns `:ok` on success.
   """
-  @spec delete_pinned_channel_message(Din.snowflake, Din.snowflake) :: nil | Error.t
-  def delete_pinned_channel_message(channel_id, message_id) do
+  @spec delete_pinned_message(Din.snowflake, Din.snowflake) :: :ok | Error.t
+  def delete_pinned_message(channel_id, message_id) do
     Din.API.delete "/channels/#{channel_id}/pins/#{message_id}"
   end
 
   @doc """
-  Adds a recipient to a Group DM using their access token
+  Adds a recipient to a Group DM using their access token.
 
   ## Parameters
 
@@ -297,7 +325,7 @@ defmodule Din.Resources.Channel do
   end
 
   @doc """
-  Removes a recipient from a Group DM
+  Removes a recipient from a Group DM.
   """
   @spec group_dm_delete_recipient(Din.snowflake, Din.snowflake) :: map | Error.t
   def group_dm_delete_recipient(channel_id, user_id) do

@@ -18,9 +18,11 @@ defmodule Din.Resources.Emoji do
   end
 
   @doc """
-  Create a new emoji for the guild. Returns the new emoji object on success. Fires a Guild Emojis Update Gateway event.
+  Create a new emoji for the guild.
 
-  Passing the roles field will be ignored unless the application is whitelisted as an emoji provider. For more information and to request whitelisting please contact support@discordapp.com
+  Returns the new emoji object on success. Fires a Guild Emojis Update Gateway event.
+
+  > Passing the roles field will be ignored unless the application is whitelisted as an emoji provider. For more information and to request whitelisting please contact support@discordapp.com.
 
   ## Parameters
 
@@ -38,7 +40,9 @@ defmodule Din.Resources.Emoji do
   end
 
   @doc """
-  Modify the given emoji. Returns the updated emoji object on success. Fires a Guild Emojis Update Gateway event.
+  Modify the given emoji.
+
+  Returns the updated emoji object on success. Fires a Guild Emojis Update Gateway event.
 
   > Passing the roles field will be ignored unless the application is whitelisted as an emoji provider. For more information and to request whitelisting please contact support@discordapp.com
 
@@ -56,9 +60,11 @@ defmodule Din.Resources.Emoji do
   end
 
   @doc """
-  Delete the given emoji. Returns 204 No Content on success. Fires a Guild Emojis Update Gateway event.
+  Delete the given emoji.
+
+  Returns `:ok` on success. Fires a Guild Emojis Update Gateway event.
   """
-  @spec delete_guild_emoji(Din.snowflake, Din.snowflake) :: nil | Error.t
+  @spec delete_guild_emoji(Din.snowflake, Din.snowflake) :: :ok | Error.t
   def delete_guild_emoji(guild_id, emoji_id) do
     Din.API.patch "/guilds/#{guild_id}/emojis/#{emoji_id}"
   end

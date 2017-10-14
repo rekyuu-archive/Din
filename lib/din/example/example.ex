@@ -1,6 +1,8 @@
 defmodule Din.Example do
   use Din.Module
 
+  @moduledoc false
+
   handle :message_create do
     if data.content == "!ping" do
       IO.inspect data

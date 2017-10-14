@@ -1,12 +1,10 @@
 defmodule Din.Resources.Guild do
   alias Din.Error
 
-  @moduledoc """
-  Guilds in Discord represent an isolated collection of users and channels, and are often referred to as "servers" in the UI.
-  """
-
   @doc """
-  Create a new guild. Returns a guild object on success. Fires a Guild Create Gateway event.
+  Create a new guild.
+
+  Returns a guild object on success. Fires a Guild Create Gateway event.
 
   By default this endpoint is limited to 10 active guilds. These limits are raised for whitelisted GameBridge applications.
 
@@ -46,7 +44,9 @@ defmodule Din.Resources.Guild do
   end
 
   @doc """
-  Modify a guild's settings. Returns the updated guild object on success. Fires a Guild Update Gateway event.
+  Modify a guild's settings.
+
+  Returns the updated guild object on success. Fires a Guild Update Gateway event.
 
   ## Parameters
 
@@ -78,9 +78,11 @@ defmodule Din.Resources.Guild do
   end
 
   @doc """
-  Delete a guild permanently. User must be owner. Returns 204 No Content on success. Fires a Guild Delete Gateway event.
+  Delete a guild permanently.
+
+  User must be owner. Returns `:ok` on success. Fires a Guild Delete Gateway event.
   """
-  @spec delete(Din.snowflake) :: nil | Error.t
+  @spec delete(Din.snowflake) :: :ok | Error.t
   def delete(guild_id) do
     Din.API.delete "/guilds/#{guild_id}"
   end
@@ -94,7 +96,9 @@ defmodule Din.Resources.Guild do
   end
 
   @doc """
-  Create a new channel object for the guild. Requires the 'MANAGE_CHANNELS' permission. Returns the new channel object on success. Fires a Channel Create Gateway event.
+  Create a new channel object for the guild.
+
+  Requires the `MANAGE_CHANNELS` permission. Returns the new channel object on success. Fires a Channel Create Gateway event.
   """
   @spec create_channel(Din.snowflake, String.t, [
     type: integer,
@@ -110,7 +114,9 @@ defmodule Din.Resources.Guild do
   end
 
   @doc """
-  Modify the positions of a set of channel objects for the guild. Requires 'MANAGE_CHANNELS' permission. Returns a 204 empty response on success. Fires multiple Channel Update Gateway events.
+  Modify the positions of a set of channel objects for the guild.
+
+  Requires `MANAGE_CHANNELS` permission. Returns `:ok` on success. Fires multiple Channel Update Gateway events.
 
   Only channels to be modified are required, with the minimum being a swap between at least two channels.
 
@@ -122,7 +128,7 @@ defmodule Din.Resources.Guild do
   @spec modify_channel_positions(Din.snowflake, list([
     id: Din.snowflake,
     position: integer
-  ])) :: nil | Error.t
+  ])) :: :ok | Error.t
   def modify_channel_positions(guild_id, channel_list) do
     Din.API.patch "/guilds/#{guild_id}/channels", channel_list
   end
@@ -152,7 +158,9 @@ defmodule Din.Resources.Guild do
   end
 
   @doc """
-  Adds a user to the guild, provided you have a valid oauth2 access token for the user with the `guilds.join` scope. Returns a 201 Created with the guild member as the body. Fires a Guild Member Add Gateway event. Requires the bot to have the `CREATE_INSTANT_INVITE` permission.
+  Adds a user to the guild.
+
+  You must have a valid oauth2 access token for the user with the `guilds.join` scope. Returns the guild member as the body. Fires a Guild Member Add Gateway event. Requires the bot to have the `CREATE_INSTANT_INVITE` permission.
 
   ## Parameters
 
@@ -174,7 +182,9 @@ defmodule Din.Resources.Guild do
   end
 
   @doc """
-  Modify attributes of a guild member. Returns `nil` on success. Fires a Guild Member Update Gateway event.
+  Modify attributes of a guild member.
+
+  Returns `:ok` on success. Fires a Guild Member Update Gateway event.
 
   When moving members to channels, the API user must have permissions to both connect to the channel and have the `MOVE_MEMBERS` permission.
 
@@ -192,13 +202,15 @@ defmodule Din.Resources.Guild do
     mute: boolean,
     deaf: boolean,
     channel_id: Din.snowflake
-  ]) :: nil | Error.t
+  ]) :: :ok | Error.t
   def modify_member(guild_id, user_id, opts \\ []) do
     Din.API.patch "/guilds/#{guild_id}/members/#{user_id}", opts
   end
 
   @doc """
-  Modifies the nickname of the current user in a guild. Returns a 200 with the nickname on success. Fires a Guild Member Update Gateway event.
+  Modifies the nickname of the current user in a guild.
+
+  Returns the nickname on success. Fires a Guild Member Update Gateway event.
   """
   @spec modify_current_users_nick(Din.snowflake, String.t) :: map | Error.t
   def modify_current_users_nick(guild_id, nickname) do
@@ -206,31 +218,39 @@ defmodule Din.Resources.Guild do
   end
 
   @doc """
-  Adds a role to a guild member. Requires the 'MANAGE_ROLES' permission. Returns a 204 empty response on success. Fires a Guild Member Update Gateway event.
+  Adds a role to a guild member.
+
+  Requires the `MANAGE_ROLES` permission. Returns `:ok` on success. Fires a Guild Member Update Gateway event.
   """
-  @spec add_member_role(Din.snowflake, Din.snowflake, Din.snowflake) :: nil | Error.t
+  @spec add_member_role(Din.snowflake, Din.snowflake, Din.snowflake) :: :ok | Error.t
   def add_member_role(guild_id, user_id, role_id) do
     Din.API.put "/guilds/#{guild_id}/members/#{user_id}/roles/#{role_id}"
   end
 
   @doc """
-  Removes a role from a guild member. Requires the 'MANAGE_ROLES' permission. Returns a 204 empty response on success. Fires a Guild Member Update Gateway event.
+  Removes a role from a guild member.
+
+  Requires the `MANAGE_ROLES` permission. Returns `:ok` on success. Fires a Guild Member Update Gateway event.
   """
-  @spec remove_member_role(Din.snowflake, Din.snowflake, Din.snowflake) :: nil | Error.t
+  @spec remove_member_role(Din.snowflake, Din.snowflake, Din.snowflake) :: :ok | Error.t
   def remove_member_role(guild_id, user_id, role_id) do
     Din.API.delete "/guilds/#{guild_id}/members/#{user_id}/roles/#{role_id}"
   end
 
   @doc """
-  Remove a member from a guild. Requires 'KICK_MEMBERS' permission. Returns a 204 empty response on success. Fires a Guild Member Remove Gateway event.
+  Remove a member from a guild.
+
+  Requires `KICK_MEMBERS` permission. Returns `:ok` on success. Fires a Guild Member Remove Gateway event.
   """
-  @spec remove_member(Din.snowflake, Din.snowflake) :: nil | Error.t
+  @spec remove_member(Din.snowflake, Din.snowflake) :: :ok | Error.t
   def remove_member(guild_id, user_id) do
     Din.API.delete "/guilds/#{guild_id}/members/#{user_id}"
   end
 
   @doc """
-  Returns a list of ban objects for the users banned from this guild. Requires the 'BAN_MEMBERS' permission.
+  Returns a list of ban objects for the users banned from this guild.
+
+  Requires the `BAN_MEMBERS` permission.
   """
   @spec get_bans(Din.snowflake) :: list(map) | Error.t
   def get_bans(guild_id) do
@@ -238,25 +258,31 @@ defmodule Din.Resources.Guild do
   end
 
   @doc """
-  Create a guild ban, and optionally delete previous messages sent by the banned user. Requires the 'BAN_MEMBERS' permission. Returns a 204 empty response on success. Fires a Guild Ban Add Gateway event.
+  Create a guild ban.
+
+  Optionally delete previous messages sent by the banned user. Requires the `BAN_MEMBERS` permission. Returns `:ok` on success. Fires a Guild Ban Add Gateway event.
   """
   @spec create_ban(Din.snowflake, Din.snowflake, [
     "delete-message_days": integer
-  ]) :: nil | Error.t
+  ]) :: :ok | Error.t
   def create_ban(guild_id, user_id, opts \\ []) do
     Din.API.put "/guilds/#{guild_id}/bans/#{user_id}", opts
   end
 
   @doc """
-  Remove the ban for a user. Requires the 'BAN_MEMBERS' permissions. Returns a 204 empty response on success. Fires a Guild Ban Remove Gateway event.
+  Remove the ban for a user.
+
+  Requires the `BAN_MEMBERS` permissions. Returns `:ok` on success. Fires a Guild Ban Remove Gateway event.
   """
-  @spec remove_ban(Din.snowflake, Din.snowflake) :: nil | Error.t
+  @spec remove_ban(Din.snowflake, Din.snowflake) :: :ok | Error.t
   def remove_ban(guild_id, user_id) do
     Din.API.delete "/guilds/#{guild_id}/bans/#{user_id}"
   end
 
   @doc """
-  Returns a list of role objects for the guild. Requires the 'MANAGE_ROLES' permission.
+  Returns a list of role objects for the guild.
+
+  Requires the `MANAGE_ROLES` permission.
   """
   @spec get_roles(Din.snowflake) :: list(map) | Error.t
   def get_roles(guild_id) do
@@ -264,7 +290,9 @@ defmodule Din.Resources.Guild do
   end
 
   @doc """
-  Create a new role for the guild. Requires the 'MANAGE_ROLES' permission. Returns the new role object on success. Fires a Guild Role Create Gateway event.
+  Create a new role for the guild.
+
+  Requires the `MANAGE_ROLES` permission. Returns the new role object on success. Fires a Guild Role Create Gateway event.
 
   ## Parameters
 
@@ -286,7 +314,9 @@ defmodule Din.Resources.Guild do
   end
 
   @doc """
-  Modify the positions of a set of role objects for the guild. Requires the 'MANAGE_ROLES' permission. Returns a list of all of the guild's role objects on success. Fires multiple Guild Role Update Gateway events.
+  Modify the positions of a set of role objects for the guild.
+
+  Requires the `MANAGE_ROLES` permission. Returns a list of all of the guild's role objects on success. Fires multiple Guild Role Update Gateway events.
   """
   @spec modify_role_positions(Din.snowflake, list([
     id: Din.snowflake,
@@ -297,7 +327,9 @@ defmodule Din.Resources.Guild do
   end
 
   @doc """
-  Modify a guild role. Requires the 'MANAGE_ROLES' permission. Returns the updated role on success. Fires a Guild Role Update Gateway event.
+  Modify a guild role.
+
+  Requires the `MANAGE_ROLES` permission. Returns the updated role on success. Fires a Guild Role Update Gateway event.
   """
   @spec modify_role(Din.snowflake, Din.snowflake, [
     name: String.t,
@@ -311,15 +343,19 @@ defmodule Din.Resources.Guild do
   end
 
   @doc """
-  Delete a guild role. Requires the 'MANAGE_ROLES' permission. Returns a 204 empty response on success. Fires a Guild Role Delete Gateway event.
+  Delete a guild role.
+
+  Requires the `MANAGE_ROLES` permission. Returns `:ok` on success. Fires a Guild Role Delete Gateway event.
   """
-  @spec delete_role(Din.snowflake, Din.snowflake) :: nil | Error.t
+  @spec delete_role(Din.snowflake, Din.snowflake) :: :ok | Error.t
   def delete_role(guild_id, role_id) do
     Din.API.delete "/guilds/#{guild_id}/roles/#{role_id}"
   end
 
   @doc """
-  Returns an object with one 'pruned' key indicating the number of members that would be removed in a prune operation. Requires the 'KICK_MEMBERS' permission.
+  Returns an object with one `pruned` key indicating the number of members that would be removed in a prune operation.
+
+  Requires the `KICK_MEMBERS` permission.
 
   ## Parameters
 
@@ -333,7 +369,9 @@ defmodule Din.Resources.Guild do
   end
 
   @doc """
-  Begin a prune operation. Requires the 'KICK_MEMBERS' permission. Returns an object with one 'pruned' key indicating the number of members that were removed in the prune operation. Fires multiple Guild Member Remove Gateway events.
+  Begin a prune operation.
+
+  Requires the `KICK_MEMBERS` permission. Returns an object with one `pruned` key indicating the number of members that were removed in the prune operation. Fires multiple Guild Member Remove Gateway events.
 
   ## Parameters
 
@@ -347,7 +385,9 @@ defmodule Din.Resources.Guild do
   end
 
   @doc """
-  Returns a list of voice region objects for the guild. Unlike the similar `/voice` route, this returns VIP servers when the guild is VIP-enabled.
+  Returns a list of voice region objects for the guild.
+
+  Unlike the similar `Din.Resources.Voice.list_regions/0`, this returns VIP servers when the guild is VIP-enabled.
   """
   @spec get_voice_regions(Din.snowflake) :: list(map) | Error.t
   def get_voice_regions(guild_id) do
@@ -355,7 +395,9 @@ defmodule Din.Resources.Guild do
   end
 
   @doc """
-  Returns a list of invite objects (with invite metadata) for the guild. Requires the 'MANAGE_GUILD' permission.
+  Returns a list of invite objects (with invite metadata) for the guild.
+
+  Requires the `MANAGE_GUILD` permission.
   """
   @spec get_invites(Din.snowflake) :: list(map) | Error.t
   def get_invites(guild_id) do
@@ -363,7 +405,9 @@ defmodule Din.Resources.Guild do
   end
 
   @doc """
-  Returns a list of integration objects for the guild. Requires the 'MANAGE_GUILD' permission.
+  Returns a list of integration objects for the guild.
+
+  Requires the `MANAGE_GUILD` permission.
   """
   @spec get_integrations(Din.snowflake) :: list(map) | Error.t
   def get_integrations(guild_id) do
@@ -371,18 +415,22 @@ defmodule Din.Resources.Guild do
   end
 
   @doc """
-  Attach an integration object from the current user to the guild. Requires the 'MANAGE_GUILD' permission. Returns a 204 empty response on success. Fires a Guild Integrations Update Gateway event.
+  Attach an integration object from the current user to the guild.
+
+  Requires the `MANAGE_GUILD` permission. Returns `:ok` on success. Fires a Guild Integrations Update Gateway event.
   """
   @spec create_integration(Din.snowflake, [
     type: String.t,
     id: Din.snowflake
-  ]) :: nil | Error.t
+  ]) :: :ok | Error.t
   def create_integration(guild_id, opts \\ []) do
     Din.API.post "/guilds/#{guild_id}/integrations", opts
   end
 
   @doc """
-  Modify the behavior and settings of a integration object for the guild. Requires the 'MANAGE_GUILD' permission. Returns a 204 empty response on success. Fires a Guild Integrations Update Gateway event.
+  Modify the behavior and settings of a integration object for the guild.
+
+  Requires the `MANAGE_GUILD` permission. Returns `:ok` on success. Fires a Guild Integrations Update Gateway event.
 
   ## Parameters
 
@@ -394,29 +442,35 @@ defmodule Din.Resources.Guild do
     expire_behavior: integer,
     expire_grace_period: integer,
     enable_emoticons: boolean
-  ]) :: nil | Error.t
+  ]) :: :ok | Error.t
   def modify_integration(guild_id, integration_id, opts \\ []) do
     Din.API.patch "/guilds/#{guild_id}/integrations/#{integration_id}", opts
   end
 
   @doc """
-  Delete the attached integration object for the guild. Requires the 'MANAGE_GUILD' permission. Returns a 204 empty response on success. Fires a Guild Integrations Update Gateway event.
+  Delete the attached integration object for the guild.
+
+  Requires the `MANAGE_GUILD` permission. Returns `:ok` on success. Fires a Guild Integrations Update Gateway event.
   """
-  @spec delete_integration(Din.snowflake, Din.snowflake) :: nil | Error.t
+  @spec delete_integration(Din.snowflake, Din.snowflake) :: :ok | Error.t
   def delete_integration(guild_id, integration_id) do
     Din.API.delete "/guilds/#{guild_id}/integrations/#{integration_id}"
   end
 
   @doc """
-  Sync an integration. Requires the 'MANAGE_GUILD' permission. Returns a 204 empty response on success.
+  Sync an integration.
+
+  Requires the `MANAGE_GUILD` permission. Returns `:ok` on success.
   """
-  @spec sync_integration(Din.snowflake, Din.snowflake) :: nil | Error.t
+  @spec sync_integration(Din.snowflake, Din.snowflake) :: :ok | Error.t
   def sync_integration(guild_id, integration_id) do
     Din.API.post "/guilds/#{guild_id}/integrations/#{integration_id}/sync"
   end
 
   @doc """
-  Returns the guild embed object. Requires the 'MANAGE_GUILD' permission.
+  Returns the guild embed object.
+
+  Requires the `MANAGE_GUILD` permission.
   """
   @spec get_embed(Din.snowflake) :: map | Error.t
   def get_embed(guild_id) do
@@ -424,7 +478,14 @@ defmodule Din.Resources.Guild do
   end
 
   @doc """
-  Modify a guild embed object for the guild. All attributes may be passed in with JSON and modified. Requires the 'MANAGE_GUILD' permission. Returns the updated guild embed object.
+  Modify a guild embed object for the guild.
+
+  Requires the `MANAGE_GUILD` permission. Returns the updated guild embed object.
+
+  ## Parameters
+
+  - `enabled` - if the embed is enabled
+  - `channel_id` - the embed channel id
   """
   @spec modify_embed(Din.snowflake, [
     enabled: boolean,
