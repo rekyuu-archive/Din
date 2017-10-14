@@ -285,6 +285,35 @@ defmodule Din.Module do
   end
 
   @doc """
+  Macro to create enforcement validators.
+
+  Simply a readable version of what will expand to an if statement. The atom should be the name of a function that takes `data` as a single argument, and should evaluate to either `true` or `false`.
+
+  ## Example
+
+  ```Elixir
+  alias Din.Resources.Channel
+
+  handle :message_create do
+    enforce :direct_message do
+      match "hello", do: reply "hi!"
+    end
+  end
+
+  def direct_message(data) do
+    Channel.get(data.channel_id).is_private
+  end
+  ```
+  """
+  defmacro enforce(validator, do: body) do
+    quote do
+      if unquote(validator)(var!(data)) do
+        unquote(body)
+      end
+    end
+  end
+
+  @doc """
   Macro to match text content, as either a string or a list.
 
   Typically used for the `MESSAGE_CREATE` event. Matches given text with the beginning of the content sent by users using Regex.
