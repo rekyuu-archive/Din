@@ -24,6 +24,15 @@ def application do
 end
 ```
 
+Finally add your bot token to your configuration:
+
+```elixir
+use Mix.Config
+
+config :din,
+  discord_token: "{your_discord_token}"
+```
+
 ## Usage
 
 Usage is simple. Include Din in your dependencies and start it from your supervisor ([example](https://github.com/rekyuu/Din/tree/master/lib/din/example)).
@@ -40,4 +49,15 @@ defmodule YourApplication.YourModule do
   # Fallback for unused events
   handle_fallback()
 end
+```
+
+## Logger
+
+Din outputs every event by default. To prevent this behavior, add the following to your config file:
+
+```elixir
+use Mix.Config
+
+config :logger,
+  level: :info
 ```
