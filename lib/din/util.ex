@@ -18,7 +18,7 @@ defmodule Din.Util do
     cond do
       image_type in ["jpeg", "gif", "png"] ->
         {:ok, image} = File.read(image_path)
-        image_encoded = Base.url_encode64(image, padding: false)
+        image_encoded = Base.encode64(image)
         
         "data:image/#{image_type};base64,#{image_encoded}"
       true -> IO.inspect "not a supported image", label: "error"
