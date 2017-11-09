@@ -4,20 +4,21 @@ defmodule Din.Util do
   """
   
   @doc """
-  Builds base64 image data specified by Discord.
+  Takes a filepath and turns it into base64 url data.
   """
   @spec build_base64_image_data(binary) :: String.t
-  def build_base64_image_data(img) do
+  def build_base64_image_data(image_path) do    
     image_type = cond do
-      Path.extname(img) in [".jpg", ".jpeg"] -> "jpeg"
-      Path.extname(img) == ".gif" -> "gif"
-      Path.extname(img)  == ".png" -> "png"
+      Path.extname(image_path) in [".jpg", ".jpeg"] -> "jpeg"
+      Path.extname(image_path) == ".gif" -> "gif"
+      Path.extname(image_path)  == ".png" -> "png"
       true -> "not a supported image"
     end
     
     cond do
       image_type in ["jpeg", "gif", "png"] ->
-        "data:image/#{image_type};base64,#{Base.url_encode64(img)}"
+        {:ok, image} = File.read(image_path)
+        "data:image/#{image_type};base64,#{Base.url_encode64(image)}"
       true -> IO.inspect "not a supported image", label: "error"
     end
   end
