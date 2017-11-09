@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="dist/app-110d9134a6.css" />
     
     
-    <script src="dist/sidebar_items-f6ab16032c.js"></script>
+    <script src="dist/sidebar_items-e05f9ad291.js"></script>
     
   </head>
   <body data-type="modules">
@@ -230,7 +230,7 @@
     
       <div class="specs">
         
-          <pre>create(<a href="Din.html#t:snowflake/0">Din.snowflake</a>, name: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>, avatar: binary) ::
+          <pre>create(<a href="Din.html#t:snowflake/0">Din.snowflake</a>, name: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>, avatar: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>) ::
   map |
   <a href="Din.Error.html#t:t/0">Din.Error.t</a></pre>
         
@@ -248,7 +248,7 @@
 <ul>
 <li><code class="inline">name</code> - name of the webhook (2-32 characters)
 </li>
-<li><code class="inline">avatar</code> - image for the default webhook avatar
+<li><code class="inline">avatar</code> - image path for the default webhook avatar
 </li>
 </ul>
 
@@ -543,7 +543,7 @@
     
       <div class="specs">
         
-          <pre>modify(<a href="Din.html#t:snowflake/0">Din.snowflake</a>, name: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>, avatar: binary, channel_id: <a href="Din.html#t:snowflake/0">Din.snowflake</a>) ::
+          <pre>modify(<a href="Din.html#t:snowflake/0">Din.snowflake</a>, name: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>, avatar: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>, channel_id: <a href="Din.html#t:snowflake/0">Din.snowflake</a>) ::
   map |
   <a href="Din.Error.html#t:t/0">Din.Error.t</a></pre>
         
@@ -561,7 +561,7 @@
 <ul>
 <li><code class="inline">name</code> - the default name of the webhook
 </li>
-<li><code class="inline">avatar</code> - image for the default webhook avatar
+<li><code class="inline">avatar</code> - image path for the default webhook avatar
 </li>
 <li><code class="inline">channel_id</code> - the new channel id this webhook should be moved to
 </li>
@@ -585,7 +585,7 @@
     
       <div class="specs">
         
-          <pre>modify_with_token(<a href="Din.html#t:snowflake/0">Din.snowflake</a>, <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>, name: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>, avatar: binary) ::
+          <pre>modify_with_token(<a href="Din.html#t:snowflake/0">Din.snowflake</a>, <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>, name: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>, avatar: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>) ::
   map |
   <a href="Din.Error.html#t:t/0">Din.Error.t</a></pre>
         
@@ -595,6 +595,7 @@
   <section class="docstring">
     <p>Modify a webhook with token.</p>
 <p>Same as <a href="#modify/2"><code class="inline">modify/2</code></a>, except this call does not require authentication, does not accept a channel_id parameter in the body, and does not return a user in the webhook object.</p>
+<p><code class="inline">avatar</code> is a filepath to the image file you want to use.</p>
 
   </section>
 </div>

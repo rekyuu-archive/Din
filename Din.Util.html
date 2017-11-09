@@ -5,7 +5,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.17.1">
-    <title>Din.Error – Din v0.1.1</title>
+    <title>Din.Util – Din v0.1.1</title>
     <link rel="stylesheet" href="dist/app-110d9134a6.css" />
     
     
@@ -64,10 +64,15 @@
 
       <h1>
         <small class="visible-xs">Din v0.1.1</small>
-        Din.Error
+        Din.Util
         
       </h1>
 
+      
+        <section id="moduledoc">
+          <p>Utility functions.</p>
+
+        </section>
       
 
       
@@ -80,39 +85,24 @@
             Summary
           </h1>
           
-  <div class="summary-types summary">
+
+          
+  <div class="summary-functions summary">
     <h2>
-      <a href="#types">Types</a>
+      <a href="#functions">Functions</a>
     </h2>
     <div class="summary-row">
   <div class="summary-signature">
-    <a href="#t:code/0">code()</a>
+    <a href="#build_base64_image_data/1">build_base64_image_data(image_path)</a>
   </div>
   
-    <div class="summary-synopsis"><p>error code</p>
+    <div class="summary-synopsis"><p>Takes a filepath and turns it into base64 url data</p>
 </div>
-  
-</div>
-<div class="summary-row">
-  <div class="summary-signature">
-    <a href="#t:message/0">message()</a>
-  </div>
-  
-    <div class="summary-synopsis"><p>error message</p>
-</div>
-  
-</div>
-<div class="summary-row">
-  <div class="summary-signature">
-    <a href="#t:t/0">t()</a>
-  </div>
   
 </div>
 
   </div>
 
-
-          
 
           
 
@@ -120,91 +110,42 @@
       
 
       
-        <section id="types" class="details-list">
+
+      
+        <section id="functions" class="details-list">
           <h1 class="section-heading">
-            <a class="hover-link" href="#types">
+            <a class="hover-link" href="#functions">
               <span class="icon-link" aria-hidden="true"></span>
               <span class="sr-only">Link to this section</span>
             </a>
-            Types
+            Functions
           </h1>
-          <div class="types-list">
-            <div class="detail" id="t:code/0">
+          <div class="detail" id="build_base64_image_data/1">
   
   
   <div class="detail-header">
-    <a href="#t:code/0" class="detail-link" title="Link to this type">
+    <a href="#build_base64_image_data/1" class="detail-link" title="Link to this function">
       <span class="icon-link" aria-hidden="true"></span>
-      <span class="sr-only">Link to this type</span>
+      <span class="sr-only">Link to this function</span>
     </a>
-    <span class="signature">code()</span>
+    <span class="signature">build_base64_image_data(image_path)</span>
     
     
     
       <div class="specs">
         
-          <pre>code() :: integer</pre>
+          <pre>build_base64_image_data(<a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>) :: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a></pre>
         
       </div>
     
   </div>
   <section class="docstring">
-    <p>error code</p>
+    <p>Takes a filepath and turns it into base64 url data.</p>
 
   </section>
 </div>
-<div class="detail" id="t:message/0">
-  
-  
-  <div class="detail-header">
-    <a href="#t:message/0" class="detail-link" title="Link to this type">
-      <span class="icon-link" aria-hidden="true"></span>
-      <span class="sr-only">Link to this type</span>
-    </a>
-    <span class="signature">message()</span>
-    
-    
-    
-      <div class="specs">
-        
-          <pre>message() :: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a></pre>
-        
-      </div>
-    
-  </div>
-  <section class="docstring">
-    <p>error message</p>
 
-  </section>
-</div>
-<div class="detail" id="t:t/0">
-  
-  
-  <div class="detail-header">
-    <a href="#t:t/0" class="detail-link" title="Link to this type">
-      <span class="icon-link" aria-hidden="true"></span>
-      <span class="sr-only">Link to this type</span>
-    </a>
-    <span class="signature">t()</span>
-    
-    
-    
-      <div class="specs">
-        
-          <pre>t() :: %Din.Error{code: <a href="#t:code/0">code</a>, message: <a href="#t:message/0">message</a>}</pre>
-        
-      </div>
-    
-  </div>
-  <section class="docstring">
-    
-  </section>
-</div>
-
-          </div>
         </section>
-      
-
       
 
       

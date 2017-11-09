@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="dist/app-110d9134a6.css" />
     
     
-    <script src="dist/sidebar_items-f6ab16032c.js"></script>
+    <script src="dist/sidebar_items-e05f9ad291.js"></script>
     
   </head>
   <body data-type="modules">
@@ -539,7 +539,7 @@
     
       <div class="specs">
         
-          <pre>create(name: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>, region: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>, icon: binary, verification_level: integer, default_message_notifications: integer, roles: [map], channels: [map]) ::
+          <pre>create(name: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>, region: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>, icon: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>, verification_level: integer, default_message_notifications: integer, roles: [map], channels: [map]) ::
   map |
   <a href="Din.Error.html#t:t/0">Din.Error.t</a></pre>
         
@@ -562,7 +562,7 @@
 </li>
 <li><code class="inline">region</code> - <code class="inline">{voice_region.id}</code> for voice
 </li>
-<li><code class="inline">icon</code> - base64 128x128 jpeg image for the guild icon
+<li><code class="inline">icon</code> - image path for the guild icon
 </li>
 <li><code class="inline">verification_level</code> - guild verification level
 </li>
@@ -1101,7 +1101,7 @@
     
       <div class="specs">
         
-          <pre>modify(<a href="Din.html#t:snowflake/0">Din.snowflake</a>, name: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>, region: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>, icon: binary, verification_level: integer, default_message_notifications: integer, afk_channel_id: <a href="Din.html#t:snowflake/0">Din.snowflake</a>, afk_timeout: integer, owner_id: <a href="Din.html#t:snowflake/0">Din.snowflake</a>, splash: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>) ::
+          <pre>modify(<a href="Din.html#t:snowflake/0">Din.snowflake</a>, name: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>, region: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>, icon: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>, verification_level: integer, default_message_notifications: integer, afk_channel_id: <a href="Din.html#t:snowflake/0">Din.snowflake</a>, afk_timeout: integer, owner_id: <a href="Din.html#t:snowflake/0">Din.snowflake</a>, splash: <a href="https://hexdocs.pm/elixir/String.html#t:t/0">String.t</a>) ::
   map |
   <a href="Din.Error.html#t:t/0">Din.Error.t</a></pre>
         
@@ -1121,7 +1121,7 @@
 </li>
 <li><code class="inline">region</code> - <code class="inline">{voice_region.id}</code> for voice
 </li>
-<li><code class="inline">icon</code> - base64 128x128 jpeg image for the guild icon
+<li><code class="inline">icon</code> - image path for the guild icon
 </li>
 <li><code class="inline">verification_level</code> - guild verification level
 </li>
@@ -1130,8 +1130,6 @@
 <li><code class="inline">afk_channel_id</code> - id for afk channel
 </li>
 <li><code class="inline">afk_timeout</code> - afk timeout in seconds
-</li>
-<li><code class="inline">icon</code> - base64 128x128 jpeg image for the guild icon
 </li>
 <li><code class="inline">owner_id</code> - user id to transfer guild ownership to (must be owner)
 </li>

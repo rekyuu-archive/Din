@@ -4,7 +4,7 @@ fonts/icomoon.eot
 fonts/icomoon.svg
 fonts/icomoon.ttf
 fonts/icomoon.woff
-dist/sidebar_items-f6ab16032c.js
+dist/sidebar_items-e05f9ad291.js
 api-reference.html
 search.html
 404.html
@@ -20,5 +20,6 @@ Din.Resources.Invite.html
 Din.Resources.User.html
 Din.Resources.Voice.html
 Din.Resources.Webhook.html
+Din.Util.html
 Din.Websocket.html
 index.html
