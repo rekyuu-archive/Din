@@ -31,7 +31,7 @@ defmodule Din.Resources.User do
   def modify_current_user(opts \\ []) do
     opts = case opts[:avatar] do
       nil -> opts
-      file_binary -> Keyword.put opts, :avatar, Base.url_encode64(file_binary)
+      img -> Keyword.put opts, :avatar, Din.Util.build_base64_image_data(img)
     end
     
     Din.API.patch "/users/@me", opts

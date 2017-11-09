@@ -113,13 +113,8 @@ defmodule Din.Resources.Channel do
     embed: map
   ]) :: map | Error.t
   def create_message(channel_id, content, opts \\ []) do
-    opts = Keyword.put(opts, :content, content)
+    data = Keyword.put(opts, :content, content)
     endpoint = "/channels/#{channel_id}/messages"
-    
-    data = case opts[:file] do
-      nil -> opts
-      file_binary -> Keyword.put opts, :file, Base.url_encode64(file_binary)
-    end
 
     case Keyword.has_key?(data, :file) do
       true -> Din.API.multipart endpoint, data

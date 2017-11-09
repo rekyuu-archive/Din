@@ -38,7 +38,7 @@ defmodule Din.Resources.Emoji do
   def create_guild_emoji(guild_id, opts \\ []) do
     opts = case opts[:image] do
       nil -> opts
-      file_binary -> Keyword.put opts, :image, Base.url_encode64(file_binary)
+      img -> Keyword.put opts, :image, Din.Util.build_base64_image_data(img)
     end
     
     Din.API.post "/guilds/#{guild_id}/emojis", opts
