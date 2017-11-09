@@ -1,6 +1,6 @@
 use Mix.Config
 
-import_config "secret.exs"
+# import_config "secret.exs"
 
 # Example secret.exs
 # ------------------
