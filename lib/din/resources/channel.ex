@@ -113,13 +113,12 @@ defmodule Din.Resources.Channel do
     embed: map
   ]) :: map | Error.t
   def create_message(channel_id, content, opts \\ []) do
-    data = Keyword.put(opts, :content, content)
+    opts = Keyword.put(opts, :content, content)
     endpoint = "/channels/#{channel_id}/messages"
     
-    opts = case opts[:file] do
+    data = case opts[:file] do
       nil -> opts
-      file_binary -> 
-        Keyword.update!(opts, :file, &(Base.url_encode64(file_binary)))
+      file_binary -> Keyword.put opts, :image, Base.url_encode64(file_binary)
     end
 
     case Keyword.has_key?(data, :file) do

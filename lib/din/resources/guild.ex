@@ -34,8 +34,7 @@ defmodule Din.Resources.Guild do
   def create(opts \\ []) do
     opts = case opts[:icon] do
       nil -> opts
-      icon_binary -> 
-        Keyword.update!(opts, :icon, &(Base.url_encode64(icon_binary)))
+      file_binary -> Keyword.put opts, :image, Base.url_encode64(file_binary)
     end
     
     Din.API.post "/guilds", opts
@@ -81,8 +80,7 @@ defmodule Din.Resources.Guild do
   def modify(guild_id, opts \\ []) do
     opts = case opts[:icon] do
       nil -> opts
-      icon_binary -> 
-        Keyword.update!(opts, :icon, &(Base.url_encode64(icon_binary)))
+      file_binary -> Keyword.put opts, :image, Base.url_encode64(file_binary)
     end
     
     Din.API.patch "/guilds/#{guild_id}", opts
