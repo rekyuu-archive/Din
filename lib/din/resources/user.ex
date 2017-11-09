@@ -25,10 +25,16 @@ defmodule Din.Resources.User do
   Returns a user object on success.
   """
   @spec modify_current_user([
-    user: String.t,
+    username: String.t,
     avatar: binary
   ]) :: map | Error.t
   def modify_current_user(opts \\ []) do
+    opts = case opts[:avatar] do
+      nil -> opts
+      image_binary ->
+        Keyword.update!(opts, :avatar, &(Base.url_encode64(image_binary)))
+    end
+    
     Din.API.patch "/users/@me", opts
   end
 

@@ -16,6 +16,12 @@ defmodule Din.Resources.Webhook do
     avatar: binary
   ]) :: map | Error.t
   def create(channel_id, opts \\ []) do
+    opts = case opts[:avatar] do
+      nil -> opts
+      image_binary -> 
+        Keyword.update!(opts, :avatar, &(Base.url_encode64(image_binary)))
+    end
+    
     Din.API.post "/channels/#{channel_id}/webhooks", opts
   end
 
@@ -70,6 +76,12 @@ defmodule Din.Resources.Webhook do
     channel_id: Din.snowflake
   ]) :: map | Error.t
   def modify(webhook_id, opts \\ []) do
+    opts = case opts[:avatar] do
+      nil -> opts
+      image_binary -> 
+        Keyword.update!(opts, :avatar, &(Base.url_encode64(image_binary)))
+    end
+    
     Din.API.patch "/webhooks/#{webhook_id}", opts
   end
 
@@ -83,6 +95,12 @@ defmodule Din.Resources.Webhook do
     avatar: binary,
   ]) :: map | Error.t
   def modify_with_token(webhook_id, webhook_token, opts \\ []) do
+    opts = case opts[:avatar] do
+      nil -> opts
+      image_binary -> 
+        Keyword.update!(opts, :avatar, &(Base.url_encode64(image_binary)))
+    end
+    
     Din.API.patch "/webhooks/#{webhook_id}/#{webhook_token}", opts
   end
 
@@ -131,6 +149,12 @@ defmodule Din.Resources.Webhook do
     embeds: list(map)
   ]) :: map | Error.t
   def execute(webhook_id, webhook_token, opts \\ []) do
+    opts = case opts[:file] do
+      nil -> opts
+      file_binary -> 
+        Keyword.update!(opts, :file, &(Base.url_encode64(file_binary)))
+    end
+    
     endpoint = "/webhooks/#{webhook_id}/#{webhook_token}?#{URI.encode_query opts.wait}"
     data = opts |> Keyword.delete(:wait)
 

@@ -32,6 +32,12 @@ defmodule Din.Resources.Guild do
     channels: list(map)
   ]) :: map | Error.t
   def create(opts \\ []) do
+    opts = case opts[:icon] do
+      nil -> opts
+      icon_binary -> 
+        Keyword.update!(opts, :icon, &(Base.url_encode64(icon_binary)))
+    end
+    
     Din.API.post "/guilds", opts
   end
 
@@ -69,11 +75,16 @@ defmodule Din.Resources.Guild do
     default_message_notifications: integer,
     afk_channel_id: Din.snowflake,
     afk_timeout: integer,
-    icon: binary,
     owner_id: Din.snowflake,
     splash: String.t
   ]) :: map | Error.t
   def modify(guild_id, opts \\ []) do
+    opts = case opts[:icon] do
+      nil -> opts
+      icon_binary -> 
+        Keyword.update!(opts, :icon, &(Base.url_encode64(icon_binary)))
+    end
+    
     Din.API.patch "/guilds/#{guild_id}", opts
   end
 

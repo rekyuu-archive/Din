@@ -115,6 +115,12 @@ defmodule Din.Resources.Channel do
   def create_message(channel_id, content, opts \\ []) do
     data = Keyword.put(opts, :content, content)
     endpoint = "/channels/#{channel_id}/messages"
+    
+    opts = case opts[:file] do
+      nil -> opts
+      file_binary -> 
+        Keyword.update!(opts, :file, &(Base.url_encode64(file_binary)))
+    end
 
     case Keyword.has_key?(data, :file) do
       true -> Din.API.multipart endpoint, data
