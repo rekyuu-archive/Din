@@ -27,12 +27,12 @@ defmodule Din.Resources.Emoji do
   ## Parameters
 
   - `name` - name of the emoji
-  - `image` - the 128x128 emoji image
+  - `image` - the 128x128 emoji image path
   - `roles` - roles for which this emoji will be whitelisted
   """
   @spec create_guild_emoji(Din.snowflake, [
     name: String.t,
-    image: binary,
+    image: String.t,
     roles: list(Din.snowflake)
   ]) :: map | Error.t
   def create_guild_emoji(guild_id, opts \\ []) do

@@ -23,10 +23,12 @@ defmodule Din.Resources.User do
   Modify the requester's user account settings.
 
   Returns a user object on success.
+  
+  `avatar` is a filepath to the image file you want to use.
   """
   @spec modify_current_user([
     username: String.t,
-    avatar: binary
+    avatar: String.t
   ]) :: map | Error.t
   def modify_current_user(opts \\ []) do
     opts = case opts[:avatar] do

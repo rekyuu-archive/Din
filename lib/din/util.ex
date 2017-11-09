@@ -6,7 +6,7 @@ defmodule Din.Util do
   @doc """
   Takes a filepath and turns it into base64 url data.
   """
-  @spec build_base64_image_data(binary) :: String.t
+  @spec build_base64_image_data(String.t) :: String.t
   def build_base64_image_data(image_path) do    
     image_type = cond do
       Path.extname(image_path) in [".jpg", ".jpeg"] -> "jpeg"

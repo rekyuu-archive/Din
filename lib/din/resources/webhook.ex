@@ -9,11 +9,11 @@ defmodule Din.Resources.Webhook do
   ## Parameters
 
   - `name` - name of the webhook (2-32 characters)
-  - `avatar` - image for the default webhook avatar
+  - `avatar` - image path for the default webhook avatar
   """
   @spec create(Din.snowflake, [
     name: String.t,
-    avatar: binary
+    avatar: String.t
   ]) :: map | Error.t
   def create(channel_id, opts \\ []) do
     opts = case opts[:avatar] do
@@ -66,12 +66,12 @@ defmodule Din.Resources.Webhook do
   ## Parameters
 
   - `name` - the default name of the webhook
-  - `avatar` - image for the default webhook avatar
+  - `avatar` - image path for the default webhook avatar
   - `channel_id` - the new channel id this webhook should be moved to
   """
   @spec modify(Din.snowflake, [
     name: String.t,
-    avatar: binary,
+    avatar: String.t,
     channel_id: Din.snowflake
   ]) :: map | Error.t
   def modify(webhook_id, opts \\ []) do
@@ -87,10 +87,12 @@ defmodule Din.Resources.Webhook do
   Modify a webhook with token.
 
   Same as `modify/2`, except this call does not require authentication, does not accept a channel_id parameter in the body, and does not return a user in the webhook object.
+  
+  `avatar` is a filepath to the image file you want to use.
   """
   @spec modify_with_token(Din.snowflake, String.t, [
     name: String.t,
-    avatar: binary,
+    avatar: String.t,
   ]) :: map | Error.t
   def modify_with_token(webhook_id, webhook_token, opts \\ []) do
     opts = case opts[:avatar] do

@@ -16,7 +16,7 @@ defmodule Din.Resources.Guild do
 
   - `name` - name of the guild (2-100 characters)
   - `region` - `{voice_region.id}` for voice
-  - `icon` - base64 128x128 jpeg image for the guild icon
+  - `icon` - image path for the guild icon
   - `verification_level` - guild verification level
   - `default_message_notifications` - default message notifications setting
   - `roles` - new guild roles
@@ -25,7 +25,7 @@ defmodule Din.Resources.Guild do
   @spec create([
     name: String.t,
     region: String.t,
-    icon: binary,
+    icon: String.t,
     verification_level: integer,
     default_message_notifications: integer,
     roles: list(map),
@@ -57,19 +57,18 @@ defmodule Din.Resources.Guild do
 
   - `name` - name of the guild (2-100 characters)
   - `region` - `{voice_region.id}` for voice
-  - `icon` - base64 128x128 jpeg image for the guild icon
+  - `icon` - image path for the guild icon
   - `verification_level` - guild verification level
   - `default_message_notifications` - default message notifications setting
   - `afk_channel_id` - id for afk channel
   - `afk_timeout` - afk timeout in seconds
-  - `icon` - base64 128x128 jpeg image for the guild icon
   - `owner_id` - user id to transfer guild ownership to (must be owner)
   - `splash` - base64 128x128 jpeg image for the guild splash (VIP only)
   """
   @spec modify(Din.snowflake, [
     name: String.t,
     region: String.t,
-    icon: binary,
+    icon: String.t,
     verification_level: integer,
     default_message_notifications: integer,
     afk_channel_id: Din.snowflake,
