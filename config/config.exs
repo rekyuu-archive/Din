@@ -1,14 +1,12 @@
 use Mix.Config
 
-# import_config "secret.exs"
+import_config "secret.exs"
 
-@doc """
-## Example `secret.exs`:
+# Example secret.exs
+# ------------------
+#
+# use Mix.Config
+#
+# config :din,
+#   discord_token: "{your_discord_token}"
 
-```elixir
-use Mix.Config
-
-config :din,
-  discord_token: "{your_discord_token}"
-```
-"""
