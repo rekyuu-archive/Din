@@ -118,7 +118,7 @@ defmodule Din.Resources.Channel do
     
     data = case opts[:file] do
       nil -> opts
-      file_binary -> Keyword.put opts, :image, Base.url_encode64(file_binary)
+      file_binary -> Keyword.put opts, :file, Base.url_encode64(file_binary)
     end
 
     case Keyword.has_key?(data, :file) do
