@@ -12,6 +12,7 @@ defmodule Din.Websocket do
   end
 
   def init(state) do
+    Logger.info "websocket initialized"
     {:ok, state}
   end
 
@@ -29,6 +30,9 @@ defmodule Din.Websocket do
   This will send the message to the Gateway supervisor for matching.
   """
   def handle_frame({:text, payload}, state) do
+    Logger.debug "payload received"
+    IO.inspect payload
+
     message = payload |> Poison.Parser.parse!(keys: :atoms)
     send state[:gateway], {:gateway, message}
 
@@ -47,6 +51,7 @@ defmodule Din.Websocket do
   Handler to close the websocket from the Gateway supervisor.
   """
   def handle_cast({:close, code, reason}, state) do
+    Logger.warn "closed: #{reason} [#{code}]"
     {:close, {code, reason}, state}
   end
 
