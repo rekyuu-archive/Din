@@ -32,7 +32,7 @@ defmodule Din.Mixfile do
   # Type "mix help deps" for more examples and options
   defp deps do
     [{:ex_doc, "~> 0.16", only: :dev, runtime: false},
-     {:websockex, "~> 0.4.2"},
+     {:websockex, github: "rekyuu/websockex"},
      {:poison, "~> 3.1"},
      {:httpoison, "~> 1.5"}]
   end
