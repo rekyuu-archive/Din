@@ -31,7 +31,6 @@ defmodule Din.Websocket do
   """
   def handle_frame({:text, payload}, state) do
     Logger.debug "payload received"
-    IO.inspect payload
 
     message = payload |> Poison.Parser.parse!(keys: :atoms)
     send state[:gateway], {:gateway, message}

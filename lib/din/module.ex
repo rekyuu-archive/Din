@@ -82,7 +82,6 @@ defmodule Din.Module do
       """
       def handle_info({:gateway, %{op: 7, d: data}}, state) do
         Logger.warn "reconnect"
-        IO.inspect data
         send self(), :resume
 
         {:noreply, state}
